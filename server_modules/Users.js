@@ -86,7 +86,7 @@ router.get('/', function (req, res) {
         })
 });
 
-router.get('/:username', function (req, res) {
+router.get('/username/:username', function (req, res) {
     console.log("in route /users/:username");
 
     let username = req.params.username;
@@ -94,6 +94,51 @@ router.get('/:username', function (req, res) {
     // res.send("the requested resource");
 
     DButilsAzure.execQuery("SELECT * FROM Users WHERE username = '" + username + "'")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+router.get('/id/:id', function (req, res) {
+    console.log("in route /users/:id");
+
+    let id = req.params.id;
+    console.log("id: " + id);
+
+    DButilsAzure.execQuery("SELECT * FROM Users WHERE userId = '" + id + "'")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+router.get('/qaRestorePassword/:id', function (req, res) {
+    console.log("in route /users/qaRestorePassword");
+
+    let id = req.params.id;
+    console.log("id: " + id);
+
+    DButilsAzure.execQuery("SELECT * FROM QaRestorePassword WHERE userId = '" + id + "'")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+router.get('/categories/:id', function (req, res) {
+    console.log("in route /users/categories");
+
+    let id = req.params.id;
+    console.log("id: " + id);
+
+    DButilsAzure.execQuery("SELECT * FROM UserCategories WHERE userId = '" + id + "'")
         .then(function (result) {
             res.status(200).send(result);
         })
@@ -111,6 +156,8 @@ router.post('/add', function (req, res) {
         req.body.city + "','" + req.body.country + "','" + req.body.username + "','" +
         req.body.password + "','" + req.body.email + "')")
         .then(function (result) {
+            save_QA_restore_password(req, user_id);
+            save_categories(req, user_id);
             user_id++;
             res.status(200).send("user added successfully! =)");
         })
@@ -120,13 +167,46 @@ router.post('/add', function (req, res) {
         })
 });
 
+function save_QA_restore_password(req, user_id) {
+    let i = 0;
+    while (i < req.body.questions.length) {
+        DButilsAzure.execQuery("" +
+            "INSERT INTO QaRestorePassword (userId,question,answer)" +
+            " VALUES (" + user_id + ",'" + req.body.questions[i] + "','" + req.body.answers[i] + "')")
+            .then(function (result) {
+                console.log(result);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
 
-/*
+        i++;
+    }
+}
+
+function save_categories(req, user_id) {
+    let i = 0;
+    while (i < req.body.categories.length) {
+        DButilsAzure.execQuery("" +
+            "INSERT INTO UserCategories (userId,category)" +
+            " VALUES (" + user_id + ",'" + req.body.categories[i]  + "')")
+            .then(function (result) {
+                console.log(result);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
+        i++;
+    }
+}
+
 router.post('/login', function (req, res) {
 
 
 });
-*/
+
+
 
 
 module.exports = router;

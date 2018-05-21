@@ -5,6 +5,8 @@ var cors = require('cors');
 app.use(cors());
 var DButilsAzure = require('./DButils');
 var users = require('./server_modules/Users.js');
+var countries = require('./server_modules/Countries.js');
+var categories = require('./server_modules/Categories.js');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -274,7 +276,8 @@ app.use('/reg', function (req, res, next) {
 // app.use('/reg/poi', poi);
 
 app.use('/users', users);
-
+app.use('/countries', countries);
+app.use('/categories', categories);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

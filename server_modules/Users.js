@@ -87,7 +87,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/username/:username', function (req, res) {
-    console.log("in route /users/:username");
+    console.log("in route /users/username/:username");
 
     let username = req.params.username;
     console.log("username: " + username);
@@ -157,7 +157,13 @@ router.post('/add', function (req, res) {
         req.body.password + "','" + req.body.email + "')")
         .then(function (result) {
             save_QA_restore_password(req, user_id);
+            console.log("save_QA_restore_password success");
+        })
+        .then(function (result) {
             save_categories(req, user_id);
+            console.log("save_categories success");
+        })
+        .then(function (result) {
             user_id++;
             res.status(200).send("user added successfully! =)");
         })

@@ -31,17 +31,9 @@ app.use(function (req, res, next) {
 app.get('/', function (req, res) {
     var token = req.headers['x-access-token'];
     console.log(tokem);
-    res.send({message: 'hooray! welcome to our api!'});
+    // res.send({message: 'hooray! welcome to our api!'});
     res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
-
-
-// =======================
-
-// routes ================
-
-// =======================
-
 
 
 

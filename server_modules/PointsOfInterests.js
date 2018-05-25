@@ -21,7 +21,6 @@ router.get('/', function (req, res) {
 });
 
 
-
 //getPointByCategory
 router.get('/category/:category', function (req, res) {
     console.log("in route /pointsOfInterests/category/:category");
@@ -38,14 +37,14 @@ router.get('/category/:category', function (req, res) {
         })
 });
 
-//add point of view
+//add point of interest
 router.post('/addPoint', function (req, res) {
     console.log("in route /pointsOfInterests/addPoint");
 
     DButilsAzure.execQuery("" +
         "INSERT INTO PointsOfInterest (pointId, name,category,rating ,views,description,picture)" +
         " VALUES (" + point_id + ",'" + req.body.name + "','" + req.body.category + "'," +
-        req.body.rating + "," + req.body.views + ",'" + req.body.description + "','" +
+        req.body.rating + ", 0 ," + req.body.description + "','" +
         req.body.picture + "')")
         .then(function (result) {
             point_id++;
@@ -64,7 +63,7 @@ router.put('/addView', function (req, res) {
     DButilsAzure.execQuery("" +
         "UPDATE PointsOfInterest " +
         "SET views = views + 1" +
-        " WHERE pointId = " + point_id )
+        " WHERE pointId = " + point_id)
         .then(function (result) {
             res.status(200).send("user added successfully! =)");
         })
@@ -90,12 +89,27 @@ router.get('/id/:id', function (req, res) {
         })
 });
 
+//getPointOfInterestByName
+router.get('/name/:name', function (req, res) {
+    console.log("in route /pointsOfInterests/name/:name");
+
+    let name = req.params.name;
+    console.log("id: " + name);
+
+    DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE name = '" + name + "'")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
 //get3RandomAndPopularPoints
 router.get('/3Populars/', function (req, res) {
     console.log("in route /pointsOfInterests/3Populars/");
 
-
-    DButilsAzure.execQuery("SELECT TOP 3 * FROM PointsOfInterest ")
+    DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE rating>=80%")
         .then(function (result) {
             res.status(200).send(result);
         })

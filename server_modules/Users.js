@@ -78,6 +78,54 @@ function save_categories(req, user_id) {
     }
 }
 
+router.get('/qaRestorePassword/:id', function (req, res) {
+    console.log("in route /users/qaRestorePassword/:id");
+
+    let id = req.params.id;
+    console.log("id: " + id);
+
+    DButilsAzure.execQuery("SELECT * FROM QaRestorePassword WHERE userId = '" + id + "'")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+router.post('/qaRestorePassword/check', function (req, res) {
+    console.log("in route /users/qaRestorePassword/check");
+
+    //TODO: check login
+
+    let id = req.body.id;
+    let question = req.body.question;
+    let answer = req.body.answer;
+    console.log("id: " + id);
+    console.log("question: " + question);
+    console.log("answer: " + answer);
+
+    DButilsAzure.execQuery("" +
+        "SELECT * FROM QaRestorePassword " +
+        "WHERE userId = '" + id + "' AND question='" + question + "' AND answer='" + answer + "' ")
+        .then(function (result) {
+            console.log("result: " + result);
+            if (result.length === 0) {
+                res.status(204).send("not the answer to the question!"); // code 204-no content
+            }
+            else {
+                DButilsAzure.execQuery("" +
+                    "SELECT username,password FROM Users WHERE userId = '" + id + "'")
+                    .then(function (result) {
+                        res.status(200).send(result);
+                    });
+            }
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
 // route to authenticate a user (POST http://localhost:3000/users/login/authenticate)
 router.post('/login/authenticate', function (req, res) {
     if (!req.body.username || !req.body.password) {
@@ -111,7 +159,7 @@ router.post('/login/authenticate', function (req, res) {
 
 function sendToken(user, res) {
     var payload = {
-        userName: user.userName,
+        username: user.username,
         admin: user.isAdmin
     };
 
@@ -205,56 +253,6 @@ router.get('/id/:id', function (req, res) {
         })
 });
 
-router.get('/qaRestorePassword/:id', function (req, res) {
-    console.log("in route /users/qaRestorePassword/:id");
-
-    //TODO: check login
-
-    let id = req.params.id;
-    console.log("id: " + id);
-
-    DButilsAzure.execQuery("SELECT * FROM QaRestorePassword WHERE userId = '" + id + "'")
-        .then(function (result) {
-            res.status(200).send(result);
-        })
-        .catch(function (err) {
-            res.status(500).send(err);
-        })
-});
-
-router.post('/qaRestorePassword/check', function (req, res) {
-    console.log("in route /users/qaRestorePassword/check");
-
-    //TODO: check login
-
-    let id = req.body.id;
-    let question = req.body.question;
-    let answer = req.body.answer;
-    console.log("id: " + id);
-    console.log("question: " + question);
-    console.log("answer: " + answer);
-
-    DButilsAzure.execQuery("" +
-        "SELECT * FROM QaRestorePassword " +
-        "WHERE userId = '" + id + "' AND question='" + question + "' AND answer='" + answer + "' ")
-        .then(function (result) {
-            console.log("result: " + result);
-            if (result.length === 0) {
-                res.status(204).send("not the answer to the question!"); // code 204-no content
-            }
-            else {
-                DButilsAzure.execQuery("" +
-                    "SELECT username,password FROM Users WHERE userId = '" + id + "'")
-                    .then(function (result) {
-                        res.status(200).send(result);
-                    });
-            }
-        })
-        .catch(function (err) {
-            res.status(500).send(err);
-        })
-});
-
 router.get('/categories/:id', function (req, res) {
     console.log("in route /users/categories");
 
@@ -282,21 +280,6 @@ router.get('/favoritesPoints/userId:id', function (req, res) {
             res.status(200).send(result);
         })
         .catch(function (err) {
-            res.status(500).send(err);
-        })
-});
-
-router.post('/favoritesPoints/add/', function (req, res) {
-    console.log("in route /users/favoritesPoints/add");
-
-    DButilsAzure.execQuery("" +
-        "INSERT INTO FavoritePoints (userId,pointId,orderNum)" +
-        " VALUES (" + user_id + ",'" + req.body.pointId + "','" + req.body.orderNum + "')")
-        .then(function (result) {
-            res.status(200).send("favorites point added successfully! =)");
-        })
-        .catch(function (err) {
-            console.log(err);
             res.status(500).send(err);
         })
 });

@@ -267,7 +267,7 @@ router.get('/categories/:id', function (req, res) {
 });
 
 
-router.get('/favoritesPoints/userId:id', function (req, res) {
+router.get('/favoritesPoints/userId/:id', function (req, res) {
     console.log("in route /users/favoritesPoints");
 
     let id = req.params.id;

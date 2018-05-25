@@ -7,6 +7,7 @@ var DButilsAzure = require('./DButils');
 var users = require('./server_modules/Users.js');
 var countries = require('./server_modules/Countries.js');
 var categories = require('./server_modules/Categories.js');
+var pointsOfInterests = require('./server_modules/PointsOfInterests.js');
 
 
 // use body parser so we can get info from POST and/or URL parameters
@@ -42,6 +43,7 @@ app.get('/', function (req, res) {
 app.use('/users', users);
 app.use('/countries', countries);
 app.use('/categories', categories);
+app.use('/pointsOfInterests', pointsOfInterests);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

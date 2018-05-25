@@ -96,8 +96,6 @@ router.get('/qaRestorePassword/:id', function (req, res) {
 router.post('/qaRestorePassword/check', function (req, res) {
     console.log("in route /users/qaRestorePassword/check");
 
-    //TODO: check login
-
     let id = req.body.id;
     let question = req.body.question;
     let answer = req.body.answer;

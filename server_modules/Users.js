@@ -289,7 +289,7 @@ router.post('/favoritesPoints/add/', function (req, res) {
 
     DButilsAzure.execQuery("" +
         "INSERT INTO FavoritePoints (userId,pointId,orderNum)" +
-        " VALUES (" + user_id + ",'" + req.body.pointId + "','" + req.body.orderNum + "')")
+        " VALUES (" + req.body.user_id + ",'" + req.body.pointId + "','" + req.body.orderNum + "')")
         .then(function (result) {
             res.status(200).send("favorites point added successfully! =)");
         })
@@ -321,7 +321,7 @@ router.put('/favoritesPoints/update/', function (req, res) {
     DButilsAzure.execQuery("" +
         "UPDATE FavoritePoints " +
         "SET orderNum= '" + req.body.orderNum + "' " +
-        "WHERE user_id='" + user_id + "'")
+        "WHERE user_id='" + req.body.user_id + "'")
         .then(function (result) {
             res.status(200).send("favorites point updated successfully! =)");
         })

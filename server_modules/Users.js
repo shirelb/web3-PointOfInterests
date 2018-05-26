@@ -15,27 +15,29 @@ const superSecret = "LondonHereICome"; // secret variable
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
-var user_id = 1;
-
 
 router.post('/add', function (req, res) {
     console.log("in route /users/add");
 
     DButilsAzure.execQuery("" +
-        "INSERT INTO Users (userId,firstName,lastName,city ,country,username,password,email)" +
-        " VALUES (" + user_id + ",'" + req.body.firstName + "','" + req.body.lastName + "','" +
+        "INSERT INTO Users (firstName,lastName,city ,country,username,password,email)" +
+        " VALUES ('" + req.body.firstName + "','" + req.body.lastName + "','" +
         req.body.city + "','" + req.body.country + "','" + req.body.username + "','" +
         req.body.password + "','" + req.body.email + "')")
         .then(function (result) {
-            save_QA_restore_password(req, user_id);
-            console.log("save_QA_restore_password success");
+            console.log(" 1 result: " + result);
+            return DButilsAzure.execQuery("SELECT userId FROM Users WHERE username = '" + req.body.username + "'");
         })
-        .then(function (result) {
-            save_categories(req, user_id);
+        .then(function (user) {
+            console.log("2 result: " + user[0]['userId']);
+            save_QA_restore_password(req, user[0]['userId']);
+            console.log("save_QA_restore_password success");
+
+            console.log("3 result: " + user[0]['userId']);
+            save_categories(req, user[0]['userId']);
             console.log("save_categories success");
         })
         .then(function (result) {
-            user_id++;
             res.status(200).send("user added successfully! =)");
         })
         .catch(function (err) {

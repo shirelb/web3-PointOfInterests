@@ -6,7 +6,6 @@ var DButilsAzure = require('../DButils');
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
-var point_id = 1;
 
 //get all points of interests
 router.get('/', function (req, res) {
@@ -42,12 +41,10 @@ router.post('/addPoint', function (req, res) {
     console.log("in route /pointsOfInterests/addPoint");
 
     DButilsAzure.execQuery("" +
-        "INSERT INTO PointsOfInterest (pointId, name,category,rating ,views,description,picture)" +
-        " VALUES (" + point_id + ",'" + req.body.name + "','" + req.body.category + "'," +
-        req.body.rating + ", 0 ," + req.body.description + "','" +
-        req.body.picture + "')")
+        "INSERT INTO PointsOfInterest (name,category,rating,views,description,picture) " +
+        "VALUES ('" + req.body.name + "','" + req.body.category + "'," +
+        req.body.rating + ", 0 ,'" + req.body.description + "','" + req.body.picture + "')")
         .then(function (result) {
-            point_id++;
             res.status(200).send("point added successfully! =)");
         })
         .catch(function (err) {
@@ -105,11 +102,11 @@ router.get('/name/:name', function (req, res) {
         })
 });
 
-//get3RandomAndPopularPoints
-router.get('/3Populars/', function (req, res) {
+//getRandomAndPopularPoints
+router.get('/Populars/', function (req, res) {
     console.log("in route /pointsOfInterests/3Populars/");
 
-    DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE rating>=80%")
+    DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE rating>=80")
         .then(function (result) {
             res.status(200).send(result);
         })

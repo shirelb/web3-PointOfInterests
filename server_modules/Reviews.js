@@ -15,7 +15,7 @@ const superSecret = "LondonHereICome"; // secret variable
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
-/*
+
 // route middleware to verify a token
 // router.use('/reg', function (req, res, next) {
 router.use(function (req, res, next) {
@@ -49,7 +49,7 @@ router.use(function (req, res, next) {
             message: 'No token provided.'
         });
     }
-});*/
+});
 
 router.get('/userId/:id', function (req, res) {
     console.log("in route /reviews/userId/:id");

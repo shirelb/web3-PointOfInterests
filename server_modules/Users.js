@@ -244,7 +244,7 @@ router.get('/id/:id', function (req, res) {
     let id = req.params.id;
     console.log("id: " + id);
 
-    DButilsAzure.execQuery("SELECT * FROM Users WHERE userId = '" + id + "'")
+    DButilsAzure.execQuery("SELECT * FROM Users WHERE userId = " + id + " ")
         .then(function (result) {
             res.status(200).send(result);
         })
@@ -259,7 +259,7 @@ router.get('/categories/:id', function (req, res) {
     let id = req.params.id;
     console.log("id: " + id);
 
-    DButilsAzure.execQuery("SELECT * FROM UserCategories WHERE userId = '" + id + "'")
+    DButilsAzure.execQuery("SELECT * FROM UserCategories WHERE userId = " + id + " ")
         .then(function (result) {
             res.status(200).send(result);
         })
@@ -275,7 +275,7 @@ router.get('/favoritesPoints/userId/:id', function (req, res) {
     let id = req.params.id;
     console.log("id: " + id);
 
-    DButilsAzure.execQuery("SELECT * FROM FavoritePoints WHERE userId = '" + id + "'")
+    DButilsAzure.execQuery("SELECT * FROM FavoritePoints WHERE userId = " + id + " ")
         .then(function (result) {
             res.status(200).send(result);
         })
@@ -288,8 +288,8 @@ router.post('/favoritesPoints/add/', function (req, res) {
     console.log("in route /users/favoritesPoints/add");
 
     DButilsAzure.execQuery("" +
-        "INSERT INTO FavoritePoints (userId,pointId,orderNum)" +
-        " VALUES (" + req.body.userId + ",'" + req.body.pointId + "','" + req.body.orderNum + "')")
+        "INSERT INTO FavoritePoints (userId,pointId,orderNum,savedDate)" +
+        " VALUES (" + req.body.userId + "," + req.body.pointId + ", " + req.body.orderNum + ",'" + req.body.savedDate + "' )")
         .then(function (result) {
             res.status(200).send("favorites point added successfully! =)");
         })
@@ -304,8 +304,8 @@ router.delete('/favoritesPoints/remove/userId/:userId/pointId/:pointId', functio
 
     let userId = req.params.userId;
     let pointId_to_delete = req.params.pointId;
-    console.log("userId: "+userId);
-    console.log("pointId_to_delete: "+pointId_to_delete);
+    console.log("userId: " + userId);
+    console.log("pointId_to_delete: " + pointId_to_delete);
 
     DButilsAzure.execQuery("DELETE FROM FavoritePoints WHERE userId= " + userId + " AND pointId= " + pointId_to_delete + "")
         .then(function (result) {
@@ -323,12 +323,30 @@ router.put('/favoritesPoints/update/', function (req, res) {
     DButilsAzure.execQuery("" +
         "UPDATE FavoritePoints " +
         "SET orderNum= " + req.body.orderNum + " " +
-        "WHERE userId=" + req.body.userId + " AND pointId=" + req.body.pointId )
+        "WHERE userId=" + req.body.userId + " AND pointId=" + req.body.pointId)
         .then(function (result) {
             res.status(200).send("favorites point updated successfully! =)");
         })
         .catch(function (err) {
             console.log(err);
+            res.status(500).send(err);
+        })
+});
+
+router.get('/favoritesPoints/2Latest/userId/:id', function (req, res) {
+    console.log("in route /users/favoritesPoints");
+
+    let id = req.params.id;
+    console.log("id: " + id);
+
+    DButilsAzure.execQuery("" +
+        "SELECT TOP 2 * FROM FavoritePoints " +
+        "WHERE userId = " + id + " " +
+        "ORDER BY savedDate DESC ")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
             res.status(500).send(err);
         })
 });

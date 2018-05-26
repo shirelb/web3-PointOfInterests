@@ -23,7 +23,8 @@
 --CREATE TABLE FavoritePoints (
 --	userId int,	
 --	pointId int,
---	orderNum int
+--	orderNum int,
+--  savedDate date
 --);
 
 --CREATE TABLE PointsOfInterest (
@@ -67,3 +68,5 @@
 --ALTER TABLE Reviews ADD reviewDate date
 
 --DROP TABLE Reviews
+
+--ALTER TABLE FavoritePoints ADD savedDate date

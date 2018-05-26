@@ -22,7 +22,7 @@ router.get('/', function (req, res) {
 
 
 router.delete('/delete', function (req, res) {
-    console.log("in route /categories/");
+    console.log("in route /categories/delete");
     DButilsAzure.execQuery("DELETE FROM Categories")
         .then(function (result) {
             res.status(200).send("All categories deleted");

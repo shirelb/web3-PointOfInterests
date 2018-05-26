@@ -289,7 +289,7 @@ router.post('/favoritesPoints/add/', function (req, res) {
 
     DButilsAzure.execQuery("" +
         "INSERT INTO FavoritePoints (userId,pointId,orderNum)" +
-        " VALUES (" + req.body.user_id + ",'" + req.body.pointId + "','" + req.body.orderNum + "')")
+        " VALUES (" + req.body.userId + ",'" + req.body.pointId + "','" + req.body.orderNum + "')")
         .then(function (result) {
             res.status(200).send("favorites point added successfully! =)");
         })
@@ -299,15 +299,17 @@ router.post('/favoritesPoints/add/', function (req, res) {
         })
 });
 
-router.delete('/favoritesPoints/remove/userId/:id/pointId/:id', function (req, res) {
+router.delete('/favoritesPoints/remove/userId/:userId/pointId/:pointId', function (req, res) {
     console.log("in route /users/favoritesPoints/remove/userId/:id/pointId/:id");
 
     let userId = req.params.userId;
     let pointId_to_delete = req.params.pointId;
+    console.log("userId: "+userId);
+    console.log("pointId_to_delete: "+pointId_to_delete);
 
-    DButilsAzure.execQuery("DELETE FROM FavoritePoints WHERE userId='" + userId + " and pointId='" + pointId_to_delete + "'")
+    DButilsAzure.execQuery("DELETE FROM FavoritePoints WHERE userId= " + userId + " AND pointId= " + pointId_to_delete + "")
         .then(function (result) {
-            res.status(200).send("favorites point deleted");
+            res.status(200).send("favorite point deleted");
         })
         .catch(function (err) {
             console.log(err);

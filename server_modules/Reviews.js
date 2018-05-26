@@ -15,7 +15,7 @@ const superSecret = "LondonHereICome"; // secret variable
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
-
+/*
 // route middleware to verify a token
 // router.use('/reg', function (req, res, next) {
 router.use(function (req, res, next) {
@@ -49,9 +49,8 @@ router.use(function (req, res, next) {
             message: 'No token provided.'
         });
     }
-});
+});*/
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/userId/:id', function (req, res) {
     console.log("in route /reviews/userId/:id");
 
@@ -93,8 +92,8 @@ router.post('/add/rate', function (req, res) {
         .then(function (review) {
             if (review.length === 0) {
                 DButilsAzure.execQuery("" +
-                    "INSERT INTO Reviews (userId,pointId,reviewMsg,rate)" +
-                    " VALUES (" + req.body.userId + ",'" + req.body.pointId + "','','" + req.body.rate + "')")
+                    "INSERT INTO Reviews (userId,pointId,rate)" +
+                    " VALUES (" + req.body.userId + ",'" + req.body.pointId + "'," + req.body.rate + ")")
                     .then(function (result) {
                         update_point_rating(req.body.pointId);
                     })
@@ -134,9 +133,9 @@ function update_point_rating(pointId) {
     DButilsAzure.execQuery(
         "SELECT AVG(rate) as rate_avg " +
         "FROM Reviews " +
-        "WHERE pointId= '" + pointId + "'")
+        "WHERE pointId= " + pointId + "")
         .then(function (result) {
-            console.log("AVG(rate): "+result[0]["rate_avg"]);
+            console.log("AVG(rate): " + result[0]["rate_avg"]);
             DButilsAzure.execQuery("" +
                 "UPDATE PointsOfInterest " +
                 "SET rating= '" + (result[0]["rate_avg"] / 5) * 100 + "' " +
@@ -157,8 +156,8 @@ router.post('/add/reviewMsg', function (req, res) {
         .then(function (review) {
             if (review.length === 0) {
                 DButilsAzure.execQuery("" +
-                    "INSERT INTO Reviews (userId,pointId,reviewMsg,rate)" +
-                    " VALUES (" + req.body.userId + ",'" + req.body.pointId + "','"+req.body.reviewMsg+"',0)")
+                    "INSERT INTO Reviews (userId,pointId,reviewMsg,reviewDate)" +
+                    " VALUES (" + req.body.userId + "," + req.body.pointId + ",'" + req.body.reviewMsg + "','" + req.body.reviewDate + "')")
                     .then(function (result) {
                         res.status(200).send("review added successfully! =)");
                     })
@@ -171,6 +170,7 @@ router.post('/add/reviewMsg', function (req, res) {
                 DButilsAzure.execQuery("" +
                     "UPDATE Reviews " +
                     "SET reviewMsg= '" + req.body.reviewMsg + "' " +
+                    "SET reviewDate= '" + req.body.reviewDate + "' " +
                     "WHERE userId = '" + req.body.userId + "' AND pointId= '" + req.body.pointId + "'")
                     .then(function (result) {
                         res.status(200).send("review added successfully! =)");
@@ -185,6 +185,24 @@ router.post('/add/reviewMsg', function (req, res) {
             console.log(err);
             res.status(500).send(err);
         });
+});
+
+
+router.get('/2Latest/pointId/:id', function (req, res) {
+    console.log("in route /reviews/2Latest/pointId/:id");
+
+    let id = req.params.id;
+    console.log("id: " + id);
+
+    DButilsAzure.execQuery("" +
+        "SELECT TOP 2 userId, pointId, reviewMsg, reviewDate from Reviews\n" +
+        "WHERE (pointId='" + id + "') AND reviewDate = (SELECT MAX(reviewDate) from Reviews)")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
 });
 
 module.exports = router;

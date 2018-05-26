@@ -47,8 +47,9 @@
 --CREATE TABLE Reviews (
 --	userId int,	
 --	pointId int,
+--	rate int,
 --	reviewMsg text,
---	rate int
+--	reviewDate date
 --);
 
 --DROP TABLE PointsOfInterest
@@ -60,5 +61,9 @@
 --ALTER TABLE Users DROP COLUMN userId 
 --ALTER TABLE Users ADD userId INT NOT NULL IDENTITY(1,1) 
 
-ALTER TABLE Users DROP COLUMN username 
-ALTER TABLE Users ADD username varchar(255) NOT NULL UNIQUE
+--ALTER TABLE Users DROP COLUMN username 
+--ALTER TABLE Users ADD username varchar(255) NOT NULL UNIQUE
+
+--ALTER TABLE Reviews ADD reviewDate date
+
+--DROP TABLE Reviews

@@ -47,7 +47,7 @@ router.delete('/delete/:category', function (req, res) {
 });
 
 
-router.get('/init', function (req, res) {
+router.post('/init', function (req, res) {
     console.log("in route /categories/init");
 
     var xmlfile = __dirname + "/../categories.xml";

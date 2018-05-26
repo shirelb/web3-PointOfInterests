@@ -322,8 +322,8 @@ router.put('/favoritesPoints/update/', function (req, res) {
 
     DButilsAzure.execQuery("" +
         "UPDATE FavoritePoints " +
-        "SET orderNum= '" + req.body.orderNum + "' " +
-        "WHERE user_id='" + req.body.user_id + "'")
+        "SET orderNum= " + req.body.orderNum + " " +
+        "WHERE userId=" + req.body.userId + " AND pointId=" + req.body.pointId )
         .then(function (result) {
             res.status(200).send("favorites point updated successfully! =)");
         })

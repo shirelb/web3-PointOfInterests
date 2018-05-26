@@ -86,7 +86,7 @@ router.get('/qaRestorePassword/:id', function (req, res) {
     let id = req.params.id;
     console.log("id: " + id);
 
-    DButilsAzure.execQuery("SELECT * FROM QaRestorePassword WHERE userId = '" + id + "'")
+    DButilsAzure.execQuery("SELECT userId, question FROM QaRestorePassword WHERE userId = '" + id + "'")
         .then(function (result) {
             res.status(200).send(result);
         })

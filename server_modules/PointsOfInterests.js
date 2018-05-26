@@ -6,7 +6,6 @@ var DButilsAzure = require('../DButils');
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
-var point_id = 1;
 
 //get all points of interests
 router.get('/', function (req, res) {
@@ -92,11 +91,11 @@ router.get('/name/:name', function (req, res) {
         })
 });
 
-//get3RandomAndPopularPoints
-router.get('/3Populars/', function (req, res) {
+//getRandomAndPopularPoints
+router.get('/Populars/', function (req, res) {
     console.log("in route /pointsOfInterests/3Populars/");
 
-    DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE rating>=80%")
+    DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE rating>=80")
         .then(function (result) {
             res.status(200).send(result);
         })

@@ -46,7 +46,7 @@ router.delete('/delete/:country', function (req, res) {
         })
 });
 
-router.get('/init', function (req, res) {
+router.post('/init', function (req, res) {
     console.log("in route /countries/init");
 
     var xmlfile = __dirname + "/../countries.xml";

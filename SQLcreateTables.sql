@@ -70,3 +70,10 @@
 --DROP TABLE Reviews
 
 --ALTER TABLE FavoritePoints ADD savedDate date
+
+--DELETE FROM Users
+--DELETE FROM QaRestorePassword
+--DELETE FROM UserCategories
+--DELETE FROM FavoritePoints
+--DELETE FROM PointsOfInterest
+--DELETE FROM Reviews

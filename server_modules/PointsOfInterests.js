@@ -41,6 +41,33 @@ router.get('/category/:category', function (req, res) {
         })
 });
 
+//getPointByCategory&popular
+router.get('/popularsInCategory/:category', function (req, res) {
+    console.log("in route /pointsOfInterests/category/:category");
+
+    let category = req.params.category;
+    console.log("category: " + category);
+
+    DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE category = '" + category + "'")
+        .then(function (result) {
+            if (result.length === 0) {
+                res.status(204).send("no such category!"); // code 204-no content
+            }
+            else {
+                DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE category = '" + category + "' AND rating>=80")
+                .then(function (result) {
+                    res.status(200).send(result);
+                })
+                .catch(function (err) {
+                    res.status(500).send(err);
+                })
+            }
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
 
 //addviewToPoint
 router.put('/addView', function (req, res) {
@@ -93,7 +120,7 @@ router.get('/name/:name', function (req, res) {
 
 //getRandomAndPopularPoints
 router.get('/Populars/', function (req, res) {
-    console.log("in route /pointsOfInterests/3Populars/");
+    console.log("in route /pointsOfInterests/Populars/");
 
     DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE rating>=80")
         .then(function (result) {
@@ -103,6 +130,8 @@ router.get('/Populars/', function (req, res) {
             res.status(500).send(err);
         })
 });
+
+
 
 
 // route middleware to verify a category

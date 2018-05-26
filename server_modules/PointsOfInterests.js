@@ -137,23 +137,21 @@ router.get('/Populars/', function (req, res) {
         }
     });
 
-//add point of interest
-router.post('/addPoint', function (req, res) {
-    console.log("in route /pointsOfInterests/addPoint");
-
-    DButilsAzure.execQuery("" +
-    "INSERT INTO PointsOfInterest (pointId, name,category,rating ,views,description,picture)" +
-    " VALUES (" + point_id + ",'" + req.body.name + "','" + req.body.category + "'," +
-    req.body.rating + ", 0 ,'" + req.body.description + "','" +
-    req.body.picture + "')")
-    .then(function (result) {
-        point_id++;
-        res.status(200).send("point added successfully! =)");
-    })
-    .catch(function (err) {
-        console.log(err);
-        res.status(500).send(err);
-    })
+//add point of interest	
+router.post('/addPoint', function (req, res) {	
+    console.log("in route /pointsOfInterests/addPoint");	
+	
+    DButilsAzure.execQuery("" +	
+        "INSERT INTO PointsOfInterest (name,category,rating,views,description,picture) " +	
+        "VALUES ('" + req.body.name + "','" + req.body.category + "'," +	
+        req.body.rating + ", 0 ,'" + req.body.description + "','" + req.body.picture + "')")	
+        .then(function (result) {	
+            res.status(200).send("point added successfully! =)");	
+        })	
+        .catch(function (err) {	
+            console.log(err);	
+            res.status(500).send(err);	
+        })	
 });
 
 

@@ -5,34 +5,22 @@
     </Category>
     <Category>
         <ID>2</ID>
-        <Name>Art Gallery</Name>
-    </Category>
-    <Category>
-        <ID>3</ID>
-        <Name>Monument</Name>
-    </Category>
-    <Category>
-        <ID>4</ID>
         <Name>Museum</Name>
     </Category>
     <Category>
-        <ID>5</ID>
+        <ID>3</ID>
         <Name>Attraction</Name>
     </Category>
     <Category>
-        <ID>6</ID>
+        <ID>4</ID>
         <Name>Restaurant</Name>
     </Category>
     <Category>
-        <ID>7</ID>
+        <ID>5</ID>
         <Name>Nightclub</Name>
     </Category>
     <Category>
-        <ID>8</ID>
+        <ID>6</ID>
         <Name>Shopping Center</Name>
-    </Category>
-    <Category>
-        <ID>9</ID>
-        <Name>Pub</Name>
     </Category>
 </Categories>

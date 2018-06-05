@@ -1,0 +1,23 @@
+<h2>Points Of Interests</h2>
+
+<div>
+    <div ng-repeat="(id , point) in poiCtrl.points" ng-click="poiCtrl.OpenPointPage()">
+        <div>
+            <button ng-click="poiCtrl.selectedCity(id)"> add points</button>
+            <input type="radio" value="{{points.name}}_{{id}}" ng-model="poiCtrl.selected">
+        </div>
+        <div>
+            City name:        <span ng-bind="points.name"></span>
+            <br>
+            City state:        <span ng-bind="points.state"></span>
+            <br>
+            <img ng-style="{'height': '100px'}" ng-src="{{points.image}} ">
+        </div>
+        <div>
+            <input type="text " value="{{points.name}}_{{id}} " ng-model="poiCtrl.amount[id] " >
+            <button ng-click="poiCtrl.addToCart(id, points) ">add</button>
+        </div>
+    </div>
+    Selected city: {{poiCtrl.selected}}
+</div>
+

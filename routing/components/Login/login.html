@@ -1,0 +1,56 @@
+<div id="login">
+    <form ng-submit="loginCtrl.submit()" class="form login_form" name="loginForm" id="loginForm" enctype="text/plain"
+          method="POST">
+        <h1>Login</h1>
+        <p>
+            <label for="username" class="username" data-icon="u">Username* </label>
+            <input class="input" id="username" name="username" required type="text"
+                   placeholder="username" ng-model="loginCtrl.user.username" ng-minlength="3" ng-maxlength="8"
+                   ng-pattern="/^[a-zA-Z]+$/"/>
+            <!-- ng-pattern="/^(\D)+$/"  this regex is for letters only -->
+            <span ng-show="loginForm.username.$error.required">
+                This field is required
+            </span>
+            <span ng-show="loginForm.username.$error.pattern">
+                Only letters allowed
+            </span>
+            <span ng-show="loginForm.username.$error.minlength">
+                Minimum length required is 3
+            </span>
+            <span ng-show="loginForm.username.$error.maxlength">
+                Maximum length required is 8
+            </span>
+            <span ng-show="loginForm.username.$invalid">
+                This field is invalid
+            </span>
+        </p>
+        <p>
+            <label for="password" class="password" data-icon="p">Password* </label>
+            <input class="input" id="password" name="password" required type="password"
+                   ng-model="loginCtrl.user.password" placeholder="eg: S8ok!90EO" ng-minlength="5"
+                   ng-maxlength="10" ng-pattern="/^[a-zA-Z0-9]+$/"/>
+            <span ng-show="loginForm.password.$error.required">
+                This field is required
+            </span>
+            <span ng-show="loginForm.password.$error.pattern">
+                Only letters and digits allowed
+            </span>
+            <span ng-show="loginForm.password.$error.minlength">
+                Minimum length required is 5
+            </span>
+            <span ng-show="loginForm.password.$error.maxlength">
+                Maximum length required is 10
+            </span>
+            <span ng-show="loginForm.password.$invalid">
+                This field is invalid
+            </span>
+        </p>
+        <p class="login button">
+            <input class="btn btn-orange btn-border-o" type="submit" value="Login" ng-disabled="loginForm.$invalid"/>
+        </p>
+        <p class="change_link">
+            Not a member yet ?
+            <a id="to_register" href="#/register" class="to_register">Join the fun </a>
+        </p>
+    </form>
+</div>

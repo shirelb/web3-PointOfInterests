@@ -1,6 +1,6 @@
 <html ng-app="pointsOfInterestApp">
     <head>
-        <title>Points Of Interest xApp</title>
+        <title>Points Of Interest App</title>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
@@ -44,6 +44,11 @@
     </head>
 
     <body ng-controller="indexController as ctrl">
+
+    <!--<body ng-controller="indexCtrl as ctrl">-->
+            <!--<body ng-controller="indexCtrl as ctrl">-->
+             <body ng-controller="loginController as loginCtrl">
+                    <span ng-model="loginCtrl.user.username">hello {{loginCtrl.user.username}}</span>
 
     <ul>
         <li><a class="active" href="#/">Home</a></li>

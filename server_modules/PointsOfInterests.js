@@ -43,7 +43,7 @@ router.get('/category/:category', function (req, res) {
 
 //getPointByCategory&popular
 router.get('/popularsInCategory/:category', function (req, res) {
-    console.log("in route /pointsOfInterests/category/:category");
+    console.log("in route /pointsOfInterests/popularsInCategory/:category");
 
     let category = req.params.category;
     console.log("category: " + category);
@@ -119,8 +119,8 @@ router.get('/name/:name', function (req, res) {
 });
 
 //getRandomAndPopularPoints
-router.get('/populars/', function (req, res) {
-    console.log("in route /pointsOfInterests/populars/");
+router.get('/Populars/', function (req, res) {
+    console.log("in route /pointsOfInterests/Populars/");
 
     DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE rating>=80")
         .then(function (result) {

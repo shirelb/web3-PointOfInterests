@@ -135,8 +135,19 @@ router.post('/login/authenticate', function (req, res) {
             "SELECT * FROM Users " +
             "WHERE username = '" + req.body.username + "' AND password='" + req.body.password + "'")
             .then(function (user) {
-                sendToken(user, res);
-                // res.status(200).send(result);
+                if(user.length === 0){
+                    res.json({
+                        "success": 'false',
+                        "message": 'Username or password is incorrect ',
+                        "token": 'null'
+                    });
+                    
+                }
+                    // res.status(200).send(result);
+                else{
+                    sendToken(user, res);
+            }
+
             })
             .catch(function (err) {
                 res.status(500).send("Authentication failed. Wrong username or password ");
@@ -169,11 +180,23 @@ function sendToken(user, res) {
 
     // return the information including token as JSON
     res.json({
-        success: true,
-        message: 'Enjoy your token!',
-        token: token
+        'success': 'true',
+        'message': 'Enjoy your token!',
+        'token': token
     });
 }
+
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', function (req, res) {
+    console.log("in route /users/");
+    DButilsAzure.execQuery("SELECT * FROM Users")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
 
 // route middleware to verify a token
 // router.use('/reg', function (req, res, next) {
@@ -210,17 +233,7 @@ router.use(function (req, res, next) {
     }
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function (req, res) {
-    console.log("in route /users/");
-    DButilsAzure.execQuery("SELECT * FROM Users")
-        .then(function (result) {
-            res.status(200).send(result);
-        })
-        .catch(function (err) {
-            res.status(500).send(err);
-        })
-});
+
 
 router.get('/username/:username', function (req, res) {
     console.log("in route /users/username/:username");

@@ -1,8 +1,7 @@
 angular.module('pointsOfInterestApp')
-    .controller('indexController','setHeadersToken', [function (setHeadersToken) {
+    // .controller('indexController', ['$location', '$http', 'setHeadersToken', 'localStorageModel', function ($location, $http, setHeadersToken, localStorageModel) {
+    .controller('indexController', ['$scope', function ($scope) {
         self = this;
-
-        self.userName = setHeadersToken.userName
 
         self.hello = true;
 

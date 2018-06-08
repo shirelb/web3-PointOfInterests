@@ -1,11 +1,14 @@
 <html ng-app="pointsOfInterestApp">
     <head>
-        <title>Cities App</title>
+        <title>Points Of Interest xApp</title>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+        <script src="../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
         <script src="app.js"></script>
-        <script src="indexCtrl.js"></script>
+        <script src="indexController.js"></script>
+        <script src="components/Services/localStorageModel.js"></script>
+        <script src="components/Services/setHeadersToken.js"></script>
         <script src="components/About/aboutController.js"></script>
         <script src="components/FavoritesPointsOfInterest/favoritesPointsOfInterestController.js"></script>
         <script src="components/Home/homeController.js"></script>
@@ -40,7 +43,7 @@
         </style>
     </head>
 
-    <body ng-controller="myCtrl as ctrl">
+    <body ng-controller="indexController as ctrl">
 
     <ul>
         <li><a class="active" href="#/">Home</a></li>

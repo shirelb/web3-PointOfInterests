@@ -1,17 +1,9 @@
-<html ng-app="pointsOfInterestApp">
+<html>
+<div ng-app="pointsOfInterestApp">
     <head>
-        <title>Cities App</title>
+        <title>London App</title>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-        <script src="app.js"></script>
-        <script src="indexCtrl.js"></script>
-        <script src="components/About/aboutController.js"></script>
-        <script src="components/FavoritesPointsOfInterest/favoritesPointsOfInterestController.js"></script>
-        <script src="components/Home/homeController.js"></script>
-        <script src="components/Login/loginController.js"></script>
-        <script src="components/PointsOfInterest/pointsOfInterestController.js"></script>
-        <script src="components/Register/registerController.js"></script>
+        
 
         <style>
             ul {
@@ -40,8 +32,11 @@
         </style>
     </head>
 
-    <body ng-controller="myCtrl as ctrl">
-
+    <!--<body ng-controller="indexCtrl as ctrl">-->
+            <!--<body ng-controller="indexCtrl as ctrl">-->
+             <body ng-controller="loginController as loginCtrl">
+                    <span ng-model="loginCtrl.user.username">hello {{loginCtrl.user.username}}</span>
+        
     <ul>
         <li><a class="active" href="#/">Home</a></li>
         <li><a href="#/about">About</a></li>
@@ -50,14 +45,30 @@
         <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
         <li><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
     </ul>
-
+    
         <br>
         <div ng-view></div>
+        
+
 
         <img ng-src="http://2.bp.blogspot.com/-1D3ZYnPFJZE/VM0PgrciaJI/AAAAAAAAIl0/qYQXEOcRYr4/s1600/Free%2BAngularJS%2BEbooks.png">
 
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+        <script src="app.js"></script>
+        <script src="../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+        <!--<script src="indexCtrl.js"></script>-->
+        <script src="indexCtrl.js"></script>
+        <script src="components/About/aboutController.js"></script>
+        <script src="components/FavoritesPointsOfInterest/favoritesPointsOfInterestController.js"></script>
+        <script src="components/Home/homeController.js"></script>
+        <script src="components/Login/loginController.js"></script>
+        <script src="components/PointsOfInterest/pointsOfInterestController.js"></script>
+        <script src="components/Register/registerController.js"></script>
+        <script src="components/Services/localStorageModel.js"></script>
 
     </body>
+</div>
 </html>
     
     

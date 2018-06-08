@@ -1,4 +1,4 @@
-let app = angular.module('pointsOfInterestApp', ["ngRoute"]);
+let app = angular.module('pointsOfInterestApp', ["ngRoute", 'LocalStorageModule']);
 
 app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
 

@@ -73,7 +73,7 @@ function save_categories(req, user_id) {
                 console.log(result,"save_categories success");
             })
             .catch(function (err) {
-                console.log(err,"save_categories failedgit add");
+                console.log(err,"save_categories failed");
             });
 
         i++;

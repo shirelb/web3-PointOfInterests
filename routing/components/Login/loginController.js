@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('loginController', ['$scope', '$http', '$location', 'setHeadersToken', 'localStorageModel', function ($scope, $http, $location, setHeadersToken, localStorageModel) {
+    .controller('loginController', ['$scope', '$http', '$location', 'setHeadersToken', 'localStorageModel','loggedInUsername', function ($scope, $http, $location, setHeadersToken, localStorageModel,loggedInUsername) {
 
         var self = this;
 
@@ -27,6 +27,7 @@ angular.module('pointsOfInterestApp')
                         self.login.content = response.data.token;
                         self.message = response.data.message;
                         setHeadersToken.set(self.login.content);
+                        loggedInUsername.set(self.user.username);
                         self.addTokenToLocalStorage();
                         $location.path('/');
                     }

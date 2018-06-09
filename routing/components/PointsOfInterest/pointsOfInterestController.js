@@ -63,11 +63,49 @@ angular.module('pointsOfInterestApp')
 
         };
 
+        self.getAllCategories = function() {
+            
+            let serverUrl = "http://localhost:8080/";
+            $http.get(serverUrl + "categories/")
+                .then(function (response) {
+                    //First function handles success
+                    self.getAllCategories = response.data;
+                    self.categories = response.data;
+                  
+                    console.log("getting all categories" + self.categories);
+
+                }, function (response) {
+                    self.getAllCategories.content = response.data;
+                    console.log("getting all categories faild");
+                    self.message = "Something went wrong with getting all categories of interests"
+                });
+
+        };
+
+        self.getPointsByCategory = function(cat) {           
+            let serverUrl = "http://localhost:8080/";
+            $http.get(serverUrl + "pointsOfInterests/category/"+cat)
+                .then(function (response) {
+                    //First function handles success
+                    self.getAllCategories = response.data;
+                    self.filetrPoints = response.data;
+                  
+                    console.log("getting the categories of this category" + self.fiterPoints);
+
+                }, function (response) {
+                    self.getPointsByCategory.content = response.data;
+                    console.log("getting all categories faild");
+                    self.message = "Something went wrong with getting all categories of interests"
+                });
+
+        };
+
         $scope.count = 0;
         $scope.myFunc = function () {
             $scope.count++;
         };
         self.getAllPoints();
+        self.getAllCategories();
     }]);
 
     

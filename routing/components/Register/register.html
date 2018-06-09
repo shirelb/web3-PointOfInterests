@@ -1,5 +1,5 @@
 <div id="register">
-    <form ng-submit="registerCtrl.submit()" class="form register_form" name="registerForm" id="registerForm"
+    <form ng-submit="registerCtrl.register()" class="form register_form" name="registerForm" id="registerForm"
           enctype="text/plain" method="POST">
         <h1>Register</h1>
         <p>
@@ -46,24 +46,24 @@
             </span>
         </p>
         <p>
-            <label for="firstname" class="firstname" data-icon="u">First name* </label>
-            <input class="input" id="firstname" name="firstname" required type="text"
-                   placeholder="first name" ng-model="registerCtrl.user.firstname"/>
-            <span ng-show="registerForm.firstname.$error.required">
+            <label for="firstName" class="firstName" data-icon="u">First name* </label>
+            <input class="input" id="firstName" name="firstName" required type="text"
+                   placeholder="first name" ng-model="registerCtrl.user.firstName"/>
+            <span ng-show="registerForm.firstName.$error.required">
                 This field is required
             </span>
-            <span ng-show="registerForm.firstname.$invalid">
+            <span ng-show="registerForm.firstName.$invalid">
                 This field is invalid
             </span>
         </p>
         <p>
-            <label for="lastname" class="lastname" data-icon="u">Last name* </label>
-            <input class="input" id="lastname" name="lastname" required type="text"
-                   placeholder="last name" ng-model="registerCtrl.user.lastname"/>
-            <span ng-show="registerForm.lastname.$error.required">
+            <label for="lastName" class="lastName" data-icon="u">Last name* </label>
+            <input class="input" id="lastName" name="lastName" required type="text"
+                   placeholder="last name" ng-model="registerCtrl.user.lastName"/>
+            <span ng-show="registerForm.lastName.$error.required">
                 This field is required
             </span>
-            <span ng-show="registerForm.lastname.$invalid">
+            <span ng-show="registerForm.lastName.$invalid">
                 This field is invalid
             </span>
         </p>

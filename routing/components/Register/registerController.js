@@ -1,29 +1,15 @@
 angular.module('pointsOfInterestApp')
-.service('setHeadersToken',[ '$http', function ($http) {
-
-    let token = ""
-
-    this.set = function (t) {
-        token = t
-        $http.defaults.headers.common[ 'x-access-token' ] = t
-        // $httpProvider.defaults.headers.post[ 'x-access-token' ] = token
-        console.log("set")
-
-    }
-
-    this.userName='shir'
-
-
-}])
-    .controller('registerController' ,['$scope','$http', function ($scope, $http) {
+    .controller('registerController', ['$scope', '$http','localStorageModel', function ($scope, $http,localStorageModel) {
         var self = this;
 
-        self.user={};
+        self.user = {};
 
         self.countries = ["Israel", "Spain", "USA"];
 
         self.categories = ["Club", "Art", "Attraction"];
         self.user.categories = []; //selected categories
+        self.user.questions = []; //selected categories
+        self.user.answers = []; //selected categories
 
         // toggle selection for a given category
         self.toggleCategorySelection = function (cName) {
@@ -36,9 +22,12 @@ angular.module('pointsOfInterestApp')
             }
         };
 
-        self.reg = function () {
+        self.register = function () {
+            self.user.questions.push(self.user.restore_question);
+            self.user.answers.push(self.user.restore_answer);
+            console.log('User clicked submit with ', self.user);
             // register user
-            let user = {
+            /*let user = {
                 "firstName": self.user.firstname,
                 "lastName": self.user.lastname,
                 "city": self.user.city,
@@ -49,9 +38,9 @@ angular.module('pointsOfInterestApp')
                 "email": self.user.email,
                 "questions": [self.user.restore_question],
                 "answers": [self.user.restore_answer]
-            };
-            let serverUrl = "http://localhost:3000/";
-            $http.post(serverUrl + "users/add", user)
+            };*/
+            let serverUrl = "http://localhost:8080/";
+            $http.post(serverUrl + "users/add", self.user)
                 .then(function (response) {
                     //First function handles success
                     self.reg.content = response.data;
@@ -59,7 +48,7 @@ angular.module('pointsOfInterestApp')
                     $location.path('/login');
 
                 }, function (response) {
-                    self.reg.content = response.data
+                    self.reg.content = response.data;
                     //Second function handles error
                     // self.reg.content = "Something went wrong";
                     console.log("user added faild");
@@ -69,11 +58,6 @@ angular.module('pointsOfInterestApp')
 
         self.addTokenToLocalStorage = function () {
             localStorageModel.addLocalStorage('token', self.login.content)
-        }
-
-        self.submit = function () {
-            console.log('User clicked submit with ', self.user);
-            self.reg();
         };
 
         $scope.count = 0;

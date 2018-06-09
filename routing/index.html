@@ -43,23 +43,19 @@
         </style>
     </head>
 
-    <body ng-controller="indexController as ctrl">
+    <body ng-controller="indexController as indexCtrl">
 
-    <!--<body ng-controller="indexCtrl as ctrl">-->
-            <!--<body ng-controller="indexCtrl as ctrl">-->
-             <body ng-controller="loginController as loginCtrl">
-                    <span ng-model="loginCtrl.user.username">hello {{loginCtrl.user.username}}</span>
+        <ul>
+            <li><a class="active" href="#/">Home</a></li>
+            <li><a href="#/about">About</a></li>
+            <li><a href="#/register">Register</a></li>
+            <li><a href="#/login">Login</a></li>
+            <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
+            <li><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
+        </ul>
 
-    <ul>
-        <li><a class="active" href="#/">Home</a></li>
-        <li><a href="#/about">About</a></li>
-        <li><a href="#/register">Register</a></li>
-        <li><a href="#/login">Login</a></li>
-        <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
-        <li><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
-    </ul>
 
-        <br>
+
         <div ng-view></div>
 
         <img ng-src="http://2.bp.blogspot.com/-1D3ZYnPFJZE/VM0PgrciaJI/AAAAAAAAIl0/qYQXEOcRYr4/s1600/Free%2BAngularJS%2BEbooks.png">
@@ -67,7 +63,3 @@
 
     </body>
 </html>
-    
-    
-
-    

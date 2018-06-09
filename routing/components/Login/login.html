@@ -1,6 +1,6 @@
 <div id="login">
-    <form ng-submit="loginCtrl.submit()" class="form login_form" name="loginForm" id="loginForm" enctype="text/plain"
-          method="POST" >
+    <form ng-submit="loginCtrl.login()" class="form login_form" name="loginForm" id="loginForm" enctype="text/plain"
+          method="POST">
         <h1>Login</h1>
         <p>
             <label for="username" class="username" data-icon="u">Username* </label>
@@ -53,9 +53,9 @@
             <a id="to_register" href="#/register" class="to_register">Join the fun </a>
         </p>
     </form>
-    <div >
-            <span ng-model="loginCtrl.message">
-            <p style="color:red;">{{loginCtrl.message}}</p>
-        </div>
-    
+    <div>
+        <span ng-model="loginCtrl.message"> </span>
+        <p style="color:red;">{{loginCtrl.message}}</p>
+    </div>
+
 </div>

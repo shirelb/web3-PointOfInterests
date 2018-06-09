@@ -1,8 +1,8 @@
 angular.module('pointsOfInterestApp')
-    // .controller('homeController', ['$scope', function ($scope) {
-    .controller('homeController', ['$scope','$location', '$http', 'setHeadersToken', 'localStorageModel', function ($scope,$location, $http, setHeadersToken, localStorageModel) {
+// .controller('homeController', ['$scope', function ($scope) {
+    .controller('homeController', ['$scope', '$location', '$http', 'setHeadersToken', 'localStorageModel', function ($scope, $location, $http, setHeadersToken, localStorageModel) {
 
-            let self = this;
+        let self = this;
         self.directToPOI = function () {
             $location.path('/poi')
         };

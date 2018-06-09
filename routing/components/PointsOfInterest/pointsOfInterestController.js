@@ -1,8 +1,9 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['$scope', '$window', function ($scope, $window) {
+    .controller('pointsOfInterestController', ['$scope', '$window', '$http', function ($scope, $window, $http) {
         let self = this;
 
-        self.points = {
+        
+        /*self.points = {
             1: {
                 name: "Paris",
                 state: "France",
@@ -20,7 +21,8 @@ angular.module('pointsOfInterestApp')
                 state: "England",
                 image: "http://www.ukguide.co.il/Photos/England/London/British-Royal-Tour.jpg"
             }
-        };
+        };*/
+
 
         self.selectedCity = function (id) {
 
@@ -37,11 +39,35 @@ angular.module('pointsOfInterestApp')
         };
 
         self.OpenPointPage = function () {
-            $window.open($lo);
+            //$window.open($lo);
+        };
+
+        self.getAllPoints = function() {
+            
+            let serverUrl = "http://localhost:8080/";
+            $http.get(serverUrl + "pointsOfInterests/")
+                .then(function (response) {
+                    //First function handles success
+                    self.getAllPoints.content = response.data;
+                    self.points = response.data;
+                  
+                    console.log("getting all points" + self.points);
+
+                }, function (response) {
+                    self.getAllPoints.content = response.data;
+                    //Second function handles error
+                    // self.reg.content = "Something went wrong";
+                    console.log("getting all points faild");
+                    self.message = "Something went wrong with getting all points of interests"
+                });
+
         };
 
         $scope.count = 0;
         $scope.myFunc = function () {
             $scope.count++;
         };
+        self.getAllPoints();
     }]);
+
+    

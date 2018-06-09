@@ -7,6 +7,48 @@ router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
 
+//delete picture column and adding image
+router.get('/delete_picture_column', function (req, res) {
+    console.log("in route /pointsOfInterests/delete_picture_column");
+
+    DButilsAzure.execQuery("ALTER TABLE PointsOfInterest DROP COLUMN picture; ALTER TABLE PointsOfInterest ADD image varchar(255);")
+        .then(function (result) {
+            console.log("delet & add column successssss!!!")
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+//adding image to point
+router.post('/addImageToPoint', function (req, res) {
+    console.log("in route /pointsOfInterests/addImageToPoint");
+
+    DButilsAzure.execQuery("UPDATE PointsOfInterest SET image = '"+req.body.image+"' WHERE pointId= "+req.body.pointId+";")
+        .then(function (result) {
+            console.log("delet & add column successssss!!!")
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+//adding image to point
+router.post('/deleteById', function (req, res) {
+    console.log("in route /pointsOfInterests/deleteById");
+
+    DButilsAzure.execQuery("DELETE from PointsOfInterest WHERE pointId= "+req.body.pointId+";")
+        .then(function (result) {
+            console.log("delet row successssss!!!")
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
 //get all points of interests
 router.get('/', function (req, res) {
     console.log("in route /pointsOfInterests/");

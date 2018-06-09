@@ -68,17 +68,6 @@
             </span>
         </p>
         <p>
-            <label for="city" class="city" data-icon="u">City* </label>
-            <input class="input" id="city" name="city" required type="text"
-                   placeholder="City" ng-model="registerCtrl.user.city"/>
-            <span ng-show="registerForm.city.$error.required">
-                This field is required
-            </span>
-            <span ng-show="registerForm.city.$invalid">
-                This field is invalid
-            </span>
-        </p>
-        <p>
             <label for="email" class="email" data-icon="u">Email* </label>
             <input class="input" id="email" name="email" required type="email"
                    placeholder="email@mail.com" ng-model="registerCtrl.user.email"
@@ -94,9 +83,20 @@
             </span>
         </p>
         <p>
+            <label for="city" class="city" data-icon="u">City* </label>
+            <input class="input" id="city" name="city" required type="text"
+                   placeholder="City" ng-model="registerCtrl.user.city"/>
+            <span ng-show="registerForm.city.$error.required">
+                This field is required
+            </span>
+            <span ng-show="registerForm.city.$invalid">
+                This field is invalid
+            </span>
+        </p>
+        <p>
             <label for="country" class="country" data-icon="u">Country* </label>
             <select class="input" name="country" id="country" ng-model="registerCtrl.user.country"
-                    ng-options="item for item in registerCtrl.countries" required></select>
+                    ng-options="item as item.country for item in registerCtrl.countries" required></select>
             <!--<input class="input" id="country" name="country" required type="text"-->
             <!--placeholder="Country" ng-model="registerCtrl.user.country"/>-->
             <span ng-show="registerForm.country.$error.required">
@@ -110,59 +110,77 @@
             </span>
         </p>
         <p>
-            <label for="category" class="category" data-icon="u">Category* </label>
+            <label for="category" class="category" data-icon="u">Categories* (at least two)</label>
             <!--<input class="input" id="category" name="category" required type="text"-->
             <!--placeholder="Category" ng-model="registerCtrl.user.category"/>-->
-            <span id="category" ng-repeat="categoryName in registerCtrl.categories">
-                 <label class="checkbox-inline">
-                    <input type="checkbox" name="registerCtrl.user.categories[]" value="{{categoryName}}"
-                           ng-checked="registerCtrl.user.categories.indexOf(categoryName) > -1"
-                           ng-click="registerCtrl.toggleCategorySelection(categoryName)"> {{categoryName}}
-                     <!--    ng-model="registerCtrl.user.category"-->
+            <span id="category" ng-repeat="category in registerCtrl.categories">
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="category" id="category{{$index}}"
+                           value="{{category.category}}"
+                           ng-checked="registerCtrl.user.categories.indexOf(category.category) > -1"
+                           ng-click="registerCtrl.toggleCategorySelection(category.category)"/>
+                           <!--ng-required="registerCtrl.user.categories.length < 2"/>-->
+                    {{category.category}}
+                    <!--    ng-model="registerCtrl.user.category"-->
                 </label>
             </span>
+
             <span ng-show="registerForm.category.$error.required">
-                This field is required
-            </span>
+                    This field required at least 2 categories checked
+                </span>
             <span ng-show="registerForm.category.$invalid">
-                This field is invalid
-            </span>
+                    This field is invalid
+                </span>
         </p>
-        <p>
-            <label for="restore_question" class="restore_question" data-icon="u">Restore Question* </label>
-            <input class="input" id="restore_question" name="restore_question" required type="text"
-                   placeholder="Restore Question" ng-model="registerCtrl.user.restore_question"/>
-            <span ng-show="registerForm.restore_question.$error.required">
-                This field is required
-            </span>
-            <span ng-show="registerForm.restore_question.$invalid">
-                This field is invalid
-            </span>
-        </p>
-        <p>
-            <label for="restore_answer" class="restore_answer" data-icon="u">Restore Answer* </label>
-            <input class="input" id="restore_answer" name="restore_answer" required type="text"
-                   placeholder="Restore Answer" ng-model="registerCtrl.user.restore_answer"/>
-            <span ng-show="registerForm.restore_answer.$error.required">
-                This field is required
-            </span>
-            <span ng-show="registerForm.restore_answer.$invalid">
-                This field is invalid
-            </span>
-        </p>
+        <fieldset ng-repeat="qa in registerCtrl.restoreQA">
+            <p>
+                <label for="restore_question_{{$index}}" class="restore_question_{{$index}}" data-icon="u">Restore
+                    Question* </label>
+                <input class="input" id="restore_question_{{$index}}" name="restore_question_{{$index}}" required
+                       type="text"
+                       placeholder="Restore Question" ng-model="registerCtrl.user.questions[$index]"/>
+                <!--placeholder="Restore Question"/>-->
+                <span ng-show="registerForm.restore_question_{{$index}}.$error.required">
+                    This field is required
+                </span>
+                <span ng-show="registerForm.restore_question_{{$index}}.$invalid">
+                    This field is invalid
+                </span>
+            </p>
+
+            <p>
+                <label for="restore_answer_{{$index}}" class="restore_answer_{{$index}}" data-icon="u">Restore
+                    Answer* </label>
+                <input class="input" id="restore_answer_{{$index}}" name="restore_answer_{{$index}}" required
+                       type="text"
+                       placeholder="Restore Answer" ng-model="registerCtrl.user.answers[$index]"/>
+                <!--placeholder="Restore Answer"/>-->
+                <span ng-show="registerForm.restore_answer_{{$index}}.$error.required">
+                    This field is required
+                </span>
+                <span ng-show="registerForm.restore_answer_{{$index}}.$invalid">
+                    This field is invalid
+                </span>
+            </p>
+
+        </fieldset>
+        <input type="button" class="addfields" ng-click="registerCtrl.addRestoreQA()" value=" + "/>
+        <input type="button" class="remove" ng-hide="registerCtrl.restoreQA.length==1" ng-click="registerCtrl.removeRestoreQA()"
+               value=" - "/>
 
         <p class="register button">
             <input class="btn btn-orange btn-border-o" type="submit" value="Register"
                    ng-disabled="registerForm.$invalid"/>
+            <br>
             Already a member ?
             <a id="to_login" href="#/login" class="to_register">Go and log in </a>
         </p>
     </form>
 
 
-    <div >
+    <div>
         <span ng-model="registerCtrl.message"> </span>
-            <p style="color:red;">{{registerCtrl.message}}</p>
-        </div>
+        <p style="color:red;">{{registerCtrl.message}}</p>
+    </div>
 
 </div>

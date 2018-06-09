@@ -1,6 +1,8 @@
 angular.module('pointsOfInterestApp')
-    .controller('registerController', ['$scope', '$http','localStorageModel', function ($scope, $http,localStorageModel) {
-        var self = this;
+    // .controller('registerController', ['$scope', '$http','localStorageModel', function ($scope, $http,localStorageModel) {
+    .controller('registerController', ['$scope', '$http', '$location', 'setHeadersToken', 'localStorageModel', function ($scope, $http, $location, setHeadersToken, localStorageModel) {
+
+            var self = this;
 
         self.user = {};
 
@@ -43,15 +45,15 @@ angular.module('pointsOfInterestApp')
             $http.post(serverUrl + "users/add", self.user)
                 .then(function (response) {
                     //First function handles success
-                    self.reg.content = response.data;
+                    self.register.content = response.data;
                     console.log("user added");
                     $location.path('/login');
 
                 }, function (response) {
-                    self.reg.content = response.data;
+                    self.register.content = response.data;
                     //Second function handles error
                     // self.reg.content = "Something went wrong";
-                    console.log("user added faild");
+                    console.log("user added failed");
                     self.message = "Username already in use, please choose another one"
                 });
         };

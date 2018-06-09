@@ -119,8 +119,8 @@ router.get('/name/:name', function (req, res) {
 });
 
 //getRandomAndPopularPoints
-router.get('/Populars/', function (req, res) {
-    console.log("in route /pointsOfInterests/Populars/");
+router.get('/populars/', function (req, res) {
+    console.log("in route /pointsOfInterests/populars/");
 
     DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE rating>=80")
         .then(function (result) {

@@ -1,11 +1,9 @@
-<!--<h1 ng-model="loginCtrl.user.username">Hello {{loginCtrl.user.username}}</h1>-->
+<h1>Hello <span ng-bind="homeCtrl.user.username"> </span></h1>
 
 <div>
     <p>Click the button to run a function:</p>
     <button ng-click="myFunc()">OK</button>
     <p>The button has been clicked {{count}} times.</p>
-    
-
 </div>
 
 <div id="welcome">
@@ -19,7 +17,7 @@
 
 <p>
 
-    <button ng-click="homeCtrl.directToPOI()" >Click me to go to POI page</button>
+    <button ng-click="homeCtrl.directToPOI()">Click me to go to POI page</button>
 
     <br>
     <button ng-click="homeCtrl.signUp()">signUp</button>

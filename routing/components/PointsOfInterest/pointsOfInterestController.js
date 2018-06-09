@@ -29,8 +29,8 @@ angular.module('pointsOfInterestApp')
 
         self.addToCart = function (id, city) {
 
-            console.log(id)
-            console.log(city)
+            console.log(id);
+            console.log(city);
             console.log(self.amount[id])
 
 

@@ -3,8 +3,6 @@ angular.module('pointsOfInterestApp')
     .controller('indexController', ['$scope', function ($scope) {
         self = this;
 
-        // self.userName = setHeadersToken.userName;
-
         self.hello = true;
 
         self.flipHello = function () {

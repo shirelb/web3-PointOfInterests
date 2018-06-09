@@ -42,7 +42,7 @@ router.post('/add', function (req, res) {
         })
         .catch(function (err) {
             console.log(err);
-            res.status(500).send(err);
+            res.status(500).send(err,"user add failed!");
         })
 });
 
@@ -53,10 +53,10 @@ function save_QA_restore_password(req, user_id) {
             "INSERT INTO QaRestorePassword (userId,question,answer)" +
             " VALUES (" + user_id + ",'" + req.body.questions[i] + "','" + req.body.answers[i] + "')")
             .then(function (result) {
-                console.log(result);
+                console.log(result,"QA restore_password success");
             })
             .catch(function (err) {
-                console.log(err);
+                console.log(err,"QA restore_password failed");
             });
 
         i++;
@@ -70,10 +70,10 @@ function save_categories(req, user_id) {
             "INSERT INTO UserCategories (userId,category)" +
             " VALUES (" + user_id + ",'" + req.body.categories[i] + "')")
             .then(function (result) {
-                console.log(result);
+                console.log(result,"save_categories success");
             })
             .catch(function (err) {
-                console.log(err);
+                console.log(err,"save_categories failedgit add");
             });
 
         i++;

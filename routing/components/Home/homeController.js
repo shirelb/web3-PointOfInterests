@@ -1,18 +1,11 @@
 angular.module('pointsOfInterestApp')
 // .controller('homeController', ['$scope', function ($scope) {
-    .controller('homeController', ['$scope', '$location', '$http', 'setHeadersToken', 'localStorageModel', function ($scope, $location, $http, setHeadersToken, localStorageModel) {
+    .controller('homeController', ['$scope', '$location', '$http', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', function ($scope, $location, $http, setHeadersToken, localStorageModel, loggedInUsername) {
         let self = this;
 
         self.user = {};
 
-        if (setHeadersToken.username === null) {
-            self.user.username = "Guest";
-            console.log(self.user.username);
-        }
-        else {
-            self.user.username = setHeadersToken.username;
-            console.log(self.user.username);
-        }
+        self.user.username = loggedInUsername.username;
 
         self.directToPOI = function () {
             $location.path('/poi')

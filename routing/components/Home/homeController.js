@@ -1,19 +1,21 @@
 angular.module('pointsOfInterestApp')
 // .controller('homeController', ['$scope', function ($scope) {
-    .controller('homeController', ['$scope', '$location', '$http', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', function ($scope, $location, $http, setHeadersToken, localStorageModel, loggedInUsername) {
+    .controller('homeController', ['$scope', '$location', '$http', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', function ($scope, $location, $http, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID) {
         let self = this;
 
-        self.username = loggedInUsername.username;
+        self.username="Guest";
         self.isLoggedIn = false;
 
-        if (self.username === "Guest") {
-            //new user
-            self.isLoggedIn = false;
-        }
-        else {
-            //logged in user
-            self.isLoggedIn = true;
-        }
+        // self.isLoggedIn = function () {
+            if( loggedInUsername.username !== "Guest"){
+                self.getUserID();
+                self.get2LastFavoritesPoints();
+                self.isLoggedIn = true;
+            }
+            else{
+                self.isLoggedIn = false;
+            }
+        // };
 
         self.toRestorePasswordPage = function () {
             $location.path('/restorePassword')
@@ -35,7 +37,6 @@ angular.module('pointsOfInterestApp')
                     if (response.data.success === "false") {
                         console.log("no such user: " + response.data.message);
                         self.message = response.data.message;
-                        // $location.path('/');
                     }
                     else {
                         console.log("user: " + response.data.message);
@@ -43,17 +44,19 @@ angular.module('pointsOfInterestApp')
                         self.message = response.data.message;
                         setHeadersToken.set(self.login.content);
                         loggedInUsername.set(self.user.username);
-                        self.isLoggedIn = true;
                         self.username = loggedInUsername.username;
                         self.addTokenToLocalStorage();
-                        // $location.path('/');
+
+                        self.isLoggedIn = true;
+                        self.getUserID();
+                        self.get2LastFavoritesPoints();
                     }
 
                 }, function (response) {
                     //Second function handles error
                     self.login.content = "Something went wrong";
                 });
-            $location.path('/');
+
         };
 
         self.addTokenToLocalStorage = function () {
@@ -87,6 +90,46 @@ angular.module('pointsOfInterestApp')
         };
 
         self.getPopularPoints();
+
+        userID = null;
+        self.getUserID = function () {
+            loggedInUserID.get(self.username)
+                .then(function (result) {
+                    if (result.userId !== null) {
+                        self.message = "";
+                        userID = result.userId;
+                    }
+                    else {
+                        self.message = result.message;
+                    }
+
+                });
+        };
+
+
+        self.showMsgOfFavorites = false;
+        self.get2LastFavoritesPoints = function () {
+            $http.get(serverUrl + "users/favoritesPoints/2Latest/userId/" + userID)//was self.user
+                .then(function (response) {
+                    //First function handles success
+                    if (response.data.length === 0) {
+                        self.showMsgOfFavorites = true;
+                        self.favoritesMsg = "You haven't saved any points yet";
+                    }
+                    else {
+                        self.showMsgOfFavorites = false;
+                        self.lastFavoritesPoints = response.data;
+                        console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
+                    }
+                }, function (response) {
+                    self.getAllPoints.content = response.data;
+                    //Second function handles error
+                    self.get2LastFavoritesPoints.content = "Something went wrong";
+                    // self.message = "Something went wrong"
+                });
+        };
+
+
 
         self.directToPOI = function () {
             $location.path('/poi')

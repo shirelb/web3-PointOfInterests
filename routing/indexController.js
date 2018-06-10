@@ -1,7 +1,11 @@
 angular.module('pointsOfInterestApp')
     // .controller('indexController', ['$location', '$http', 'setHeadersToken', 'localStorageModel', function ($location, $http, setHeadersToken, localStorageModel) {
-    .controller('indexController', ['$scope', function ($scope) {
+    .controller('indexController', ['$scope','loggedInUsername', function ($scope,loggedInUsername) {
         self = this;
+
+        self.isLoggedIn = function(){
+            return loggedInUsername.username !== "Guest";
+        };
 
         self.hello = true;
 

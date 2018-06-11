@@ -1,7 +1,7 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['$scope', '$window', '$http', function ($scope, $window, $http) {
+    .controller('pointsOfInterestController', ['pageForPoint','$scope', '$window', '$http', function (pageForPoint,$scope, $window, $http) {
         let self = this;
-
+        
         
         /*self.points = {
             1: {
@@ -38,9 +38,24 @@ angular.module('pointsOfInterestApp')
 
         };
 
-        self.OpenPointPage = function () {
+        self.OpenPointPage = function (point) {
             //$window.open($lo);
-        };
+            self.selected = point;
+            pageForPoint.set(self.selected);
+            console.log("loggg: "+self.selected.name);
+            $window.open("components/PointPage/pointPage.html", "", "width=500,height=500");
+            /*var myWindow = $window.open("", self.selected, "width=500,height=500");
+            myWindow.document.write("<body><p>"+ point.name +"</p><br>"+
+                                    "<p>"+point.description+"</p>" +
+                                    "<div><button-favorite></button-favorite></div>" +"</body>"
+            );
+            var poiImage = myWindow.document.createElement("IMG");
+            poiImage.setAttribute("src",point.image);
+            myWindow.document.body.appendChild(poiImage);
+            var x = myWindow.document.createElement("button-favorite");
+            //x.setAttribute("src",point.image);
+            myWindow.document.body.appendChild(x);*/
+        }; 
 
         self.getAllPoints = function() {
             

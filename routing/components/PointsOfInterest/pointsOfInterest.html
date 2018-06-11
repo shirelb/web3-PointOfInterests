@@ -9,7 +9,7 @@
     <!--<li ng-repeat="p in poiCtrl.getPointsByCategory(item.category)">
         <h3>{{cat.title}}</h3>-->
         
-        <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true" ng-click="poiCtrl.OpenPointPage()">
+        <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true" ng-click="poiCtrl.OpenPointPage(point)">
             <!--<div ng-repeat="(pointId , name, category, rating, rating, views, description, picture) in poiCtrl.points" ng-click="poiCtrl.OpenPointPage()">-->
                 <div>
             <button ng-click="poiCtrl.selectedCity(id)"> Add to favorits</button>

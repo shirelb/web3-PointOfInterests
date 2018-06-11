@@ -1,0 +1,12 @@
+
+<html ng-app="pointsOfInterestApp">
+        <body ng-controller="pointController as pointCtrl">
+        <div>
+               <h1><span ng-bind="pointCtrl.point.name"> </span></h1>
+               <br>
+                    <p>{{pointCtrl.selected.description}}</p>
+                    <button-favorite></button-favorite>
+        </div>
+        
+        </body>
+        </html>

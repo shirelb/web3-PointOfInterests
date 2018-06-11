@@ -10,12 +10,14 @@
         <script src="components/Services/localStorageModel.js"></script>
         <script src="components/Services/setHeadersToken.js"></script>
         <script src="components/Services/loggedInUsername.js"></script>
+        <script src="components/Services/loggedInUserID.js"></script>
         <script src="components/About/aboutController.js"></script>
         <script src="components/FavoritesPointsOfInterest/favoritesPointsOfInterestController.js"></script>
         <script src="components/Home/homeController.js"></script>
         <script src="components/Login/loginController.js"></script>
         <script src="components/PointsOfInterest/pointsOfInterestController.js"></script>
         <script src="components/Register/registerController.js"></script>
+        <script src="components/RestorePassword/restorePasswordController.js"></script>
 
         <style>
             ul {
@@ -49,18 +51,28 @@
         <ul>
             <li><a class="active" href="#/">Home</a></li>
             <li><a href="#/about">About</a></li>
-            <li><a href="#/register">Register</a></li>
+            <li ng-hide="indexCtrl.isLoggedIn()"><a href="#/register">Register</a></li>
             <li><a href="#/login">Login</a></li>
             <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
             <li><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
+            <li> Hello <span ng-bind="indexCtrl.getUsername()"> </span></li>
         </ul>
 
 
 
         <div ng-view></div>
 
-        <img ng-src="http://2.bp.blogspot.com/-1D3ZYnPFJZE/VM0PgrciaJI/AAAAAAAAIl0/qYQXEOcRYr4/s1600/Free%2BAngularJS%2BEbooks.png">
-
+        <footer>
+            <p class="align_left">
+                We build this website using AngularJS, NodeJS and css.
+            </p>
+            <p class="align_right">
+                Please contact us in any question at:
+                shirelb@post.bgu.ac.il
+                or
+                dafnao@post.bgu.ac.il
+            </p>
+        </footer>
 
     </body>
 </html>

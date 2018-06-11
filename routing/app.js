@@ -1,4 +1,4 @@
-let app = angular.module('pointsOfInterestApp', ["ngRoute","LocalStorageModule"]);
+let app = angular.module('pointsOfInterestApp', ["ngRoute", "LocalStorageModule"]);
 
 app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
 
@@ -30,6 +30,10 @@ app.config(['$locationProvider', '$routeProvider', function ($locationProvider, 
         .when('/favoritesPointsOfInterest', {
             templateUrl: 'components/FavoritesPointsOfInterest/favoritesPointsOfInterest.html',
             controller: 'favoritesPointsOfInterestController as f_poiCtrl'
+        })
+        .when('/restorePassword', {
+            templateUrl: 'components/RestorePassword/restorePassword.html',
+            controller: 'restorePasswordController as restorePwdCtrl'
         })
         .otherwise({redirectTo: '/'});
 }]);

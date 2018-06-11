@@ -1,11 +1,10 @@
 angular.module('pointsOfInterestApp')
-    .service('pageForPoint', ['pointsOfInterestController', function (pointsOfInterestController) {
-        
-        self = this;
+    .service('pageForPoint', ['$location', function ($location) {
 
-        this.set = function (point){
+        this.point = null;
+
+        this.set = function (point) {
             this.point = point;
-
         };
 
 

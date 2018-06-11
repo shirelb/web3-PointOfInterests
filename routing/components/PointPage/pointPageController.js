@@ -1,11 +1,10 @@
-angular.module('pointsOfInterestApp')
-    .controller('pointController', ['pageForPoint', function (pageForPoint) {
+angular.module('pointPageApp',[])
+    // .controller('pointPageController', ['pageForPoint', function (pageForPoint) {
+    .controller('pointPageController', ['$window', function ($window) {
 
         var self = this;
 
-        this.selected = pageForPoint.point;
-
-        
+        self.pointSelected = $window.pointSelected;
 
     }]);
 

@@ -31,5 +31,9 @@ app.config(['$locationProvider', '$routeProvider', function ($locationProvider, 
             templateUrl: 'components/FavoritesPointsOfInterest/favoritesPointsOfInterest.html',
             controller: 'favoritesPointsOfInterestController as f_poiCtrl'
         })
+        .when('/pointPage', {
+            templateUrl: 'components/PointPage/pointPage.html',
+            controller: 'pointPageController as pointCtrl'
+        })
         .otherwise({redirectTo: '/'});
 }]);

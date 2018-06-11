@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['pageForPoint','$scope', '$window', '$http', function (pageForPoint,$scope, $window, $http) {
+    .controller('pointsOfInterestController', ['pageForPoint','$scope', '$window', '$http','$location', function (pageForPoint,$scope, $window, $http,$location) {
         let self = this;
         
         
@@ -43,7 +43,10 @@ angular.module('pointsOfInterestApp')
             self.selected = point;
             pageForPoint.set(self.selected);
             console.log("loggg: "+self.selected.name);
-            $window.open("components/PointPage/pointPage.html", "", "width=500,height=500");
+            // $location.path('/pointPage');
+            // $window.open('#/pointPage');
+            $window.open("components/PointPage/pointPage.html",'_blank').pointSelected=self.selected;
+            // $window.open("components/PointPage/pointPage.html", "", "width=500,height=500");
             /*var myWindow = $window.open("", self.selected, "width=500,height=500");
             myWindow.document.write("<body><p>"+ point.name +"</p><br>"+
                                     "<p>"+point.description+"</p>" +

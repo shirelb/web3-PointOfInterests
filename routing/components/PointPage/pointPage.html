@@ -1,12 +1,23 @@
+<html ng-app="pointPageApp">
 
-<html ng-app="pointsOfInterestApp">
-        <body ng-controller="pointController as pointCtrl">
-        <div>
-               <h1><span ng-bind="pointCtrl.point.name"> </span></h1>
-               <br>
-                    <p>{{pointCtrl.selected.description}}</p>
-                    <button-favorite></button-favorite>
-        </div>
-        
-        </body>
-        </html>
+<head>
+    <title>Points Of Interest App</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="../../../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="pointPageController.js"></script>
+    <!--<script src="../Services/pageForPoint.js"></script>-->
+</head>
+
+<body ng-controller="pointPageController as pointCtrl">
+<!--<body>-->
+<div>
+    <h1><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
+    <br>
+    <p ng-bind="pointCtrl.pointSelected.description"></p>
+    <!--<button-favorite></button-favorite>-->
+</div>
+
+</body>
+</html>

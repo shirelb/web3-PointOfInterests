@@ -54,7 +54,7 @@
             <li ng-hide="indexCtrl.isLoggedIn()"><a href="#/register">Register</a></li>
             <li><a href="#/login">Login</a></li>
             <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
-            <li><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
+            <li ng-show="indexCtrl.isLoggedIn()"><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
             <li> Hello <span ng-bind="indexCtrl.getUsername()"> </span></li>
         </ul>
 

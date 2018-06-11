@@ -1,15 +1,48 @@
 angular.module('pointsOfInterestApp')
-.controller('favoritesPointsOfInterestController', ['$scope', function($scope) {
-    let self = this;
+    .controller('favoritesPointsOfInterestController', ['$scope', '$http', 'loggedInUserID','loggedInUsername', function ($scope, $http, loggedInUserID,loggedInUsername) {
+        let self = this;
 
-    self.myPoints = {
-        1 : {name:"Paris", state: "France", image: "https://media-cdn.tripadvisor.com/media/photo-s/0d/f5/7c/f2/eiffel-tower-priority.jpg"}
-        ,2 : {name:"Jerusalem", state: "Israel", image: "https://cdni.rt.com/files/2017.12/article/5a3fe04efc7e93cd698b4567.jpg"}
-        ,3 : {name:"London", state: "England", image: "http://www.ukguide.co.il/Photos/England/London/British-Royal-Tour.jpg"}
-    };
+        var serverUrl = "http://localhost:8080/";
 
-    $scope.count = 0;
-    $scope.myFunc = function() {
-      $scope.count++;
-    };
-  }]);
+        self.favoritesPoints = {};
+
+        userID = null;
+        self.getUserID = function () {
+            return loggedInUserID.get(loggedInUsername.username)
+                .then(function (result) {
+                    if (result.userId !== null) {
+                        self.message = "";
+                        userID = result.userId;
+                    }
+                    else {
+                        self.message = result.message;
+                    }
+
+                });
+        };
+
+        self.getFavoritesPoints = function () {
+            $http.get(serverUrl + "users/favoritesPoints/userId/" + userID)//was self.user
+                .then(function (response) {
+                    //First function handles success
+                    if (response.data.length === 0) {
+                        self.showMsgOfFavorites = true;
+                        self.favoritesMsg = "You haven't saved any points yet";
+                    }
+                    else {
+                        self.showMsgOfFavorites = false;
+                        self.favoritesPoints = response.data;
+                        console.log("getting 2 last favorites points" + self.favoritesPoints);
+                    }
+                }, function (response) {
+                    //Second function handles error
+                    self.getFavoritesPoints.content = "Something went wrong";
+                    // self.message = "Something went wrong"
+                });
+        };
+
+        self.getUserID().then(function (result) {
+            self.getFavoritesPoints();
+        });
+
+    }]);

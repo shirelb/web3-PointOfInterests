@@ -55,14 +55,24 @@
             <li><a href="#/login">Login</a></li>
             <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
             <li><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
+            <li> Hello <span ng-bind="indexCtrl.getUsername()"> </span></li>
         </ul>
 
 
 
         <div ng-view></div>
 
-        <img ng-src="http://2.bp.blogspot.com/-1D3ZYnPFJZE/VM0PgrciaJI/AAAAAAAAIl0/qYQXEOcRYr4/s1600/Free%2BAngularJS%2BEbooks.png">
-
+        <footer>
+            <p class="align_left">
+                We build this website using AngularJS, NodeJS and css.
+            </p>
+            <p class="align_right">
+                Please contact us in any question at:
+                shirelb@post.bgu.ac.il
+                or
+                dafnao@post.bgu.ac.il
+            </p>
+        </footer>
 
     </body>
 </html>

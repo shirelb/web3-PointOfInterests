@@ -1,20 +1,22 @@
 angular.module('pointsOfInterestApp')
 // .controller('homeController', ['$scope', function ($scope) {
-    .controller('homeController', ['$scope', '$location', '$http', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', function ($scope, $location, $http, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID) {
+    .controller('homeController', ['$scope', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', function ($scope, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID) {
         let self = this;
 
-        self.username="Guest";
+        self.username = "Guest";
         self.isLoggedIn = false;
 
         // self.isLoggedIn = function () {
-            if( loggedInUsername.username !== "Guest"){
-                self.getUserID();
+        if (loggedInUsername.username !== "Guest") {
+            self.isLoggedIn = true;
+            self.getUserID().then(function (result) {
                 self.get2LastFavoritesPoints();
-                self.isLoggedIn = true;
-            }
-            else{
-                self.isLoggedIn = false;
-            }
+                self.getRecommendedPoints();
+            });
+        }
+        else {
+            self.isLoggedIn = false;
+        }
         // };
 
         self.toRestorePasswordPage = function () {
@@ -48,8 +50,10 @@ angular.module('pointsOfInterestApp')
                         self.addTokenToLocalStorage();
 
                         self.isLoggedIn = true;
-                        self.getUserID();
-                        self.get2LastFavoritesPoints();
+                        self.getUserID().then(function (result) {
+                            self.get2LastFavoritesPoints();
+                            self.getRecommendedPoints();
+                        });
                     }
 
                 }, function (response) {
@@ -82,7 +86,6 @@ angular.module('pointsOfInterestApp')
 
                     console.log("getting 3 popular points" + self.popularPoints);
                 }, function (response) {
-                    self.getAllPoints.content = response.data;
                     //Second function handles error
                     self.getPopularPoints.content = "Something went wrong";
                     // self.message = "Something went wrong"
@@ -93,7 +96,7 @@ angular.module('pointsOfInterestApp')
 
         userID = null;
         self.getUserID = function () {
-            loggedInUserID.get(self.username)
+            return loggedInUserID.get(self.username)
                 .then(function (result) {
                     if (result.userId !== null) {
                         self.message = "";
@@ -122,21 +125,59 @@ angular.module('pointsOfInterestApp')
                         console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
                     }
                 }, function (response) {
-                    self.getAllPoints.content = response.data;
                     //Second function handles error
                     self.get2LastFavoritesPoints.content = "Something went wrong";
                     // self.message = "Something went wrong"
                 });
         };
 
+        self.getRecommendedPoints = function () {
+            self.recommendedPoints = [];
 
+            $http.get(serverUrl + "users/categories/" + userID)//was self.user
+                .then(function (response) {
+                    //First function handles success
+                    self.userCategories = response.data;
+                    //sort randomly
+                    self.userCategories = self.userCategories.sort(function (a, b) {
+                        return 0.5 - Math.random()
+                    });
+                    //select the first 3
+                    self.userCategories = self.userCategories.slice(0, 2);
+                }, function (response) {
+                    //Second function handles error
+                    self.getRecommendedPoints.content = "Something went wrong";
+                    // self.message = "Something went wrong"
+                })
+                .then(function (response) {
+                    let arr = [];
 
-        self.directToPOI = function () {
-            $location.path('/poi')
+                    for (let i = 0; i < self.userCategories.length; i++) {
+                        arr.push($http.get(serverUrl + "pointsOfInterests/popularsInCategory/" + self.userCategories[i].category));
+                    }
+
+                    $q.all(arr)
+                        .then(function (results) {
+                            for (let i = 0; i < results.length; i++) {
+                                //sort randomly
+                                results[i].data = results[i].data.sort(function (a, b) {
+                                    return 0.5 - Math.random()
+                                });
+
+                                self.recommendedPoints.push(results[i].data[0]);
+                            }
+                            //sort randomly
+                            self.recommendedPoints = self.recommendedPoints.sort(function (a, b) {
+                                return 0.5 - Math.random()
+                            });
+                            //select the first 3
+                            self.recommendedPoints = self.recommendedPoints.slice(0, 2);
+                        });
+                }, function (response) {
+                    //Second function handles error
+                    self.getRecommendedPoints.content = "Something went wrong";
+                    // self.message = "Something went wrong"
+                });
         };
 
-        $scope.count = 0;
-        $scope.myFunc = function () {
-            $scope.count++;
-        };
     }]);

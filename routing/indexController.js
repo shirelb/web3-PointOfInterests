@@ -7,6 +7,10 @@ angular.module('pointsOfInterestApp')
             return loggedInUsername.username !== "Guest";
         };
 
+        self.getUsername=function(){
+            return loggedInUsername.username;
+        };
+
         self.hello = true;
 
         self.flipHello = function () {

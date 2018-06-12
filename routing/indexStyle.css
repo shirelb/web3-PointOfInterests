@@ -26,18 +26,18 @@ body{
 
 }
 
-.active#heart:before, .active#heart:after {
+.active.heart:before, .active.heart:after {
     background: red !important;
 }
 
-#heart {
+.heart {
     width: 30px;
     height: 20px;
     transition: background 0.5s ease;
 }
 
-#heart:before,
-#heart:after {
+.heart:before,
+.heart:after {
     transition: background 0.5s ease;
     position: absolute;
     content: "";
@@ -51,7 +51,7 @@ body{
     transform-origin: 0 100%;
 }
 
-#heart:after {
+.heart:after {
     left: 0;
     transform: rotate(45deg);
     transform-origin: 100% 100%;

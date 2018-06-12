@@ -1,9 +1,27 @@
 angular.module('pointsOfInterestApp')
 // .controller('homeController', ['$scope', function ($scope) {
-    .controller('homeController', ['$scope', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', function ($scope, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID) {
+    .controller('homeController', ['$scope', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', 'favoritesPointsService', function ($scope, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID, favoritesPointsService) {
         let self = this;
 
-        self.username = "Guest";
+        userID = null;
+        self.getUserID = function () {
+            return loggedInUserID.get(self.username)
+                .then(function (result) {
+                    if (result.userId !== null) {
+                        self.message = "";
+                        userID = result.userId;
+                        favoritesPointsService.setUserID(userID);
+                        favoritesPointsService.getAllFavoritesPoints();
+                    }
+                    else {
+                        self.message = result.message;
+                    }
+
+                });
+        };
+
+
+        self.username = loggedInUsername.username;
         self.isLoggedIn = false;
 
         // self.isLoggedIn = function () {
@@ -53,6 +71,7 @@ angular.module('pointsOfInterestApp')
                         self.getUserID().then(function (result) {
                             self.get2LastFavoritesPoints();
                             self.getRecommendedPoints();
+                            favoritesPointsService.getAllFavoritesPoints();
                         });
                     }
 
@@ -101,6 +120,7 @@ angular.module('pointsOfInterestApp')
                     if (result.userId !== null) {
                         self.message = "";
                         userID = result.userId;
+                        favoritesPointsService.setUserID(userID);
                     }
                     else {
                         self.message = result.message;
@@ -121,14 +141,23 @@ angular.module('pointsOfInterestApp')
                     }
                     else {
                         self.showMsgOfFavorites = false;
-                        self.lastFavoritesPoints = response.data;
-                        console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
+                        favoritesPointsService.getPointsByID(response.data, self.lastFavoritesPoints)
+                            .then(function (favPoints) {
+                                self.lastFavoritesPoints = favPoints;
+                                console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
+                            })
+                        // self.lastFavoritesPoints = response.data;
                     }
                 }, function (response) {
                     //Second function handles error
                     self.get2LastFavoritesPoints.content = "Something went wrong";
                     // self.message = "Something went wrong"
                 });
+        };
+
+        self.isFavoritePoint = function (point) {
+            let res = favoritesPointsService.favoritesPoints.filter(p => (p.pointId === point.pointId));
+            return res.length !== 0;
         };
 
         self.getRecommendedPoints = function () {
@@ -180,70 +209,23 @@ angular.module('pointsOfInterestApp')
                 });
         };
 
-        setFavoritesBtnAnimation = function (timeline,el) {
-            var scaleCurve = mojs.easing.path('M0,100 L25,99.9999983 C26.2328835,75.0708847 19.7847843,0 100,0');
-            // var el = angular.element(fav_btn);
-            // mo.js timeline obj
-            // timeline = new mojs.Timeline();
-
-            // tweens for the animation:
-
-            // burst animation
-            tween1 = new mojs.Burst({
-                parent: el,
-                radius: {0: 30},
-                angle: {0: 45},
-                y: 50,
-                count: 10,
-                radius: 30,
-                children: {
-                    shape: 'circle',
-                    radius: 10,
-                    fill: ['red', 'white'],
-                    strokeWidth: 15,
-                    duration: 500,
-                }
-            });
-
-
-            tween2 = new mojs.Tween({
-                duration: 900,
-                onUpdate: function (progress) {
-                    var scaleProgress = scaleCurve(progress);
-                    el.style.WebkitTransform = el.style.transform = 'scale3d(' + scaleProgress + ',' + scaleProgress + ',1)';
-                }
-            });
-
-            tween3 = new mojs.Burst({
-                parent: el,
-                radius: {0: 30},
-                angle: {0: -45},
-                y: 50,
-                count: 10,
-                radius: 50,
-                children: {
-                    shape: 'circle',
-                    radius: 10,
-                    fill: ['white', 'red'],
-                    strokeWidth: 15,
-                    duration: 400,
-                }
-            });
-
-            // add tweens to timeline:
-            timeline.add(tween1, tween2, tween3);
-        };
-
         self.toggleToFavorites = function (event, point) {
             if (angular.element(event.currentTarget).hasClass("active")) {
                 angular.element(event.currentTarget).removeClass("active");
+                favoritesPointsService.removePointFromFavorites(point)
+                    .then(function (result) {
+                        self.get2LastFavoritesPoints();
+                    });
             } else {
                 var timeline = new mojs.Timeline();
-                setFavoritesBtnAnimation(timeline,angular.element(event.currentTarget)[0]);
+                favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
                 timeline.play();
                 angular.element(event.currentTarget).addClass("active");
+                favoritesPointsService.addPointToFavorites(point)
+                    .then(function (result) {
+                        self.get2LastFavoritesPoints();
+                    });
             }
         };
-
 
     }]);

@@ -5,9 +5,7 @@
     <div ng-show="!f_poiCtrl.showMsgOfFavorites" ng-repeat="(id , point) in f_poiCtrl.favoritesPoints"
          ng-click="f_poiCtrl.OpenPointPage()">
         <div>
-            <div class="fav-btn">
-                <span href="" class="favme dashicons dashicons-heart"></span>
-            </div>
+            <div class='heart fav-button active' ng-click="f_poiCtrl.toggleToFavorites($event, point)"></div>
             POI name: <span ng-bind="point.name"></span>
             <br>
             Category: <span ng-bind="point.category"></span>

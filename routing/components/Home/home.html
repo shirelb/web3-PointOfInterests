@@ -56,7 +56,7 @@
     <div>
         <div ng-repeat="(id , point) in homeCtrl.popularPoints" ng-click="homeCtrl.OpenPointPage()">
             <div>
-                <div id='heart' class='fav-button'></div>
+                <div id='heart' class='fav-button' ng-click="homeCtrl.toggleToFavorites($event, point)"></div>
                 POI name: <span ng-bind="point.name"></span>
                 <br>
                 Category: <span ng-bind="point.category"></span>

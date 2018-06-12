@@ -180,4 +180,70 @@ angular.module('pointsOfInterestApp')
                 });
         };
 
+        setFavoritesBtnAnimation = function (timeline,el) {
+            var scaleCurve = mojs.easing.path('M0,100 L25,99.9999983 C26.2328835,75.0708847 19.7847843,0 100,0');
+            // var el = angular.element(fav_btn);
+            // mo.js timeline obj
+            // timeline = new mojs.Timeline();
+
+            // tweens for the animation:
+
+            // burst animation
+            tween1 = new mojs.Burst({
+                parent: el,
+                radius: {0: 30},
+                angle: {0: 45},
+                y: 50,
+                count: 10,
+                radius: 30,
+                children: {
+                    shape: 'circle',
+                    radius: 10,
+                    fill: ['red', 'white'],
+                    strokeWidth: 15,
+                    duration: 500,
+                }
+            });
+
+
+            tween2 = new mojs.Tween({
+                duration: 900,
+                onUpdate: function (progress) {
+                    var scaleProgress = scaleCurve(progress);
+                    el.style.WebkitTransform = el.style.transform = 'scale3d(' + scaleProgress + ',' + scaleProgress + ',1)';
+                }
+            });
+
+            tween3 = new mojs.Burst({
+                parent: el,
+                radius: {0: 30},
+                angle: {0: -45},
+                y: 50,
+                count: 10,
+                radius: 50,
+                children: {
+                    shape: 'circle',
+                    radius: 10,
+                    fill: ['white', 'red'],
+                    strokeWidth: 15,
+                    duration: 400,
+                }
+            });
+
+            // add tweens to timeline:
+            timeline.add(tween1, tween2, tween3);
+        };
+
+        self.toggleToFavorites = function (event, point) {
+            if (angular.element(event.currentTarget).hasClass("active")) {
+                angular.element(event.currentTarget).removeClass("active");
+            } else {
+                var timeline = new mojs.Timeline();
+                setFavoritesBtnAnimation(timeline,angular.element(event.currentTarget)[0]);
+                timeline.play();
+                angular.element(event.currentTarget).addClass("active");
+            }
+        };
+
+
     }]);

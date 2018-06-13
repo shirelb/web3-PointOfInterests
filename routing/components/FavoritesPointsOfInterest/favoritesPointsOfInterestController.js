@@ -39,44 +39,27 @@ angular.module('pointsOfInterestApp')
             }
         };
 
-        /*userID = null;
-        self.getUserID = function () {
-            return loggedInUserID.get(loggedInUsername.username)
+        self.swapOrderNum = function (point1,point2) {
+            favoritesPointsService.updateFavoritesOrder(point1,point2)
                 .then(function (result) {
-                    if (result.userId !== null) {
-                        self.message = "";
-                        userID = result.userId;
-                    }
-                    else {
-                        self.message = result.message;
-                    }
-
+                    // self.favoritesPoints = favoritesPointsService.favoritesPoints;
+                    self.updateFavoritesPoints();
                 });
         };
 
-        self.getFavoritesPoints = function () {
-            self.favoritesPoints=favoritesPointsService.getAllFavoritesPoints();
-            $http.get(serverUrl + "users/favoritesPoints/userId/" + userID)//was self.user
-                .then(function (response) {
-                    //First function handles success
-                    if (response.data.length === 0) {
-                        self.showMsgOfFavorites = true;
-                        self.favoritesMsg = "You haven't saved any points yet";
-                    }
-                    else {
-                        self.showMsgOfFavorites = false;
-                        self.favoritesPoints = response.data;
-                        console.log("getting 2 last favorites points" + self.favoritesPoints);
-                    }
-                }, function (response) {
-                    //Second function handles error
-                    self.getFavoritesPoints.content = "Something went wrong";
-                    // self.message = "Something went wrong"
-                });
+        self.sortByOrderNum=function () {
+            favoritesPointsService.sortByOrderNum();
+            self.updateFavoritesPoints();
         };
 
-        self.getUserID().then(function (result) {
-            self.getFavoritesPoints();
-        });*/
+        self.sortByCategory=function () {
+            favoritesPointsService.sortByCategory();
+            self.updateFavoritesPoints();
+        };
+
+        self.sortByRating=function () {
+            favoritesPointsService.sortByRating();
+            self.updateFavoritesPoints();
+        };
 
     }]);

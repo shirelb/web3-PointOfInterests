@@ -1,14 +1,32 @@
 <h2>My Favorites Points Of Interests</h2>
 
 <div>
+    <button ng-click="f_poiCtrl.sortByCategory()"> Order by Category </button>
+    <button ng-click="f_poiCtrl.sortByRating()"> Order by Rating </button>
+    <button ng-click="f_poiCtrl.sortByOrderNum()"> Order by Me </button>
     <span ng-show="f_poiCtrl.showMsgOfFavorites"> {{f_poiCtrl.favoritesMsg}} </span>
-    <div ng-show="!f_poiCtrl.showMsgOfFavorites" ng-repeat="(id , point) in f_poiCtrl.favoritesPoints"
+    <div ng-show="!f_poiCtrl.showMsgOfFavorites"
+         ng-repeat="(id , point) in f_poiCtrl.favoritesPoints |orderBy:point.orderNum track by point.orderNum"
          ng-click="f_poiCtrl.OpenPointPage()">
         <div>
-            <div class='heart fav-button active' ng-click="f_poiCtrl.toggleToFavorites($event, point)"></div>
+            <div>
+                <span class='heart fav-button active' ng-click="f_poiCtrl.toggleToFavorites($event, point)"></span>
+                <span class="order-button" ng-style="{'cursor': ($first ? 'default' : 'pointer')}"
+                      ng-click="!$first && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index-1])"> ︽ </span>
+                <span class="order-button" ng-style="{'cursor': ($last ? 'default' : 'pointer')}"
+                      ng-click="!$last && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index+1])"> ︾ </span>
+            </div>
             POI name: <span ng-bind="point.name"></span>
             <br>
             Category: <span ng-bind="point.category"></span>
+            <br>
+            pointId: <span ng-bind="point.pointId"></span>
+            <br>
+            orderNum: <span ng-bind="point.orderNum"></span>
+            <br>
+            rating: <span ng-bind="point.rating"></span>
+            <br>
+            date: <span>{{point.savedDate | date}}</span>
             <br>
             <img ng-style="{'height': '100px'}" ng-src="{{point.image}}"/>
         </div>

@@ -16,6 +16,7 @@ body{
     /* left: 10px; */
     /* margin-top: -45px; */
     /* margin-left: -50px; */
+    margin-right: 25px;
     border-radius: 5px;
     background: none;
     cursor: pointer;
@@ -55,4 +56,10 @@ body{
     left: 0;
     transform: rotate(45deg);
     transform-origin: 100% 100%;
+}
+
+.order-button{
+    /*cursor: pointer;*/
+    font-weight: bold;
+    font-size: 17px;
 }

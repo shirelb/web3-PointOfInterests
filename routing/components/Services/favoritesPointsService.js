@@ -40,7 +40,8 @@ angular.module("pointsOfInterestApp")
                     if (response.data.length !== 0) {
                         return self.getPointsByID(response.data, self.favoritesPoints)
                             .then(function (favPoints) {
-                                self.favoritesPoints = favPoints;
+                                self.favoritesPoints = angular.merge(favPoints, response.data);
+                                // self.favoritesPoints = favPoints;
                                 localStorageModel.updateLocalStorage('favoritesPoints', self.favoritesPoints);
                                 console.log("getting favorites points" + self.favoritesPoints);
                             })
@@ -59,7 +60,7 @@ angular.module("pointsOfInterestApp")
                 'orderNum': self.favoritesPoints.length,
                 'savedDate': new Date()
             };
-           return $http.post(serverUrl + "users/favoritesPoints/add", favPoint)//was self.user
+            return $http.post(serverUrl + "users/favoritesPoints/add", favPoint)//was self.user
                 .then(function (response) {
                     //First function handles success
                     //add point to the array
@@ -74,7 +75,7 @@ angular.module("pointsOfInterestApp")
         };
 
         self.removePointFromFavorites = function (point) {
-           return $http.delete(serverUrl + "users/favoritesPoints/remove/userId/" + self.userID + "/pointId/" + point.pointId)//was self.user
+            return $http.delete(serverUrl + "users/favoritesPoints/remove/userId/" + self.userID + "/pointId/" + point.pointId)//was self.user
                 .then(function (response) {
                     //First function handles success
                     //remove the point from the array
@@ -92,6 +93,37 @@ angular.module("pointsOfInterestApp")
                 });
         };
 
+        self.updateFavoritesOrder = function (pointUp, pointDown) {
+            let arr = [];
+
+            let updatedPointUp = {'orderNum': pointDown.orderNum, 'userId': pointUp.userId, 'pointId': pointUp.pointId};
+            arr.push($http.put(serverUrl + "users/favoritesPoints/update/", updatedPointUp));
+
+            let updatedPointDown = {
+                'orderNum': pointUp.orderNum,
+                'userId': pointDown.userId,
+                'pointId': pointDown.pointId
+            };
+            arr.push($http.put(serverUrl + "users/favoritesPoints/update/", updatedPointDown));
+
+            return $q.all(arr)
+                .then(function (results) {
+                    let orderNumTemp = pointUp.orderNum;
+                    // pointUp.orderNum = pointDown.orderNum;
+                    // pointDown.orderNum = orderNumTemp;
+
+                    self.favoritesPoints[self.favoritesPoints.findIndex((p) => p.pointId === pointUp.pointId)].orderNum = pointDown.orderNum;
+
+                    self.favoritesPoints[self.favoritesPoints.findIndex((p) => p.pointId === pointDown.pointId)].orderNum = orderNumTemp;
+
+                    self.sortByOrderNum();
+                    return self.favoritesPoints;
+                }, function (response) {
+                    //Second function handles error
+                    self.updateFavoritesOrder.content = "Something went wrong";
+                    // self.message = "Something went wrong"
+                });
+        };
 
         self.setFavoritesBtnAnimation = function (timeline, el) {
             var scaleCurve = mojs.easing.path('M0,100 L25,99.9999983 C26.2328835,75.0708847 19.7847843,0 100,0');
@@ -145,6 +177,18 @@ angular.module("pointsOfInterestApp")
 
             // add tweens to timeline:
             timeline.add(tween1, tween2, tween3);
+        };
+
+        self.sortByOrderNum=function () {
+            self.favoritesPoints.sort((a, b) => a.orderNum - b.orderNum)
+        };
+
+        self.sortByCategory=function () {
+            self.favoritesPoints.sort((a, b) => a.category > b.category)
+        };
+
+        self.sortByRating=function () {
+            self.favoritesPoints.sort((a, b) => a.rating - b.rating)
         };
 
 

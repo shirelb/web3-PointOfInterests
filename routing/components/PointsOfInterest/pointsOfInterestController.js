@@ -1,71 +1,91 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['pageForPoint','$scope', '$window', '$http','$location', function (pageForPoint,$scope, $window, $http,$location) {
+    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', '$location', function (pageForPoint, $scope, $window, $http, $location) {
         let self = this;
-        
-        
-        /*self.points = {
-            1: {
-                name: "Paris",
-                state: "France",
-                image: "https://media-cdn.tripadvisor.com/media/photo-s/0d/f5/7c/f2/eiffel-tower-priority.jpg"
-            }
-            ,
-            2: {
-                name: "Jerusalem",
-                state: "Israel",
-                image: "https://cdni.rt.com/files/2017.12/article/5a3fe04efc7e93cd698b4567.jpg"
-            }
-            ,
-            3: {
-                name: "London",
-                state: "England",
-                image: "http://www.ukguide.co.il/Photos/England/London/British-Royal-Tour.jpg"
-            }
-        };*/
 
+        let serverUrl = "http://localhost:8080/";
 
         self.selectedCity = function (id) {
-
             console.log(self.selected)
         };
 
         self.addToCart = function (id, city) {
-
             console.log(id);
             console.log(city);
             console.log(self.amount[id])
+        };
 
 
+        self.get2LatestReviews = function (point) {
+            return $http.get(serverUrl + "reviews/2Latest/pointId/" + point.pointId)
+                .then(function (response) {
+                    return response.data;
+                }, function (response) {
+                    //Second function handles error
+                    console.log("Something went wrong with bringing 2 latest reviews ");
+                });
+
+        };
+
+        self.addViewToPoint = function (point) {
+            return $http.put(serverUrl + "pointsOfInterests/addView", {'pointId': point.pointId})
+                .then(function (response) {
+                    return {views: point.views + 1};
+                }, function (response) {
+                    //Second function handles error
+                    console.log("Something went wrong with add View To Point ");
+                });
         };
 
         self.OpenPointPage = function (point) {
             //$window.open($lo);
-            self.point = point ;
-            let serverUrl = "http://localhost:8080/";
-             $http.put(serverUrl+"pointsOfInterests/addView/"+ point.pointId)
-            .then(function (response) {
-              
-                console.log("views increased successfuly: " + point.views);
-                self.selected = point;
-                let promise = self.get2LatestReviews(point);
-                promise.then(function(response){
-    
-                    pageForPoint.set(self.selected);
-                    console.log("loggg: "+self.selected.name);
-                    // $location.path('/pointPage');
-                    // $window.open('#/pointPage');
-                    self.openTheWindow();
-                    
-                }
-                
-            
-            );
-            
-            }, function (response) {
-                console.log("Something went wrong with increasing views"+ point.pointId );
-                self.message = "Something went wrong withincreasing views"
-            });
-            
+            // self.point = point;
+            self.selected = point;
+            let pointWindow = $window.open("components/PointPage/pointPage.html", '_blank');
+            pointWindow.pointData = {
+                'point': self.selected,
+                'lastReviews': []
+            };
+
+            self.addViewToPoint(point)
+                .then(function (result) {
+                    if (result.views !== undefined) {
+                        self.selected.views = result.views;
+                        self.get2LatestReviews(point)
+                            .then(function (reviews) {
+                                pointWindow.pointData = {
+                                    'point': self.selected,
+                                    'lastReviews': reviews
+                                };
+                            });
+                    }
+                });
+
+
+            /*$http.put(serverUrl + "pointsOfInterests/addView/" + point.pointId)
+                .then(function (response) {
+
+                    console.log("views increased successfuly: " + point.views);
+
+                    self.get2LatestReviews(point)
+                        .then(function (response) {
+                                self.selected = point;
+                                // let promise = self.get2LatestReviews(point);
+                                // promise.then(function (response) {
+
+                                pageForPoint.set(self.selected);
+                                console.log("loggg: " + self.selected.name);
+                                // $location.path('/pointPage');
+                                // $window.open('#/pointPage');
+                                $window.open("components/PointPage/pointPage.html", '_blank').pointSelected = self.selected;
+
+                            }
+                        );
+
+                }, function (response) {
+                    console.log("Something went wrong with increasing views" + point.pointId);
+                    self.message = "Something went wrong withincreasing views"
+                });
+*/
             // $window.open("components/PointPage/pointPage.html", "", "width=500,height=500");
             /*var myWindow = $window.open("", self.selected, "width=500,height=500");
             myWindow.document.write("<body><p>"+ point.name +"</p><br>"+
@@ -78,17 +98,16 @@ angular.module('pointsOfInterestApp')
             var x = myWindow.document.createElement("button-favorite");
             //x.setAttribute("src",point.image);
             myWindow.document.body.appendChild(x);*/
-        }; 
+        };
 
-        self.getAllPoints = function() {
-            
-            let serverUrl = "http://localhost:8080/";
+        self.getAllPoints = function () {
+
             $http.get(serverUrl + "pointsOfInterests/")
                 .then(function (response) {
                     //First function handles success
                     self.getAllPoints.content = response.data;
                     self.points = response.data;
-                  
+
                     console.log("getting all points" + self.points);
 
                 }, function (response) {
@@ -101,15 +120,14 @@ angular.module('pointsOfInterestApp')
 
         };
 
-        self.getAllCategories = function() {
-            
-            let serverUrl = "http://localhost:8080/";
+        self.getAllCategories = function () {
+
             $http.get(serverUrl + "categories/")
                 .then(function (response) {
                     //First function handles success
                     self.getAllCategories = response.data;
                     self.categories = response.data;
-                  
+
                     console.log("getting all categories" + self.categories);
 
                 }, function (response) {
@@ -120,14 +138,13 @@ angular.module('pointsOfInterestApp')
 
         };
 
-        self.getPointsByCategory = function(cat) {           
-            let serverUrl = "http://localhost:8080/";
-            $http.get(serverUrl + "pointsOfInterests/category/"+cat)
+        self.getPointsByCategory = function (cat) {
+            $http.get(serverUrl + "pointsOfInterests/category/" + cat)
                 .then(function (response) {
                     //First function handles success
                     self.getAllCategories = response.data;
                     self.filetrPoints = response.data;
-                  
+
                     console.log("getting the categories of this category" + self.fiterPoints);
 
                 }, function (response) {
@@ -138,44 +155,13 @@ angular.module('pointsOfInterestApp')
 
         };
 
-        self.get2LatestReviews = function(point){
 
-        serverUrl = "http://localhost:8080/";
-        return $http.get(serverUrl+ "reviews/2Latest/pointId/"+ point.pointId )
-        .then(function (response) {
-           if(response.length === 0){
-               console.log("0 revies");
-               return "";
-           }
-           else if(response.data.length >0 ){
-               self.selected.review1 = response.data[0].reviewMsg;
-               console.log("1 revies: "+ self.selected.review1);
-               return self.selected.review1;
-                
-           }
-           else if(response.data.length > 1){
-            self.selected.review2 = response.data[1].reviewMsg;
-            console.log("2 revies");
-            return "222";
-           }
+        /*self.openTheWindow = function () {
+            //console.log("windoe.oprn//// null? "+ ($window.open("components/PointPage/pointPage.html",'_blank')===null));
+            $window.open("components/PointPage/pointPage.html", '_blank').pointSelected = self.selected;
+            console.log("ssss: " + self.selected.review1);
+        };*/
 
-        }, function (response) {
-            //Second function handles error
-            console.log( "Something went wrong with bringing 2 latest reviews ");
-        });
-
-    };
-
-    self.openTheWindow = function(){
-        //console.log("windoe.oprn//// null? "+ ($window.open("components/PointPage/pointPage.html",'_blank')===null));
-        $window.open("components/PointPage/pointPage.html",'_blank').pointSelected=self.selected;
-        console.log("ssss: "+ self.selected.review1);
-    }
-
-        $scope.count = 0;
-        $scope.myFunc = function () {
-            $scope.count++;
-        };
         self.getAllPoints();
         self.getAllCategories();
     }]);

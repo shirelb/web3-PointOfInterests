@@ -4,8 +4,9 @@ angular.module('pointPageApp',[])
 
         var self = this;
 
-        self.pointSelected = $window.pointSelected;
-        
+        self.pointSelected = $window.pointData.point;
+        self.pointReviews = $window.pointData.lastReviews;
+
         
 
     }]);

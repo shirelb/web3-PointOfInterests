@@ -1,32 +1,33 @@
 <h2 style="text-align:center;">Points Of Interests</h2>
 
 <div style="text-align:center;">
-    <select  class="input" ng-init="Attraction" name="pointsCategories" id="categories" ng-model="catFilter"
-    ng-options="item.category for item in poiCtrl.categories" required>
-    <option value="{{item.category}}" ></option>
-</select>
-    
+    <select class="input" ng-init="Attraction" name="pointsCategories" id="categories" ng-model="catFilter"
+            ng-options="item.category for item in poiCtrl.categories" required>
+        <option value="{{item.category}}"></option>
+    </select>
+
     <!--<li ng-repeat="p in poiCtrl.getPointsByCategory(item.category)">
         <h3>{{cat.title}}</h3>-->
-        
-        <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true" ng-click="poiCtrl.OpenPointPage(point)">
-            <!--<div ng-repeat="(pointId , name, category, rating, rating, views, description, picture) in poiCtrl.points" ng-click="poiCtrl.OpenPointPage()">-->
-                <div>
+
+    <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true"
+         ng-click="poiCtrl.OpenPointPage(point)">
+        <!--<div ng-repeat="(pointId , name, category, rating, rating, views, description, picture) in poiCtrl.points" ng-click="poiCtrl.OpenPointPage()">-->
+        <div>
             <button ng-click="poiCtrl.selectedCity(id)"> Add to favorits</button>
             <input type="radio" value="{{points.name}}_{{id}}" ng-model="poiCtrl.selected">
         </div>
         <div>
-            POI name:        <span ng-bind="point.name"></span>
+            POI name: <span ng-bind="point.name"></span>
             <br>
-            Category:        <span ng-bind="point.category"></span>
+            Category: <span ng-bind="point.category"></span>
             <br>
             <!--<img ng-style="{'height': '100px'}" ng-src="{{ Buffer(point.picture).toString('base64')}} ">-->
             <!--<img ng-style="{'height': '100px'}" data-ng-src="data:image/jpg;base64,{{point.picture}}"/>-->
             <img ng-style="{'height': '300px'}" ng-src="{{point.image}}"/>
-            
+
         </div>
         <div>
-            <input type="text " value="{{points.name}}_{{id}} " ng-model="poiCtrl.amount[id] " >
+            <input type="text " value="{{points.name}}_{{id}} " ng-model="poiCtrl.amount[id] ">
             <button ng-click="poiCtrl.addToCart(id, points) ">add</button>
         </div>
     </div>

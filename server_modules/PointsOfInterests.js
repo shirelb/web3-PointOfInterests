@@ -118,9 +118,9 @@ router.put('/addView', function (req, res) {
     DButilsAzure.execQuery("" +
         "UPDATE PointsOfInterest " +
         "SET views = views + 1" +
-        " WHERE pointId = " + point_id)
+        " WHERE pointId = " + req.body.pointId)
         .then(function (result) {
-            res.status(200).send("user added successfully! =)");
+            res.status(200).send("another view added successfully! =)");
         })
         .catch(function (err) {
             console.log(err);

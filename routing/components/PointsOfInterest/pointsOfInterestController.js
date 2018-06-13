@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', '$location', function (pageForPoint, $scope, $window, $http, $location) {
+    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q) {
         let self = this;
 
         let serverUrl = "http://localhost:8080/";
@@ -37,88 +37,79 @@ angular.module('pointsOfInterestApp')
         };
 
         self.OpenPointPage = function (point) {
-            //$window.open($lo);
-            // self.point = point;
             self.selected = point;
             let pointWindow = $window.open("components/PointPage/pointPage.html", '_blank');
-            pointWindow.pointData = {
-                'point': self.selected,
-                'lastReviews': []
-            };
+            pointWindow.pointSelected = self.selected;
 
             self.addViewToPoint(point)
                 .then(function (result) {
                     if (result.views !== undefined) {
                         self.selected.views = result.views;
-                        self.get2LatestReviews(point)
-                            .then(function (reviews) {
-                                pointWindow.pointData = {
-                                    'point': self.selected,
-                                    'lastReviews': reviews
-                                };
-                            });
                     }
                 });
+        };
 
+        self.getPointsLastReviews = function (pois, poisReaviews) {
+            poisReaviews = [];
+            let arr = [];
 
-            /*$http.put(serverUrl + "pointsOfInterests/addView/" + point.pointId)
-                .then(function (response) {
+            for (let i = 0; i < pois.length; i++) {
+                arr.push($http.get(serverUrl + "reviews/2Latest/pointId/" + pois[i].pointId));
+            }
 
-                    console.log("views increased successfuly: " + point.views);
-
-                    self.get2LatestReviews(point)
-                        .then(function (response) {
-                                self.selected = point;
-                                // let promise = self.get2LatestReviews(point);
-                                // promise.then(function (response) {
-
-                                pageForPoint.set(self.selected);
-                                console.log("loggg: " + self.selected.name);
-                                // $location.path('/pointPage');
-                                // $window.open('#/pointPage');
-                                $window.open("components/PointPage/pointPage.html", '_blank').pointSelected = self.selected;
-
-                            }
-                        );
-
+            return $q.all(arr)
+                .then(function (results) {
+                    for (let i = 0; i < results.length; i++) {
+                        poisReaviews.push(results[i].data[0]);
+                    }
+                    return poisReaviews;
                 }, function (response) {
-                    console.log("Something went wrong with increasing views" + point.pointId);
-                    self.message = "Something went wrong withincreasing views"
+                    //Second function handles error
+                    self.getPointsLastReviews.content = "Something went wrong";
+                    // self.message = "Something went wrong"
                 });
-*/
-            // $window.open("components/PointPage/pointPage.html", "", "width=500,height=500");
-            /*var myWindow = $window.open("", self.selected, "width=500,height=500");
-            myWindow.document.write("<body><p>"+ point.name +"</p><br>"+
-                                    "<p>"+point.description+"</p>" +
-                                    "<div><button-favorite></button-favorite></div>" +"</body>"
-            );
-            var poiImage = myWindow.document.createElement("IMG");
-            poiImage.setAttribute("src",point.image);
-            myWindow.document.body.appendChild(poiImage);
-            var x = myWindow.document.createElement("button-favorite");
-            //x.setAttribute("src",point.image);
-            myWindow.document.body.appendChild(x);*/
         };
 
         self.getAllPoints = function () {
+            self.points = [];
 
             $http.get(serverUrl + "pointsOfInterests/")
                 .then(function (response) {
-                    //First function handles success
-                    self.getAllPoints.content = response.data;
-                    self.points = response.data;
+                        //First function handles success
+                        return self.getPointsLastReviews(response.data, self.points)
+                            .then(function (poisReaviews) {
+                                self.points = response.data;
+                                for (let i = 0; i < poisReaviews.length; i++) {
+                                    if (poisReaviews[i] === undefined) {
+                                        continue;
+                                    }
+                                    if (self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews === undefined) {
+                                        self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews = [];
+                                    }
+                                    self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews.push({
+                                            'reviewMsg': poisReaviews[i].reviewMsg,
+                                            'reviewDate': poisReaviews[i].reviewDate
+                                        }
+                                    );
+                                }
+                                // self.points = angular.merge(poisReaviews, response.data);
+                                // self.favoritesPoints = favPoints;
+                                self.getAllPoints.content = response.data;
 
-                    console.log("getting all points" + self.points);
 
-                }, function (response) {
-                    self.getAllPoints.content = response.data;
-                    //Second function handles error
-                    // self.reg.content = "Something went wrong";
-                    console.log("getting all points faild");
-                    self.message = "Something went wrong with getting all points of interests"
-                });
+                                console.log("getting all points" + self.points);
+                            })
+                    }, function (response) {
+                        self.getAllPoints.content = response.data;
+                        //Second function handles error
+                        // self.reg.content = "Something went wrong";
+                        console.log("getting all points faild");
+                        self.message = "Something went wrong with getting all points of interests"
+                    }
+                );
 
-        };
+        }
+        ;
 
         self.getAllCategories = function () {
 
@@ -164,6 +155,12 @@ angular.module('pointsOfInterestApp')
 
         self.getAllPoints();
         self.getAllCategories();
-    }]);
+
+        self.updatePointSelected = function () {
+            return self.selected;
+        };
+
+    }])
+;
 
     

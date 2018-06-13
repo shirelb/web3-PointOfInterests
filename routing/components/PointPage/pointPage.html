@@ -21,8 +21,12 @@
     <p>Views: {{pointCtrl.pointSelected.views}} </p>
     <p>Rating: {{pointCtrl.pointSelected.rating}}% </p>
     <p>Description: {{pointCtrl.pointSelected.description}}</p>
-    <img ng-src={{pointCtrl.pointSelected.image}}/>
-    <p>Last reviews: {{pointCtrl.pointSelected.review1}}</p>
+    <img src="{{pointCtrl.pointSelected.image}}"/>
+    <p>Last reviews: </p>
+    <div ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews">
+        <span>{{$index+1}}: {{review.reviewMsg}} </span>
+        <br>
+    </div>
 </div>
 
 </body>

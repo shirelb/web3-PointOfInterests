@@ -1,21 +1,23 @@
 <h2>My Favorites Points Of Interests</h2>
 
 <div>
-    <button ng-click="f_poiCtrl.sortByCategory()"> Order by Category </button>
-    <button ng-click="f_poiCtrl.sortByRating()"> Order by Rating </button>
-    <button ng-click="f_poiCtrl.sortByOrderNum()"> Order by Me </button>
+    <button ng-click="f_poiCtrl.sortByCategory()"> Order by Category</button>
+    <button ng-click="f_poiCtrl.sortByRating()"> Order by Rating</button>
+    <button ng-click="f_poiCtrl.sortByOrderNum()"> Order by Me</button>
     <span ng-show="f_poiCtrl.showMsgOfFavorites"> {{f_poiCtrl.favoritesMsg}} </span>
     <div ng-show="!f_poiCtrl.showMsgOfFavorites"
          ng-repeat="(id , point) in f_poiCtrl.favoritesPoints |orderBy:point.orderNum track by point.orderNum"
          ng-click="f_poiCtrl.OpenPointPage()">
+
         <div>
-            <div>
-                <span class='heart fav-button active' ng-click="f_poiCtrl.toggleToFavorites($event, point)"></span>
-                <span class="order-button" ng-style="{'cursor': ($first ? 'default' : 'pointer')}"
-                      ng-click="!$first && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index-1])"> ︽ </span>
-                <span class="order-button" ng-style="{'cursor': ($last ? 'default' : 'pointer')}"
-                      ng-click="!$last && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index+1])"> ︾ </span>
-            </div>
+            <span class='heart fav-button active' ng-click="f_poiCtrl.toggleToFavorites($event, point)"></span>
+            <span class="order-button" ng-style="{'cursor': ($first ? 'default' : 'pointer')}"
+                  ng-click="!$first && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index-1])"> ︽ </span>
+            <span class="order-button" ng-style="{'cursor': ($last ? 'default' : 'pointer')}"
+                  ng-click="!$last && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index+1])"> ︾ </span>
+        </div>
+
+        <div>
             POI name: <span ng-bind="point.name"></span>
             <br>
             Category: <span ng-bind="point.category"></span>
@@ -29,6 +31,18 @@
             date: <span>{{point.savedDate | date}}</span>
             <br>
             <img ng-style="{'height': '100px'}" ng-src="{{point.image}}"/>
+        </div>
+
+        <div>
+            <button ng-click="f_poiCtrl.openReviewModal(point)">Rate It!</button>
+            <script type="text/ng-template" id="templateId">
+
+                <div id="target">
+                    Click here
+                    <input ng-model="selection" type='checkbox' placeholder=''>
+                    {{selection}}
+                </div>
+            </script>
         </div>
     </div>
 </div>

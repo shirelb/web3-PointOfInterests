@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('favoritesPointsOfInterestController', ['$scope', '$http', 'loggedInUserID', 'loggedInUsername', 'favoritesPointsService', function ($scope, $http, loggedInUserID, loggedInUsername, favoritesPointsService) {
+    .controller('favoritesPointsOfInterestController', ['$scope', '$http', 'loggedInUserID', 'loggedInUsername', 'favoritesPointsService','ngDialog', function ($scope, $http, loggedInUserID, loggedInUsername, favoritesPointsService,ngDialog) {
         let self = this;
 
         var serverUrl = "http://localhost:8080/";
@@ -60,6 +60,24 @@ angular.module('pointsOfInterestApp')
         self.sortByRating=function () {
             favoritesPointsService.sortByRating();
             self.updateFavoritesPoints();
+        };
+
+        self.openReviewModal=function (point) {
+            ngDialog.open({
+                template: 'templateId',
+                controller: tt,
+                scope: $scope,
+                preCloseCallback: function(value) {
+                    console.log('preclose', value,$scope.selection);
+                    return true;
+                    /*if (confirm('Are you sure you want to close without saving your changes?')) {
+                        return true;
+                    }
+                    return false;*/
+                }
+            }).closePromise.then(function(data) {
+                console.log(data);
+            })
         };
 
     }]);

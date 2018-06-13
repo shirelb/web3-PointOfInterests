@@ -40,12 +40,32 @@ angular.module('pointsOfInterestApp')
 
         self.OpenPointPage = function (point) {
             //$window.open($lo);
-            self.selected = point;
-            pageForPoint.set(self.selected);
-            console.log("loggg: "+self.selected.name);
-            // $location.path('/pointPage');
-            // $window.open('#/pointPage');
-            $window.open("components/PointPage/pointPage.html",'_blank').pointSelected=self.selected;
+            self.point = point ;
+            let serverUrl = "http://localhost:8080/";
+             $http.put(serverUrl+"pointsOfInterests/addView/"+ point.pointId)
+            .then(function (response) {
+              
+                console.log("views increased successfuly: " + point.views);
+                self.selected = point;
+                let promise = self.get2LatestReviews(point);
+                promise.then(function(response){
+    
+                    pageForPoint.set(self.selected);
+                    console.log("loggg: "+self.selected.name);
+                    // $location.path('/pointPage');
+                    // $window.open('#/pointPage');
+                    self.openTheWindow();
+                    
+                }
+                
+            
+            );
+            
+            }, function (response) {
+                console.log("Something went wrong with increasing views"+ point.pointId );
+                self.message = "Something went wrong withincreasing views"
+            });
+            
             // $window.open("components/PointPage/pointPage.html", "", "width=500,height=500");
             /*var myWindow = $window.open("", self.selected, "width=500,height=500");
             myWindow.document.write("<body><p>"+ point.name +"</p><br>"+
@@ -117,6 +137,40 @@ angular.module('pointsOfInterestApp')
                 });
 
         };
+
+        self.get2LatestReviews = function(point){
+
+        serverUrl = "http://localhost:8080/";
+        return $http.get(serverUrl+ "reviews/2Latest/pointId/"+ point.pointId )
+        .then(function (response) {
+           if(response.length === 0){
+               console.log("0 revies");
+               return "";
+           }
+           else if(response.data.length >0 ){
+               self.selected.review1 = response.data[0].reviewMsg;
+               console.log("1 revies: "+ self.selected.review1);
+               return self.selected.review1;
+                
+           }
+           else if(response.data.length > 1){
+            self.selected.review2 = response.data[1].reviewMsg;
+            console.log("2 revies");
+            return "222";
+           }
+
+        }, function (response) {
+            //Second function handles error
+            console.log( "Something went wrong with bringing 2 latest reviews ");
+        });
+
+    };
+
+    self.openTheWindow = function(){
+        //console.log("windoe.oprn//// null? "+ ($window.open("components/PointPage/pointPage.html",'_blank')===null));
+        $window.open("components/PointPage/pointPage.html",'_blank').pointSelected=self.selected;
+        console.log("ssss: "+ self.selected.review1);
+    }
 
         $scope.count = 0;
         $scope.myFunc = function () {

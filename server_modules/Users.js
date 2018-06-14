@@ -73,7 +73,7 @@ function save_categories(req, user_id) {
                 console.log(result,"save_categories success");
             })
             .catch(function (err) {
-                console.log(err,"save_categories failedgit add");
+                console.log(err,"save_categories failed");
             });
 
         i++;
@@ -198,6 +198,37 @@ router.get('/', function (req, res) {
         })
 });
 
+router.get('/username/:username', function (req, res) {
+    console.log("in route /users/username/:username");
+
+    let username = req.params.username;
+    console.log("username: " + username);
+    // res.send("the requested resource");
+
+    DButilsAzure.execQuery("SELECT * FROM Users WHERE username = '" + username + "'")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+router.get('/id/:id', function (req, res) {
+    console.log("in route /users/id/:id");
+
+    let id = req.params.id;
+    console.log("id: " + id);
+
+    DButilsAzure.execQuery("SELECT * FROM Users WHERE userId = " + id + " ")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
 // route middleware to verify a token
 // router.use('/reg', function (req, res, next) {
 router.use(function (req, res, next) {
@@ -231,39 +262,6 @@ router.use(function (req, res, next) {
             message: 'No token provided.'
         });
     }
-});
-
-
-
-router.get('/username/:username', function (req, res) {
-    console.log("in route /users/username/:username");
-
-    let username = req.params.username;
-    console.log("username: " + username);
-    // res.send("the requested resource");
-
-    DButilsAzure.execQuery("SELECT * FROM Users WHERE username = '" + username + "'")
-        .then(function (result) {
-            res.status(200).send(result);
-        })
-        .catch(function (err) {
-            res.status(500).send(err);
-        })
-});
-
-router.get('/id/:id', function (req, res) {
-    console.log("in route /users/id/:id");
-
-    let id = req.params.id;
-    console.log("id: " + id);
-
-    DButilsAzure.execQuery("SELECT * FROM Users WHERE userId = " + id + " ")
-        .then(function (result) {
-            res.status(200).send(result);
-        })
-        .catch(function (err) {
-            res.status(500).send(err);
-        })
 });
 
 router.get('/categories/:id', function (req, res) {

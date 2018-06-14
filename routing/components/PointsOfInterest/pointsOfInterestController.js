@@ -39,6 +39,11 @@ angular.module('pointsOfInterestApp')
         self.OpenPointPage = function (point) {
             self.selected = point;
             let pointWindow = $window.open("components/PointPage/pointPage.html", '_blank');
+            self.selected.lastReviews = [];
+            self.selected.lastReviews = self.pointsLastReviews.filter(function (obj) {
+                if (obj !== undefined)
+                    return obj.pointId === point.pointId;
+            });
             pointWindow.pointSelected = self.selected;
 
             self.addViewToPoint(point)
@@ -72,6 +77,7 @@ angular.module('pointsOfInterestApp')
 
         self.getAllPoints = function () {
             self.points = [];
+            self.pointsLastReviews = [];
 
             $http.get(serverUrl + "pointsOfInterests/")
                 .then(function (response) {
@@ -79,7 +85,8 @@ angular.module('pointsOfInterestApp')
                         return self.getPointsLastReviews(response.data, self.points)
                             .then(function (poisReaviews) {
                                 self.points = response.data;
-                                for (let i = 0; i < poisReaviews.length; i++) {
+                                self.pointsLastReviews = poisReaviews;
+                                /*for (let i = 0; i < poisReaviews.length; i++) {
                                     if (poisReaviews[i] === undefined) {
                                         continue;
                                     }
@@ -91,7 +98,7 @@ angular.module('pointsOfInterestApp')
                                             'reviewDate': poisReaviews[i].reviewDate
                                         }
                                     );
-                                }
+                                }*/
                                 // self.points = angular.merge(poisReaviews, response.data);
                                 // self.favoritesPoints = favPoints;
                                 self.getAllPoints.content = response.data;
@@ -156,9 +163,9 @@ angular.module('pointsOfInterestApp')
         self.getAllPoints();
         self.getAllCategories();
 
-        self.updatePointSelected = function () {
+      /*  self.updatePointSelected = function () {
             return self.selected;
-        };
+        };*/
 
     }])
 ;

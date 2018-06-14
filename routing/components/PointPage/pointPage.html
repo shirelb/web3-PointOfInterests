@@ -1,0 +1,33 @@
+<html ng-app="pointPageApp">
+
+<head>
+    <title style="text-align:center;">Points Of Interest App</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="../../../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="pointPageController.js"></script>
+    <!--<script src="../Services/pageForPoint.js"></script>
+    <script src="../Services/setHeadersToken.js"></script>-->
+
+</head>
+
+<body ng-controller="pointPageController as pointCtrl">
+<!--<body>-->
+<div style="text-align:center;">
+    <h1><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
+    <br>
+    <p>Category: {{pointCtrl.pointSelected.category}} </p>
+    <p>Views: {{pointCtrl.pointSelected.views}} </p>
+    <p>Rating: {{pointCtrl.pointSelected.rating}}% </p>
+    <p>Description: {{pointCtrl.pointSelected.description}}</p>
+    <img src="{{pointCtrl.pointSelected.image}}"/>
+    <p>Last reviews: </p>
+    <div ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews">
+        <span>{{$index+1}}: {{review.reviewMsg}} </span>
+        <br>
+    </div>
+</div>
+
+</body>
+</html>

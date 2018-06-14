@@ -31,6 +31,7 @@ app.config(['$locationProvider', '$routeProvider', function ($locationProvider, 
             templateUrl: 'components/FavoritesPointsOfInterest/favoritesPointsOfInterest.html',
             controller: 'favoritesPointsOfInterestController as f_poiCtrl'
         })
+
         .when('/restorePassword', {
             templateUrl: 'components/RestorePassword/restorePassword.html',
             controller: 'restorePasswordController as restorePwdCtrl'

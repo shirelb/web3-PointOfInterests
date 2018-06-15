@@ -1,11 +1,11 @@
 <div class="container">
-    <img src="https://www.monde-du-voyage.com/royaume-uni/week-end-londres.jpg" style="height:70%;width:100%">
+    <img class="img-home" src="https://www.monde-du-voyage.com/royaume-uni/week-end-londres.jpg" >
     <div  class="center-left">London <br></div>
-    <div style="padding-left:5px;" class="bottom-center"> is waiting for you</div>
+    <div class="is-waiting-for-you" id="bottom-center"> is waiting for you</div>
 </div>
 <h5>Hello <span ng-bind="homeCtrl.username"> </span></h5>
 
-<div style="border-style: dotted;" ng-show="!homeCtrl.isLoggedIn">
+<div class="dotted-border" ng-show="!homeCtrl.isLoggedIn">
     <form ng-submit="homeCtrl.login()" class="form login_form" name="loginForm" id="loginForm" enctype="text/plain"
           method="POST">
         <p>
@@ -44,7 +44,7 @@
     </form>
     <div>
         <span ng-model="homeCtrl.message"> </span>
-        <p style="color:red;">{{homeCtrl.message}}</p>
+        <p class="error-msg">{{homeCtrl.message}}</p>
     </div>
 
 
@@ -59,14 +59,15 @@
     </p>
     
     <div >
-        <div style="float:left; " ng-repeat="(id , point) in homeCtrl.popularPoints" ng-click="homeCtrl.OpenPointPage()">
-            <div style="text-align:center;">
+        <div class="float-left" ng-repeat="(id , point) in homeCtrl.popularPoints" ng-click="homeCtrl.OpenPointPage()">
+            <div class="center">
                     <br><br><br>
                 <span class="point-title" ng-bind="point.name"></span>
                 <br>
                 <!--Category: <span ng-bind="point.category"></span>-->
                 <br>
-                <img ng-style="{'height': '200px', 'width': '390'}" ng-src="{{point.image}}"/>
+                <!--<img ng-style="{'height': '200px', 'width': '390'}" ng-src="{{point.image}}"/>-->
+                <img class="img-popular" ng-src="{{point.image}}"/>
                 <br>
             </div>
         </div>
@@ -76,14 +77,15 @@
 <div ng-show="homeCtrl.isLoggedIn">
     <div>
         <h3 class="title"> Recommended For You </h3>
-        <div style="float:left;" ng-repeat="(id , point) in homeCtrl.recommendedPoints" ng-click="homeCtrl.OpenPointPage()">
-            <div style="text-align:center;padding-left: 160px;">
+        <div class="float-left" ng-repeat="(id , point) in homeCtrl.recommendedPoints" ng-click="homeCtrl.OpenPointPage()">
+            <div class="center-160" >
                    
                 <span class="point-title" ng-bind="point.name"></span>
                 <br>
                 <span class="point-title" ng-bind="point.category"></span>
                 <br>
-                <img ng-style="{'height': '300px', 'width': '420'}" ng-src="{{point.image}}"/>
+                <!--<img ng-style="{'height': '300px', 'width': '420'}" ng-src="{{point.image}}"/>-->
+                <img class="img-recommend" ng-src="{{point.image}}"/>
                 <br>
             </div>
         </div>
@@ -92,14 +94,14 @@
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <h3 class="title"> Your Last Favorites </h3>
         <span ng-show="homeCtrl.showMsgOfFavorites"> {{homeCtrl.favoritesMsg}} </span>
-        <div  ng-show="!homeCtrl.showMsgOfFavorites" style="float:left;" ng-repeat="(id , point) in homeCtrl.lastFavoritesPoints"
+        <div  ng-show="!homeCtrl.showMsgOfFavorites" class="float-left" ng-repeat="(id , point) in homeCtrl.lastFavoritesPoints"
              ng-click="homeCtrl.OpenPointPage()">
             <div>
                 POI name: <span ng-bind="point.name"></span>
                 <br>
                 Category: <span ng-bind="point.category"></span>
                 <br>
-                <img ng-style="{'height': '100px'}" ng-src="{{point.image}}"/>
+                <img class="img-recommend" ng-src="{{point.image}}"/>
             </div>
         </div>
     </div>

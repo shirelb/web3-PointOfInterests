@@ -1,8 +1,8 @@
 <html ng-app="pointPageApp">
 
 <head>
-    <title style="text-align:center;">Points Of Interest App</title>
     <link rel="stylesheet" type="text/css" href="stylePointPage.css" />
+    <title class="center">Points Of Interest App</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
@@ -15,7 +15,7 @@
 
 <body ng-controller="pointPageController as pointCtrl">
 <!--<body>-->
-<div style="text-align:center;" >
+<div class="center" >
     <h1 class= "title"><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
     <br>
     <table >
@@ -34,7 +34,7 @@
                 <input type="text " value="{{points.name}}_{{id}} " ng-model="poiCtrl.amount[id] ">
                 <button ng-click="poiCtrl.addToCart(id, points) ">add</button>
             </div>
-            
+
     <p>Last reviews: </p>
     <div ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews">
         <span>{{$index+1}}: {{review.reviewMsg}} </span>

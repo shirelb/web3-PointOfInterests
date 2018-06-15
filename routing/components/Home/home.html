@@ -71,6 +71,8 @@
         <h3> Recommended For You </h3>
         <div ng-repeat="(id , point) in homeCtrl.recommendedPoints" ng-click="homeCtrl.OpenPointPage()">
             <div>
+                <div class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
+                     ng-click="homeCtrl.toggleToFavorites($event, point)"></div>
                 POI name: <span ng-bind="point.name"></span>
                 <br>
                 Category: <span ng-bind="point.category"></span>
@@ -85,6 +87,7 @@
         <div ng-show="!homeCtrl.showMsgOfFavorites" ng-repeat="(id , point) in homeCtrl.lastFavoritesPoints"
              ng-click="homeCtrl.OpenPointPage()">
             <div>
+                <div class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}" ng-click="homeCtrl.toggleToFavorites($event, point)"></div>
                 POI name: <span ng-bind="point.name"></span>
                 <br>
                 Category: <span ng-bind="point.category"></span>

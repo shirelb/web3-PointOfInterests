@@ -1,9 +1,75 @@
 <h2>My Favorites Points Of Interests</h2>
 
 <div>
-    <p ng-repeat="(id , point) in f_poiCtrl.myPoints">
-        City name:  <span ng-bind="point.name"></span> <br>
-        <br> <img ng-style="{'height': '100px'}" ng-src="{{point.image}}">
-    </p>
+    <button ng-click="f_poiCtrl.sortByCategory()"> Order by Category</button>
+    <button ng-click="f_poiCtrl.sortByRating()"> Order by Rating</button>
+    <button ng-click="f_poiCtrl.sortByOrderNum()"> Order by Me</button>
+    <span ng-show="f_poiCtrl.showMsgOfFavorites"> {{f_poiCtrl.favoritesMsg}} </span>
+    <div ng-show="!f_poiCtrl.showMsgOfFavorites"
+         ng-repeat="(id , point) in f_poiCtrl.favoritesPoints |orderBy:point.orderNum track by point.orderNum"
+         ng-click="f_poiCtrl.OpenPointPage()">
+
+        <div>
+            <span class='heart fav-button active' ng-click="f_poiCtrl.toggleToFavorites($event, point)"></span>
+            <span class="order-button" ng-style="{'cursor': ($first ? 'default' : 'pointer')}"
+                  ng-click="!$first && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index-1])"> ︽ </span>
+            <span class="order-button" ng-style="{'cursor': ($last ? 'default' : 'pointer')}"
+                  ng-click="!$last && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index+1])"> ︾ </span>
+        </div>
+
+        <div>
+            POI name: <span ng-bind="point.name"></span>
+            <br>
+            Category: <span ng-bind="point.category"></span>
+            <br>
+            pointId: <span ng-bind="point.pointId"></span>
+            <br>
+            orderNum: <span ng-bind="point.orderNum"></span>
+            <br>
+            rating: <span ng-bind="point.rating"></span>
+            <br>
+            date: <span>{{point.savedDate | date}}</span>
+            <br>
+            <img ng-style="{'height': '100px'}" ng-src="{{point.image}}"/>
+        </div>
+
+        <div>
+            <button ng-click="f_poiCtrl.openReviewModal(point)">Rate It!</button>
+            <script type="text/ng-template" id="ReviewModalTemplate">
+
+                <div class="cont">
+                    <div class="stars">
+                        <form action="">
+                            <label class="review">Rate</label>
+                            <input class="star star-5" id="star-5-2" type="radio" name="star"
+                                       ng-model="reviewCtrl.reviewRate" ng-value="5" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-5" for="star-5-2"></label>
+                            <input class="star star-4" id="star-4-2" type="radio" name="star"
+                                   ng-model="reviewCtrl.reviewRate" ng-value="4" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-4" for="star-4-2"></label>
+                            <input class="star star-3" id="star-3-2" type="radio" name="star"
+                                   ng-model="reviewCtrl.reviewRate" ng-value="3" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-3" for="star-3-2"></label>
+                            <input class="star star-2" id="star-2-2" type="radio" name="star"
+                                   ng-model="reviewCtrl.reviewRate" ng-value="2" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-2" for="star-2-2"></label>
+                            <input class="star star-1" id="star-1-2" type="radio" name="star"
+                                   ng-model="reviewCtrl.reviewRate" ng-value="1" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-1" for="star-1-2"></label>
+                            <div class="rev-box">
+                                <label class="review" for="review">Review</label>
+                                <textarea class="review" col="30" name="review"
+                                          ng-model="reviewCtrl.reviewMsg"></textarea>
+                                <input type="button" value="send" ng-click="reviewCtrl.sendReviewMsg()"/>
+                                <br>
+                                <span ng-bind="reviewCtrl.sendReviewMsgComment"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </script>
+        </div>
+    </div>
 </div>
 

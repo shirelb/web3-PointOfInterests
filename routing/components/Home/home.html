@@ -1,33 +1,97 @@
-<h1>Hello <span ng-bind="homeCtrl.user.username"> </span></h1>
+<h1>Hello <span ng-bind="homeCtrl.username"> </span></h1>
 
-<div>
-    <p>Click the button to run a function:</p>
-    <button ng-click="myFunc()">OK</button>
-    <p>The button has been clicked {{count}} times.</p>
-</div>
+<div ng-show="!homeCtrl.isLoggedIn">
+    <form ng-submit="homeCtrl.login()" class="form login_form" name="loginForm" id="loginForm" enctype="text/plain"
+          method="POST">
+        <p>
+            <label for="username" class="username" data-icon="u">Username* </label>
+            <input class="input" id="username" name="username" required type="text"
+                   placeholder="username" ng-model="homeCtrl.user.username" ng-pattern="/^[a-zA-Z]+$/"/>
+            <!-- ng-pattern="/^(\D)+$/"  this regex is for letters only -->
+            <span ng-show="loginForm.username.$error.required">
+                This field is required
+            </span>
+            <span ng-show="loginForm.username.$error.pattern">
+                Only letters allowed
+            </span>
+            <span ng-show="loginForm.username.$invalid">
+                This field is invalid
+            </span>
+        </p>
+        <p>
+            <label for="password" class="password" data-icon="p">Password* </label>
+            <input class="input" id="password" name="password" required type="password"
+                   ng-model="homeCtrl.user.password" placeholder="eg: S8ok!90EO" ng-pattern="/^[a-zA-Z0-9]+$/"/>
+            <span ng-show="loginForm.password.$error.required">
+                This field is required
+            </span>
+            <span ng-show="loginForm.password.$error.pattern">
+                Only letters and digits allowed
+            </span>
+            <span ng-show="loginForm.password.$invalid">
+                This field is invalid
+            </span>
+        </p>
+        <p class="login button">
+            <input class="btn btn-orange btn-border-o" type="submit" value="Login" ng-disabled="loginForm.$invalid"/>
+        </p>
 
-<div id="welcome">
-    <h1 id="welcome_username">Hello Guest</h1>
-    <img src="../img/logo_all.png"/>
-    <p>
-        <button class="btn btn-orange btn-border-o" id="register_btn">Register</button>
-        <button class="btn btn-orange btn-border-o" id="login_btn">Log in</button>
+    </form>
+    <div>
+        <span ng-model="homeCtrl.message"> </span>
+        <p style="color:red;">{{homeCtrl.message}}</p>
+    </div>
+
+
+    <p class="change_link">
+        Forgot the password ?
+        <button ng-click="homeCtrl.toRestorePasswordPage()" class="to_register"> Restore Password</button>
     </p>
+
+    <p class="change_link">
+        Not a member yet ?
+        <button id="to_register" ng-click="homeCtrl.toRegisterPage()" class="to_register"> Join the fun</button>
+    </p>
+
+    <div>
+        <div ng-repeat="(id , point) in homeCtrl.popularPoints" ng-click="homeCtrl.OpenPointPage()">
+            <div>
+                POI name: <span ng-bind="point.name"></span>
+                <br>
+                Category: <span ng-bind="point.category"></span>
+                <br>
+                <img ng-style="{'height': '100px'}" ng-src="{{point.image}}"/>
+            </div>
+        </div>
+    </div>
 </div>
 
-<p>
+<div ng-show="homeCtrl.isLoggedIn">
+    <div>
+        <h3> Recommended For You </h3>
+        <div ng-repeat="(id , point) in homeCtrl.recommendedPoints" ng-click="homeCtrl.OpenPointPage()">
+            <div>
+                POI name: <span ng-bind="point.name"></span>
+                <br>
+                Category: <span ng-bind="point.category"></span>
+                <br>
+                <img ng-style="{'height': '100px'}" ng-src="{{point.image}}"/>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h3> Your Last Favorites </h3>
+        <span ng-show="homeCtrl.showMsgOfFavorites"> {{homeCtrl.favoritesMsg}} </span>
+        <div ng-show="!homeCtrl.showMsgOfFavorites" ng-repeat="(id , point) in homeCtrl.lastFavoritesPoints"
+             ng-click="homeCtrl.OpenPointPage()">
+            <div>
+                POI name: <span ng-bind="point.name"></span>
+                <br>
+                Category: <span ng-bind="point.category"></span>
+                <br>
+                <img ng-style="{'height': '100px'}" ng-src="{{point.image}}"/>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <button ng-click="homeCtrl.directToPOI()">Click me to go to POI page</button>
-
-    <br>
-    <button ng-click="homeCtrl.signUp()">signUp</button>
-    <span ng-bind="homeCtrl.signUp.content"></span>
-    <br>
-    <button ng-click="homeCtrl.login()">Login</button>
-    <span ng-bind="homeCtrl.login.content"></span>
-    <br>
-    <button ng-click="homeCtrl.reg()">validate token</button>
-    <span ng-bind="homeCtrl.reg.content"></span>
-    <br>
-    <button ng-click="homeCtrl.addTokenToLocalStorage()">addTokenToLocalStorage</button>
-</p>

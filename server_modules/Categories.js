@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 
 router.get('/', function (req, res) {
     console.log("in route /categories/");
-    DButilsAzure.execQuery("SELECT * FROM Categories")
+    DButilsAzure.execQuery("SELECT category FROM Categories")
         .then(function (result) {
             res.status(200).send(result);
         })

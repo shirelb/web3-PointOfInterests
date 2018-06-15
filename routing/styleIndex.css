@@ -1,0 +1,42 @@
+
+
+
+.bottom-center {
+    position: absolute;
+    bottom: 20px;
+    right: 20%;
+    font-size: 100px ;
+    text-align: left;
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px rgb(79, 78, 82);
+}
+
+.center-left {
+    position: absolute;
+    bottom: 150px;
+    right: 65%;
+    font-size: 100px ;
+    text-align: left;
+}
+
+.title {
+    /*position: absolute;*/
+    text-align: center;
+    font-size: 40px ;
+    color: rgb(125, 26, 138);
+    text-shadow: 1px 1px rgb(79, 78, 82);
+    font-weight: bold;
+}
+
+.point-title{
+    text-align: center;
+    font-size: 18px ;
+    color: rgb(159, 89, 168);
+    text-shadow: 1px 0.6px rgb(79, 78, 82);
+    font-weight: bold;
+}

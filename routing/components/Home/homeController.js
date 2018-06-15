@@ -5,6 +5,7 @@ angular.module('pointsOfInterestApp')
 
         self.username = "Guest";
         self.isLoggedIn = false;
+        self.message = "";
 
         // self.isLoggedIn = function () {
         if (loggedInUsername.username !== "Guest") {

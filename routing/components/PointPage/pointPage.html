@@ -2,6 +2,7 @@
 
 <head>
     <title style="text-align:center;">Points Of Interest App</title>
+    <link rel="stylesheet" type="text/css" href="stylePointPage.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
@@ -14,14 +15,26 @@
 
 <body ng-controller="pointPageController as pointCtrl">
 <!--<body>-->
-<div style="text-align:center;">
-    <h1><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
+<div style="text-align:center;" >
+    <h1 class= "title"><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
     <br>
-    <p>Category: {{pointCtrl.pointSelected.category}} </p>
-    <p>Views: {{pointCtrl.pointSelected.views}} </p>
-    <p>Rating: {{pointCtrl.pointSelected.rating}}% </p>
-    <p>Description: {{pointCtrl.pointSelected.description}}</p>
+    <table >
+        <td>Category: <br> {{pointCtrl.pointSelected.category}} </td>
+        <td>Views:<br>  {{pointCtrl.pointSelected.views}} </td>
+        <td>Rating:<br>  {{pointCtrl.pointSelected.rating}}% </td>
+        <td>Description:<br>  {{pointCtrl.pointSelected.description}}</td>
+    </table>  
+    <br><br><br>
     <img src="{{pointCtrl.pointSelected.image}}"/>
+    <div>
+            <button ng-click=""> Add to favorits</button>
+            <input type="radio" value="{{pointCtrl.pointSelected.name}}_{{pointCtrl.pointSelected.id}}" ng-model="pointCtrl.selected">
+        </div>
+        <div>
+                <input type="text " value="{{points.name}}_{{id}} " ng-model="poiCtrl.amount[id] ">
+                <button ng-click="poiCtrl.addToCart(id, points) ">add</button>
+            </div>
+            
     <p>Last reviews: </p>
     <div ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews">
         <span>{{$index+1}}: {{review.reviewMsg}} </span>

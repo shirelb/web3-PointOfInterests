@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('favoritesPointsOfInterestController', ['$scope', '$http', 'loggedInUserID', 'loggedInUsername', 'favoritesPointsService','ngDialog', function ($scope, $http, loggedInUserID, loggedInUsername, favoritesPointsService,ngDialog) {
+    .controller('favoritesPointsOfInterestController', ['$scope', '$http', 'loggedInUserID', 'loggedInUsername', 'favoritesPointsService', 'ngDialog', '$rootScope', 'reviewPointsService', function ($scope, $http, loggedInUserID, loggedInUsername, favoritesPointsService, ngDialog, $rootScope, reviewPointsService) {
         let self = this;
 
         var serverUrl = "http://localhost:8080/";
@@ -39,45 +39,120 @@ angular.module('pointsOfInterestApp')
             }
         };
 
-        self.swapOrderNum = function (point1,point2) {
-            favoritesPointsService.updateFavoritesOrder(point1,point2)
+        self.swapOrderNum = function (point1, point2) {
+            favoritesPointsService.updateFavoritesOrder(point1, point2)
                 .then(function (result) {
                     // self.favoritesPoints = favoritesPointsService.favoritesPoints;
                     self.updateFavoritesPoints();
                 });
         };
 
-        self.sortByOrderNum=function () {
+        self.sortByOrderNum = function () {
             favoritesPointsService.sortByOrderNum();
             self.updateFavoritesPoints();
         };
 
-        self.sortByCategory=function () {
+        self.sortByCategory = function () {
             favoritesPointsService.sortByCategory();
             self.updateFavoritesPoints();
         };
 
-        self.sortByRating=function () {
+        self.sortByRating = function () {
             favoritesPointsService.sortByRating();
             self.updateFavoritesPoints();
         };
 
-        self.openReviewModal=function (point) {
-            ngDialog.open({
-                template: 'templateId',
-                controller: tt,
+        self.sendReviewRate = function (point, rateToAdd, hasReviewRate) {
+            if (rateToAdd !== undefined) {
+                console.log("sendReviewRate   ", point, "    ", rateToAdd);
+                if (hasReviewRate) {
+                    reviewPointsService.updateReviewRate(point, rateToAdd);
+                }
+                else {
+                    reviewPointsService.addReviewRate(point, rateToAdd);
+                }
+            }
+        };
+
+        self.reviewModa = null;
+
+        self.openReviewModal = function (point) {
+            console.log("in modal  ", point);
+            self.reviewModal = ngDialog.open({
+                template: 'ReviewModalTemplate',
+                controller: ['$scope', '$http', function ($scope, $http) {
+                    const modalSelf = this;
+                    modalSelf.point = point;
+
+                    reviewPointsService.getReviewByUserIdAndPointId(point)
+                        .then(function (result) {
+                            if (result === undefined) {
+                                modalSelf.hasReviewRate = false;
+                                modalSelf.hasReviewMsg = false;
+                            }
+                            else {
+                                if (result.rate !== null && result.rate !== undefined) {
+                                    modalSelf.hasReviewRate = true;
+                                    modalSelf.reviewRate = result.rate;
+                                }
+                                else {
+                                    modalSelf.hasReviewRate = false;
+                                }
+                                if (result.reviewMsg !== null && result.reviewMsg !== undefined) {
+                                    modalSelf.hasReviewMsg = true;
+                                    modalSelf.reviewMsg = result.reviewMsg;
+                                }
+                                else {
+                                    modalSelf.hasReviewMsg = false;
+                                }
+                            }
+                        });
+
+                    modalSelf.changeRateSelected = function () {
+                        self.pointRateToAdd = modalSelf.reviewRate;
+                        self.hasReviewRate = modalSelf.hasReviewRate;
+                        console.log("changeRateSelected   ", modalSelf.point, "    ", modalSelf.reviewRate);
+                    };
+
+                    modalSelf.sendReviewMsg = function () {
+                        console.log("sendReviewMsg   ", modalSelf.point, "    ", modalSelf.reviewMsg);
+                        if (modalSelf.reviewMsg !== "" && modalSelf.reviewMsg !== undefined) {
+                            if (modalSelf.hasReviewMsg) {
+                                reviewPointsService.updateReviewMsg(modalSelf.point, modalSelf.reviewMsg)
+                                    .then(function (comment) {
+                                        modalSelf.sendReviewMsgComment = comment;
+                                    });
+                            }
+                            else {
+                                reviewPointsService.addReviewMsg(modalSelf.point, modalSelf.reviewMsg)
+                                    .then(function (comment) {
+                                        modalSelf.sendReviewMsgComment = comment;
+                                    });
+                            }
+                        }
+                    };
+                }],
+                controllerAs: 'reviewCtrl',
                 scope: $scope,
-                preCloseCallback: function(value) {
-                    console.log('preclose', value,$scope.selection);
-                    return true;
+                preCloseCallback: function (value) {
+                    self.sendReviewRate(point, self.pointRateToAdd, self.hasReviewRate);
+                    console.log('preclose', value, point, self.pointRateToAdd);
+                    // return true;
                     /*if (confirm('Are you sure you want to close without saving your changes?')) {
                         return true;
                     }
                     return false;*/
-                }
-            }).closePromise.then(function(data) {
-                console.log(data);
+                },
             })
+            //     .closePromise.then(function (data) {
+            //     console.log(data);
+            // })
         };
+
+
+        // self.reviewModal.closePromise.then(function (data) {
+        //     console.log(data.id + ' has been dismissed.');
+        //     self.sendReviewRate();
+        // });
 
     }]);

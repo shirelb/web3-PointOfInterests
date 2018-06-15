@@ -35,13 +35,39 @@
 
         <div>
             <button ng-click="f_poiCtrl.openReviewModal(point)">Rate It!</button>
-            <script type="text/ng-template" id="templateId">
+            <script type="text/ng-template" id="ReviewModalTemplate">
 
-                <div id="target">
-                    Click here
-                    <input ng-model="selection" type='checkbox' placeholder=''>
-                    {{selection}}
+                <div class="cont">
+                    <div class="stars">
+                        <form action="">
+                            <label class="review">Rate</label>
+                            <input class="star star-5" id="star-5-2" type="radio" name="star"
+                                       ng-model="reviewCtrl.reviewRate" ng-value="5" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-5" for="star-5-2"></label>
+                            <input class="star star-4" id="star-4-2" type="radio" name="star"
+                                   ng-model="reviewCtrl.reviewRate" ng-value="4" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-4" for="star-4-2"></label>
+                            <input class="star star-3" id="star-3-2" type="radio" name="star"
+                                   ng-model="reviewCtrl.reviewRate" ng-value="3" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-3" for="star-3-2"></label>
+                            <input class="star star-2" id="star-2-2" type="radio" name="star"
+                                   ng-model="reviewCtrl.reviewRate" ng-value="2" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-2" for="star-2-2"></label>
+                            <input class="star star-1" id="star-1-2" type="radio" name="star"
+                                   ng-model="reviewCtrl.reviewRate" ng-value="1" ng-change="reviewCtrl.changeRateSelected()"/>
+                            <label class="star star-1" for="star-1-2"></label>
+                            <div class="rev-box">
+                                <label class="review" for="review">Review</label>
+                                <textarea class="review" col="30" name="review"
+                                          ng-model="reviewCtrl.reviewMsg"></textarea>
+                                <input type="button" value="send" ng-click="reviewCtrl.sendReviewMsg()"/>
+                                <br>
+                                <span ng-bind="reviewCtrl.sendReviewMsgComment"></span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+
             </script>
         </div>
     </div>

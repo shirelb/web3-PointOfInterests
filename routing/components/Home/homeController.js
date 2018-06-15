@@ -1,6 +1,6 @@
 angular.module('pointsOfInterestApp')
 // .controller('homeController', ['$scope', function ($scope) {
-    .controller('homeController', ['$scope', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', 'favoritesPointsService', function ($scope, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID, favoritesPointsService) {
+    .controller('homeController', ['$scope', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', 'favoritesPointsService','reviewPointsService', function ($scope, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID, favoritesPointsService,reviewPointsService) {
         let self = this;
 
         userID = null;
@@ -12,6 +12,7 @@ angular.module('pointsOfInterestApp')
                         userID = result.userId;
                         favoritesPointsService.setUserID(userID);
                         favoritesPointsService.getAllFavoritesPoints();
+                        reviewPointsService.setUserID(userID);
                     }
                     else {
                         self.message = result.message;
@@ -113,7 +114,7 @@ angular.module('pointsOfInterestApp')
 
         self.getPopularPoints();
 
-        userID = null;
+        /*userID = null;
         self.getUserID = function () {
             return loggedInUserID.get(self.username)
                 .then(function (result) {
@@ -127,7 +128,7 @@ angular.module('pointsOfInterestApp')
                     }
 
                 });
-        };
+        };*/
 
 
         self.showMsgOfFavorites = false;

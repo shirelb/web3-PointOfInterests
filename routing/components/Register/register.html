@@ -28,12 +28,12 @@
             <label for="password" class="password" data-icon="p">Password* </label>
             <input class="input" id="password" name="password" required type="password"
                    ng-model="registerCtrl.user.password" placeholder="eg: S8ok!90EO" ng-minlength="5"
-                   ng-maxlength="10" ng-pattern="/^[a-zA-Z0-9]+$/"/>
+                   ng-maxlength="10" ng-pattern="/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/"/>
             <span ng-show="registerForm.password.$error.required">
                 This field is required
             </span>
             <span ng-show="registerForm.password.$error.pattern">
-                Only letters and digits allowed
+                Only letters and digits allowed (at least one letter and one digit)
             </span>
             <span ng-show="registerForm.password.$error.minlength">
                 Minimum length required is 5

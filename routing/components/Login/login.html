@@ -1,38 +1,43 @@
 <div id="login">
+    <div class="forms-bg"></div>
     <form ng-submit="loginCtrl.login()" class="form login_form" name="loginForm" id="loginForm" enctype="text/plain"
           method="POST">
         <h1>Login</h1>
-        <p>
+        <div class="field-p">
             <label for="username" class="username" data-icon="u">Username* </label>
             <input class="input" id="username" name="username" required type="text"
-                   placeholder="username" ng-model="loginCtrl.user.username" ng-minlength="3" ng-maxlength="8"
-                   ng-pattern="/^[a-zA-Z]+$/"/>
+                   placeholder="username" ng-model="loginCtrl.user.username" ng-pattern="/^[a-zA-Z]+$/"/>
             <!-- ng-pattern="/^(\D)+$/"  this regex is for letters only -->
-            <span ng-show="loginForm.username.$error.required">
+            <br>
+            <span class="error_input_lbl" ng-show="loginForm.username.$error.required">
                 This field is required
             </span>
-            <span ng-show="loginForm.username.$error.pattern">
+            <span class="error_input_lbl" ng-show="loginForm.username.$error.pattern">
                 Only letters allowed
             </span>
-            <span ng-show="loginForm.username.$error.minlength">
+            <!--<span ng-show="loginForm.username.$error.minlength">
                 Minimum length required is 3
             </span>
             <span ng-show="loginForm.username.$error.maxlength">
                 Maximum length required is 8
-            </span>
-            <span ng-show="loginForm.username.$invalid">
+            </span>-->
+            <span class="error_input_lbl" ng-show="loginForm.username.$invalid">
                 This field is invalid
             </span>
-        </p>
-        <p>
+            <span class="valid_input_lbl" ng-show="loginForm.username.$valid">
+                &#10003;
+            </span>
+        </div>
+        <div class="field-p">
             <label for="password" class="password" data-icon="p">Password* </label>
             <input class="input" id="password" name="password" required type="password"
-                   ng-model="loginCtrl.user.password" placeholder="eg: S8ok!90EO" ng-minlength="5"
-                   ng-maxlength="10" ng-pattern="/^[a-zA-Z0-9]+$/"/>
-            <span ng-show="loginForm.password.$error.required">
+                   ng-model="loginCtrl.user.password" placeholder="eg: S8ok!90EO"
+                   ng-pattern="/^[a-zA-Z0-9]+$/"/>
+            <br>
+            <span class="error_input_lbl" ng-show="loginForm.password.$error.required">
                 This field is required
             </span>
-            <span ng-show="loginForm.password.$error.pattern">
+            <!--<span ng-show="loginForm.password.$error.pattern">
                 Only letters and digits allowed
             </span>
             <span ng-show="loginForm.password.$error.minlength">
@@ -40,22 +45,30 @@
             </span>
             <span ng-show="loginForm.password.$error.maxlength">
                 Maximum length required is 10
-            </span>
-            <span ng-show="loginForm.password.$invalid">
+            </span>-->
+            <span class="error_input_lbl" ng-show="loginForm.password.$invalid">
                 This field is invalid
             </span>
-        </p>
-        <p class="login button">
-            <input class="btn btn-orange btn-border-o" type="submit" value="Login" ng-disabled="loginForm.$invalid"/>
-        </p>
-        <p class="change_link">
+            <span class="valid_input_lbl" ng-show="loginForm.password.$valid">
+                &#10003;
+            </span>
+        </div>
+
+        <div class="form-submit-div">
+            <input class="form-button btn btn-orange btn-border-o" type="submit" value="Login"
+                   ng-disabled="loginForm.$invalid"/>
+            <br>
             Not a member yet ?
             <a id="to_register" href="#/register" class="to_register">Join the fun </a>
-        </p>
+
+            <br>
+
+            <div>
+                <span ng-model="loginCtrl.message"> </span>
+                <p class="error_input_lbl">{{loginCtrl.message}}</p>
+            </div>
+        </div>
     </form>
-    <div>
-        <span ng-model="loginCtrl.message"> </span>
-        <p style="color:red;">{{loginCtrl.message}}</p>
-    </div>
+
 
 </div>

@@ -1,0 +1,158 @@
+.register-bg {
+    position: fixed;
+    left: 0;
+    /*top: 0;*/
+    width: 100%;
+    height: 100%;
+    background: url(http://secon2016.ieee-secon.org/sites/secon2016.ieee-secon.org/files/u49/VisitLondon.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-filter: blur(4px);
+}
+
+#register {
+    /*position: fixed;*/
+}
+
+.form {
+    /*-webkit-filter: blur(0px);*/
+    /*left: 400px;*/
+    text-align: left;
+    /*     margin-top: 20px; */
+    /*background-color: rgb(255, 251, 233);*/
+    padding-left: 35px;
+    padding-right: 35px;
+    /*     padding-bottom: 10px; */
+    width: 700px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 20px;
+    display: inherit;
+
+    position: relative;
+    /*width: 250px;*/
+    margin: 0 auto;
+    background: rgba(130, 130, 130, 0.67);
+    /*padding: 20px 22px;*/
+    border: 1px solid;
+    border-top-color: rgba(255, 255, 255, .4);
+    border-left-color: rgba(255, 255, 255, .4);
+    border-bottom-color: rgba(60, 60, 60, .4);
+    border-right-color: rgba(60, 60, 60, .4);
+}
+
+.field-p {
+    width: 330px;
+    float: left;
+    margin: 5px;
+    padding: 5px;
+    display: table;
+    /*text-align: center;*/
+}
+
+.clearence {
+    clear: both;
+}
+
+/* .register_form input{
+    width:40%;
+} */
+.form label {
+    font-weight: bold;
+    display: block;
+    float: left;
+    width: 200px;
+}
+
+.checkbox-inline {
+    font-weight: normal;
+}
+
+.input {
+    color: #3c3c3c;
+    border-radius: 0;
+    line-height: 20px;
+    padding: 5px 13px 5px 13px;
+    /*     width: 70%; */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0);
+    width: 200px;
+}
+
+.input:focus {
+    background: #fff;
+    border: 2px solid #080890;
+    outline: none;
+    /*     padding: 5px 13px 5px 13px; */
+    /*     width: 80%; */
+}
+
+.error_input_lbl {
+    color: #ab0000;
+}
+
+/* .register_form label.error {
+    margin-left: 85px;
+}
+ */
+/* .login_form label.error {
+    margin-left: 130px;
+} */
+
+.valid_input_lbl {
+    /*content: '\2713';*/
+    color: greenyellow;
+}
+
+.qa-restore-pwd {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /*float: left;*/
+}
+
+/*.form-button button[type=submit] {*/
+.form-button {
+    width: 200px;
+    margin-bottom: 0;
+    color: #3f898a;
+    letter-spacing: .05em;
+    text-shadow: 0 1px 0 #133d3e;
+    text-transform: uppercase;
+    background: #225556;
+    border-top-color: 2px solid #9fb5b5;
+    border-left-color: 2px solid #608586;
+    border-bottom-color: 2px solid #1b4849;
+    border-right-color: 2px solid #1e4d4e;
+
+
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.form-button:focus {
+    outline: none;
+}
+
+.form-button:enabled {
+    color: #3f898a;
+    cursor: pointer;
+}
+.form-button:disabled {
+    color: #1e3f40;
+}
+
+/*form [input=submit]:focus {*/
+    /*outline: 0;*/
+/*}*/
+
+form [input=button]:focus {
+    outline: 0;
+}
+
+.form-submit-div {
+    text-align: center;
+}

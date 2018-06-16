@@ -1,8 +1,9 @@
 <html ng-app="pointPageApp">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="stylePointPage.css" />
-    <title class="center">Points Of Interest App</title>
+        <link rel="stylesheet" type="text/css" href="stylePointPage.css" />
+        <link rel="stylesheet" type="text/css" href="../../favoritesStyle.css" />
+        <title class="center">Points Of Interest App</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
@@ -15,27 +16,35 @@
 
 <body ng-controller="pointPageController as pointCtrl">
 <!--<body>-->
-<div class="center" >
+<div  >
     <h1 class= "title"><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
-    <br>
-    <table >
+    <br><br>
+    <!--<table >
         <td>Category: <br> {{pointCtrl.pointSelected.category}} </td>
         <td>Views:<br>  {{pointCtrl.pointSelected.views}} </td>
         <td>Rating:<br>  {{pointCtrl.pointSelected.rating}}% </td>
-        <td>Description:<br>  {{pointCtrl.pointSelected.description}}</td>
-    </table>  
-    <br><br><br>
-    <img src="{{pointCtrl.pointSelected.image}}"/>
+    
+    </table>  -->
     <div>
-            <button ng-click=""> Add to favorits</button>
-            <input type="radio" value="{{pointCtrl.pointSelected.name}}_{{pointCtrl.pointSelected.id}}" ng-model="pointCtrl.selected">
-        </div>
-        <div>
+    <span class="label">Category: {{pointCtrl.pointSelected.category}}</span><br><br>
+    <span class="label">Views: {{pointCtrl.pointSelected.views}} </span><br><br>
+    <span class="label">Rating: {{pointCtrl.pointSelected.rating}}% </span><br><br>
+    <br><br><br>
+</div>
+<div class="wi">
+    <img class="center-r" src="{{pointCtrl.pointSelected.image}}"/>
+    <p class="left-align"><p class="purple-title">Description:</p><br>  {{pointCtrl.pointSelected.description}}</p>
+    <div class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
+    ng-click="homeCtrl.toggleToFavorites($event, point)"></div>
+</div>
+
+  
+        <div> <p>What is your opinion? 
                 <input type="text " value="{{points.name}}_{{id}} " ng-model="poiCtrl.amount[id] ">
-                <button ng-click="poiCtrl.addToCart(id, points) ">add</button>
+                <button class="label" ng-click="poiCtrl.addToCart(id, points) ">Add review</button>
             </div>
 
-    <p>Last reviews: </p>
+    <p class="purple-title">Last reviews: </p>
     <div ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews">
         <span>{{$index+1}}: {{review.reviewMsg}} </span>
         <br>

@@ -1,3 +1,5 @@
+<html>
+        <body ng-app="pointsOfInterestApp">
 <head>
         <link rel="stylesheet" type="text/css" href="stylePois.css" />
 
@@ -11,24 +13,38 @@
 
     <!--<li ng-repeat="p in poiCtrl.getPointsByCategory(item.category)">
         <h3>{{cat.title}}</h3>-->
-
+        <br><br><br>
+        <div class="row">
     <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true"
          ng-click="poiCtrl.OpenPointPage(point)">
         <!--<div ng-repeat="(pointId , name, category, rating, rating, views, description, picture) in poiCtrl.points" ng-click="poiCtrl.OpenPointPage()">-->
+        <!---->
+        <div class="column">
+                <div class="card">
+                  <img ng-src="{{point.image}}" style="width:100% ;height:70%;" >
+                  <div class="container2">
+                    <h2 class="name-title">{{point.name}}</h2>
+                    <h2 class="cat-title">{{point.cetegory}}</h2>
+                  </div>
+                </div>
+              </div>
         
-        <div class="poiTitle">
-            POI name: <span ng-bind="point.name"></span>
-            <br>
-            Category: <span ng-bind="point.category"></span>
-            <br>
-            <!--<img ng-style="{'height': '100px'}" ng-src="{{ Buffer(point.picture).toString('base64')}} ">-->
-            <!--<img ng-style="{'height': '100px'}" data-ng-src="data:image/jpg;base64,{{point.picture}}"/>-->
-            <img ng-style="{'height': '300px'}" ng-src="{{point.image}}"/>
-            <br><br><br><br>
-
-        </div>
-        
+              
+              <!---->
+              <!-- <div class="poiTitle">
+                  POI name: <span ng-bind="point.name"></span>
+                  <br>
+                  Category: <span ng-bind="point.category"></span>
+                  <br>-->
+                  <!--<img ng-style="{'height': '100px'}" ng-src="{{ Buffer(point.picture).toString('base64')}} ">-->
+                  <!--<img ng-style="{'height': '100px'}" data-ng-src="data:image/jpg;base64,{{point.picture}}"/>-->
+                  <!--<img ng-style="{'height': '300px'}" ng-src="{{point.image}}"/>
+                    <br><br><br><br>
+                    
+                </div>-->
+                
+            </div>
     </div>
-    Selected city: {{poiCtrl.selected}}
 </div>
-
+</body>
+</html>

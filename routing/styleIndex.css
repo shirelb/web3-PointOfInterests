@@ -110,3 +110,9 @@ li a:hover {
      height: 300px;
      width: 390px;
 }
+
+.bottom{
+    position: bottom;
+    height: 40px;
+    margin-block-end: 2px;
+}

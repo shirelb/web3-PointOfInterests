@@ -1,7 +1,7 @@
 <html ng-app="pointsOfInterestApp">
     <head>
         <title>Points Of Interest App</title>
-
+        <link rel="stylesheet" type="text/css" href="styleIndex.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
@@ -38,31 +38,7 @@
         <link rel="stylesheet" type="text/css" href="reviewModal.css"/>
       
 
-        <style>
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: #333;
-            }
-
-            li {
-                float: left;
-            }
-
-            li a {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-
-            li a:hover {
-                background-color: #111;
-            }
-        </style>
+        
     </head>
 
     <body ng-controller="indexController as indexCtrl">
@@ -76,14 +52,63 @@
             <li><a href="#/login">Login</a></li>
             <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
             <li ng-show="indexCtrl.isLoggedIn()"><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
-            <li> Hello <span ng-bind="indexCtrl.getUsername()"> </span></li>
+            <!--<li> Hello <span ng-bind="indexCtrl.getUsername()"> </span></li>-->
         </ul>
 
 
 
         <div ng-view></div>
 
-        <footer>
+
+        <!--<div class="slideshow-container">
+
+            <div class="mySlides fade">
+              <div class="numbertext">1 / 3</div>
+              <img src="https://cdn.londonandpartners.com/-/media/images/london/visit/london-organisations/tower-bridge-exhibition/tower-bridge-homepage-image.jpg" style="width:100%">
+            </div>
+            
+            <div class="mySlides fade">
+              <div class="numbertext">2 / 3</div>
+              <img src="https://www.monde-du-voyage.com/royaume-uni/week-end-londres.jpg" style="width:100%">
+            </div>
+            
+            <div class="mySlides fade">
+              <div class="numbertext">3 / 3</div>
+              <img src="https://www.reiseuhu.de/wp-content/uploads/2017/12/neueroeffnung-in-london-canning-town-704x280.jpg" style="width:100%">
+            </div>
+            
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            
+            </div>
+            <br>
+            <script>
+                var slideIndex = 1;
+                showSlides(slideIndex);
+                
+                function plusSlides(n) {
+                  showSlides(slideIndex += n);
+                }
+                
+                function currentSlide(n) {
+                  showSlides(slideIndex = n);
+                }
+                
+                function showSlides(n) {
+                  var i;
+                  var slides = document.getElementsByClassName("mySlides");
+                  if (n > slides.length) {slideIndex = 1}    
+                  if (n < 1) {slideIndex = slides.length}
+                  for (i = 0; i < slides.length; i++) {
+                      slides[i].style.display = "none";  
+                  }
+                  slides[slideIndex-1].style.display = "block";  
+                }
+                </script>-->
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <footer >
             <p class="align_left">
                 We build this website using AngularJS, NodeJS and css.
             </p>

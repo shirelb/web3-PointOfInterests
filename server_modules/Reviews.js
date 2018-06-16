@@ -95,10 +95,14 @@ router.post('/add/rate', function (req, res) {
                     "INSERT INTO Reviews (userId,pointId,rate)" +
                     " VALUES (" + req.body.userId + ",'" + req.body.pointId + "'," + req.body.rate + ")")
                     .then(function (result) {
-                        update_point_rating(req.body.pointId);
-                    })
-                    .then(function (result) {
-                        res.status(200).send("rate added successfully! =)");
+                        update_point_rating(req.body.pointId)
+                            .then(function (result) {
+                                res.status(200).send("rate added successfully! =)");
+                            })
+                            .catch(function (err) {
+                                console.log(err);
+                                res.status(500).send(err);
+                            })
                     })
                     .catch(function (err) {
                         console.log(err);
@@ -108,13 +112,17 @@ router.post('/add/rate', function (req, res) {
             else {
                 DButilsAzure.execQuery("" +
                     "UPDATE Reviews " +
-                    "SET rate= '" + req.body.rate + "' " +
-                    "WHERE userId = '" + req.body.userId + "' AND pointId= '" + req.body.pointId + "'")
+                    "SET rate = '" + req.body.rate + "' " +
+                    "WHERE userId = '" + req.body.userId + "' AND pointId = '" + req.body.pointId + "'")
                     .then(function (result) {
-                        update_point_rating(req.body.pointId);
-                    })
-                    .then(function (result) {
-                        res.status(200).send("rate added successfully! =)");
+                        update_point_rating(req.body.pointId)
+                            .then(function (result) {
+                                res.status(200).send("rate added successfully! =)");
+                            })
+                            .catch(function (err) {
+                                console.log(err);
+                                res.status(500).send(err);
+                            })
                     })
                     .catch(function (err) {
                         console.log(err);
@@ -130,22 +138,56 @@ router.post('/add/rate', function (req, res) {
 
 function update_point_rating(pointId) {
     console.log("update_point_rating");
-    DButilsAzure.execQuery(
+    return DButilsAzure.execQuery(
         "SELECT AVG(rate) as rate_avg " +
         "FROM Reviews " +
-        "WHERE pointId= " + pointId + "")
+        "WHERE pointId = " + pointId + "")
         .then(function (result) {
             console.log("AVG(rate): " + result[0]["rate_avg"]);
-            DButilsAzure.execQuery("" +
+            return DButilsAzure.execQuery("" +
                 "UPDATE PointsOfInterest " +
-                "SET rating= '" + (result[0]["rate_avg"] / 5) * 100 + "' " +
-                "WHERE pointId= '" + pointId + "'")
+                "SET rating = '" + ((result[0]["rate_avg"] / 5) * 100) + "' " +
+                "WHERE pointId = '" + pointId + "'")
         })
         .catch(function (err) {
             console.log(err);
             res.status(500).send(err);
         })
 }
+
+
+router.put('/update/rate', function (req, res) {
+    console.log("in route /reviews/update/rate");
+
+    DButilsAzure.execQuery("" +
+        "SELECT * FROM Reviews " +
+        " WHERE userId = '" + req.body.userId + "' AND pointId= '" + req.body.pointId + "'")
+        .then(function (review) {
+            DButilsAzure.execQuery("" +
+                "UPDATE Reviews " +
+                "SET rate = '" + req.body.rate + "' " +
+                "WHERE userId = '" + req.body.userId + "' AND pointId = '" + req.body.pointId + "'")
+                .then(function (result) {
+                    update_point_rating(req.body.pointId)
+                        .then(function (result) {
+                            res.status(200).send("rate updated successfully! =)");
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                            res.status(500).send(err);
+                        })
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    res.status(500).send(err);
+                })
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.status(500).send(err);
+        });
+});
+
 
 router.post('/add/reviewMsg', function (req, res) {
     console.log("in route /reviews/add/reviewMsg");
@@ -169,9 +211,8 @@ router.post('/add/reviewMsg', function (req, res) {
             else {
                 DButilsAzure.execQuery("" +
                     "UPDATE Reviews " +
-                    "SET reviewMsg= '" + req.body.reviewMsg + "' " +
-                    "SET reviewDate= '" + req.body.reviewDate + "' " +
-                    "WHERE userId = '" + req.body.userId + "' AND pointId= '" + req.body.pointId + "'")
+                    "SET reviewMsg = '" + req.body.reviewMsg + "' , reviewDate = '" + req.body.reviewDate + "' " +
+                    "WHERE userId = '" + req.body.userId + "' AND pointId = '" + req.body.pointId + "'")
                     .then(function (result) {
                         res.status(200).send("review added successfully! =)");
                     })
@@ -180,6 +221,31 @@ router.post('/add/reviewMsg', function (req, res) {
                         res.status(500).send(err);
                     })
             }
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.status(500).send(err);
+        });
+});
+
+router.put('/update/reviewMsg', function (req, res) {
+    console.log("in route /reviews/update/reviewMsg");
+
+    DButilsAzure.execQuery("" +
+        "SELECT * FROM Reviews " +
+        " WHERE userId = '" + req.body.userId + "' AND pointId= '" + req.body.pointId + "'")
+        .then(function (review) {
+            DButilsAzure.execQuery("" +
+                "UPDATE Reviews " +
+                "SET reviewMsg = '" + req.body.reviewMsg + "' , reviewDate = '" + req.body.reviewDate + "' " +
+                "WHERE userId = '" + req.body.userId + "' AND pointId = '" + req.body.pointId + "'")
+                .then(function (result) {
+                    res.status(200).send("review updated successfully! =)");
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    res.status(500).send(err);
+                })
         })
         .catch(function (err) {
             console.log(err);

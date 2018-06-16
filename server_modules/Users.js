@@ -30,55 +30,92 @@ router.post('/add', function (req, res) {
         })
         .then(function (user) {
             console.log("2 result: " + user[0]['userId']);
-            save_QA_restore_password(req, user[0]['userId']);
-            console.log("save_QA_restore_password success");
-
-            console.log("3 result: " + user[0]['userId']);
-            save_categories(req, user[0]['userId']);
-            console.log("save_categories success");
-        })
-        .then(function (result) {
-            res.status(200).send("user added successfully! =)");
+            save_QA_restore_password(req, user[0]['userId'])
+                .then(function (result) {
+                    console.log("save_QA_restore_password success 2     ");
+                    console.log("3 result: " + user[0]['userId']);
+                    save_categories(req, user[0]['userId'])
+                        .then(function (result) {
+                            console.log("save_categories success 2");
+                            res.status(200).send("user added successfully! =)");
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                            res.status(500).send(err, "save_categories failed!");
+                        })
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    res.status(500).send(err, "save_QA_restore_password failed!");
+                })
         })
         .catch(function (err) {
             console.log(err);
-            res.status(500).send(err,"user add failed!");
+            res.status(500).send(err, "user add failed!");
         })
 });
 
 function save_QA_restore_password(req, user_id) {
     let i = 0;
+    // let isError = false;
+    let arr = [];
     while (i < req.body.questions.length) {
-        DButilsAzure.execQuery("" +
+        arr.push(DButilsAzure.execQuery("" +
             "INSERT INTO QaRestorePassword (userId,question,answer)" +
-            " VALUES (" + user_id + ",'" + req.body.questions[i] + "','" + req.body.answers[i] + "')")
-            .then(function (result) {
-                console.log(result,"QA restore_password success");
-            })
-            .catch(function (err) {
-                console.log(err,"QA restore_password failed");
-            });
-
+            " VALUES (" + user_id + ",'" + req.body.questions[i] + "','" + req.body.answers[i] + "')"));
         i++;
     }
-}
+    return Promise.all(arr)
+        .then(function (result) {
+            console.log(result, "QA restore_password success");
+        })
+        .catch(function (err) {
+            // isError = true;
+            console.log(err, "QA restore_password failed");
+        });
+    // if (!isError) {
+    //     resolve("QA restore_password success 1");
+    // }
+    // else {
+    //     reject("QA restore_password success 1");
+    // }
+};
+
+// )
+// ;
+// }
 
 function save_categories(req, user_id) {
-    let i = 0;
-    while (i < req.body.categories.length) {
-        DButilsAzure.execQuery("" +
-            "INSERT INTO UserCategories (userId,category)" +
-            " VALUES (" + user_id + ",'" + req.body.categories[i] + "')")
-            .then(function (result) {
-                console.log(result,"save_categories success");
-            })
-            .catch(function (err) {
-                console.log(err,"save_categories failed");
-            });
+    // return new Promise(function (resolve, reject) {
 
+    let i = 0;
+    // let isError = false;
+    let arr = [];
+    while (i < req.body.categories.length) {
+        arr.push(DButilsAzure.execQuery("" +
+            "INSERT INTO UserCategories (userId,category)" +
+            " VALUES (" + user_id + ",'" + req.body.categories[i] + "')"))
         i++;
     }
-}
+    return Promise.all(arr)
+        .then(function (result) {
+            console.log(result, "save_categories success");
+        })
+        .catch(function (err) {
+            // isError = true;
+            console.log(err, "save_categories failed");
+        });
+    // if (!isError) {
+    //     resolve("save_categories success 1");
+    // }
+    // else {
+    //     reject("save_categories success 1");
+    // }
+};
+
+// )
+// ;
+// }
 
 router.get('/qaRestorePassword/:id', function (req, res) {
     console.log("in route /users/qaRestorePassword/:id");
@@ -135,18 +172,18 @@ router.post('/login/authenticate', function (req, res) {
             "SELECT * FROM Users " +
             "WHERE username = '" + req.body.username + "' AND password='" + req.body.password + "'")
             .then(function (user) {
-                if(user.length === 0){
+                if (user.length === 0) {
                     res.json({
                         "success": 'false',
                         "message": 'Username or password is incorrect ',
                         "token": 'null'
                     });
-                    
+
                 }
-                    // res.status(200).send(result);
-                else{
+                // res.status(200).send(result);
+                else {
                     sendToken(user, res);
-            }
+                }
 
             })
             .catch(function (err) {
@@ -263,6 +300,7 @@ router.use(function (req, res, next) {
         });
     }
 });
+
 
 router.get('/categories/:id', function (req, res) {
     console.log("in route /users/categories");

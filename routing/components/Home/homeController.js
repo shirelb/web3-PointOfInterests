@@ -1,9 +1,28 @@
 angular.module('pointsOfInterestApp')
 // .controller('homeController', ['$scope', function ($scope) {
-    .controller('homeController', ['$scope', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', function ($scope, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID) {
+    .controller('homeController', ['$scope', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', 'favoritesPointsService','reviewPointsService', function ($scope, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID, favoritesPointsService,reviewPointsService) {
         let self = this;
 
-        self.username = "Guest";
+        userID = null;
+        self.getUserID = function () {
+            return loggedInUserID.get(self.username)
+                .then(function (result) {
+                    if (result.userId !== null) {
+                        self.message = "";
+                        userID = result.userId;
+                        favoritesPointsService.setUserID(userID);
+                        favoritesPointsService.getAllFavoritesPoints();
+                        reviewPointsService.setUserID(userID);
+                    }
+                    else {
+                        self.message = result.message;
+                    }
+
+                });
+        };
+
+
+        self.username = loggedInUsername.username;
         self.isLoggedIn = false;
         self.message = "";
 
@@ -54,6 +73,7 @@ angular.module('pointsOfInterestApp')
                         self.getUserID().then(function (result) {
                             self.get2LastFavoritesPoints();
                             self.getRecommendedPoints();
+                            favoritesPointsService.getAllFavoritesPoints();
                         });
                     }
 
@@ -95,20 +115,21 @@ angular.module('pointsOfInterestApp')
 
         self.getPopularPoints();
 
-        userID = null;
+        /*userID = null;
         self.getUserID = function () {
             return loggedInUserID.get(self.username)
                 .then(function (result) {
                     if (result.userId !== null) {
                         self.message = "";
                         userID = result.userId;
+                        favoritesPointsService.setUserID(userID);
                     }
                     else {
                         self.message = result.message;
                     }
 
                 });
-        };
+        };*/
 
 
         self.showMsgOfFavorites = false;
@@ -122,14 +143,23 @@ angular.module('pointsOfInterestApp')
                     }
                     else {
                         self.showMsgOfFavorites = false;
-                        self.lastFavoritesPoints = response.data;
-                        console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
+                        favoritesPointsService.getPointsByID(response.data, self.lastFavoritesPoints)
+                            .then(function (favPoints) {
+                                self.lastFavoritesPoints = favPoints;
+                                console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
+                            })
+                        // self.lastFavoritesPoints = response.data;
                     }
                 }, function (response) {
                     //Second function handles error
                     self.get2LastFavoritesPoints.content = "Something went wrong";
                     // self.message = "Something went wrong"
                 });
+        };
+
+        self.isFavoritePoint = function (point) {
+            let res = favoritesPointsService.favoritesPoints.filter(p => (p.pointId === point.pointId));
+            return res.length !== 0;
         };
 
         self.getRecommendedPoints = function () {
@@ -179,6 +209,25 @@ angular.module('pointsOfInterestApp')
                     self.getRecommendedPoints.content = "Something went wrong";
                     // self.message = "Something went wrong"
                 });
+        };
+
+        self.toggleToFavorites = function (event, point) {
+            if (angular.element(event.currentTarget).hasClass("active")) {
+                angular.element(event.currentTarget).removeClass("active");
+                favoritesPointsService.removePointFromFavorites(point)
+                    .then(function (result) {
+                        self.get2LastFavoritesPoints();
+                    });
+            } else {
+                var timeline = new mojs.Timeline();
+                favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
+                timeline.play();
+                angular.element(event.currentTarget).addClass("active");
+                favoritesPointsService.addPointToFavorites(point)
+                    .then(function (result) {
+                        self.get2LastFavoritesPoints();
+                    });
+            }
         };
 
     }]);

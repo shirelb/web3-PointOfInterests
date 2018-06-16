@@ -1,0 +1,65 @@
+/*html{
+    padding:0;
+    margin: 0;
+    min-height:100%;
+}
+body{
+    background: #111;
+    position:relative;
+    min-height:100%;
+}*/
+.fav-button {
+    /*width: 10px; */
+    /* height: 10px; */
+    top: -50px;
+    position: relative;
+    /* left: 10px; */
+    /* margin-top: -45px; */
+    /* margin-left: -50px; */
+    margin-right: 25px;
+    border-radius: 5px;
+    background: none;
+    cursor: pointer;
+    transition: background 0.5s ease;
+}
+
+.fav-button:hover {
+
+}
+
+.active.heart:before, .active.heart:after {
+    background: red !important;
+}
+
+.heart {
+    width: 30px;
+    height: 20px;
+    transition: background 0.5s ease;
+}
+
+.heart:before,
+.heart:after {
+    transition: background 0.5s ease;
+    position: absolute;
+    content: "";
+    left: 8.5px;
+    top: 55px;
+    width: 8px;
+    height: 13px;
+    background: dimgrey;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+.order-button{
+    /*cursor: pointer;*/
+    font-weight: bold;
+    font-size: 17px;
+}

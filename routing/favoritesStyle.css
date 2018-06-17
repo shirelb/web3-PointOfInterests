@@ -184,3 +184,20 @@ body{
 .sort-button:focus {
     outline: none;
 }
+
+.save-path-button {
+    width: 170px;
+    margin-bottom: 0;
+    border: 0;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    /*font-weight: bold;*/
+
+    color: #ffd7e7;
+    background: #820000;
+    cursor: pointer;
+}
+
+.save-path-button:focus {
+    outline: none;
+}

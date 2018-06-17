@@ -136,42 +136,43 @@ angular.module("pointsOfInterestApp")
             // burst animation
             tween1 = new mojs.Burst({
                 parent: el,
-                radius: {0: 30},
-                angle: {0: 45},
-                y: 50,
-                count: 10,
-                radius: 30,
+                radius:   { 0: 50 },
+                angle:    { 0: 45 },
+                y: 40,
+                x:-200,
+                count:    10,
+                radius:       50,
                 children: {
-                    shape: 'circle',
-                    radius: 10,
-                    fill: ['red', 'white'],
-                    strokeWidth: 15,
-                    duration: 500,
+                    shape:        'circle',
+                    radius:       10,
+                    fill:         [ 'red', 'white' ],
+                    strokeWidth:  15,
+                    duration:     500,
                 }
             });
 
 
             tween2 = new mojs.Tween({
-                duration: 900,
-                onUpdate: function (progress) {
+                duration : 900,
+                onUpdate: function(progress) {
                     var scaleProgress = scaleCurve(progress);
                     el.style.WebkitTransform = el.style.transform = 'scale3d(' + scaleProgress + ',' + scaleProgress + ',1)';
                 }
             });
-
             tween3 = new mojs.Burst({
                 parent: el,
-                radius: {0: 30},
-                angle: {0: -45},
-                y: 50,
-                count: 10,
-                radius: 50,
+                radius:   { 0: 50 },
+                angle:    { 0: -45 },
+                y: 40,
+                x:-200,
+                count:    10,
+                radius:       70,
                 children: {
-                    shape: 'circle',
-                    radius: 10,
-                    fill: ['white', 'red'],
-                    strokeWidth: 15,
-                    duration: 400,
+                    shape:        'circle',
+                    radius:       10,
+                    fill:         [ 'white', 'red' ],
+                    strokeWidth:  15,
+                    duration:     400,
                 }
             });
 

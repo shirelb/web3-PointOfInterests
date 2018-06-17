@@ -40,10 +40,10 @@ angular.module('pointsOfInterestApp')
             self.selected = point;
             let pointWindow = $window.open("components/PointPage/pointPage.html", '_blank');
             self.selected.lastReviews = [];
-            self.selected.lastReviews = self.pointsLastReviews.filter(function (obj) {
-                if (obj !== undefined)
-                    return obj.pointId === point.pointId;
-            });
+            // self.selected.lastReviews = self.pointsLastReviews.filter(function (obj) {
+            //     if (obj !== undefined)
+            //         return obj.pointId === point.pointId;
+            // });
             pointWindow.pointSelected = self.selected;
 
             self.addViewToPoint(point)
@@ -51,6 +51,12 @@ angular.module('pointsOfInterestApp')
                     if (result.views !== undefined) {
                         self.selected.views = result.views;
                     }
+                });
+
+            self.get2LatestReviews(point)
+                .then(function (result) {
+                    self.selected.lastReviews = [];
+                    self.selected.lastReviews = result;
                 });
         };
 
@@ -81,31 +87,32 @@ angular.module('pointsOfInterestApp')
 
             $http.get(serverUrl + "pointsOfInterests/")
                 .then(function (response) {
+                        self.points = response.data;
                         //First function handles success
-                        return self.getPointsLastReviews(response.data, self.points)
-                            .then(function (poisReaviews) {
-                                self.points = response.data;
-                                self.pointsLastReviews = poisReaviews;
-                                /*for (let i = 0; i < poisReaviews.length; i++) {
-                                    if (poisReaviews[i] === undefined) {
-                                        continue;
-                                    }
-                                    if (self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews === undefined) {
-                                        self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews = [];
-                                    }
-                                    self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews.push({
-                                            'reviewMsg': poisReaviews[i].reviewMsg,
-                                            'reviewDate': poisReaviews[i].reviewDate
-                                        }
-                                    );
-                                }*/
-                                // self.points = angular.merge(poisReaviews, response.data);
-                                // self.favoritesPoints = favPoints;
-                                self.getAllPoints.content = response.data;
+                        // /*return self.getPointsLastReviews(response.data, self.points)
+                        //     .then(function (poisReaviews) {
+                        //         self.points = response.data;
+                        //         self.pointsLastReviews = poisReaviews;*/
+                        /*for (let i = 0; i < poisReaviews.length; i++) {
+                            if (poisReaviews[i] === undefined) {
+                                continue;
+                            }
+                            if (self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews === undefined) {
+                                self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews = [];
+                            }
+                            self.points[self.points.findIndex((p) => p.pointId === poisReaviews[i].pointId)].lastReviews.push({
+                                    'reviewMsg': poisReaviews[i].reviewMsg,
+                                    'reviewDate': poisReaviews[i].reviewDate
+                                }
+                            );
+                        }*/
+                        // self.points = angular.merge(poisReaviews, response.data);
+                        // self.favoritesPoints = favPoints;
+                        self.getAllPoints.content = response.data;
 
 
-                                console.log("getting all points" + self.points);
-                            })
+                        console.log("getting all points" + self.points);
+                        // })
                     }, function (response) {
                         self.getAllPoints.content = response.data;
                         //Second function handles error
@@ -163,9 +170,9 @@ angular.module('pointsOfInterestApp')
         self.getAllPoints();
         self.getAllCategories();
 
-      /*  self.updatePointSelected = function () {
-            return self.selected;
-        };*/
+        /*  self.updatePointSelected = function () {
+              return self.selected;
+          };*/
 
     }])
 ;

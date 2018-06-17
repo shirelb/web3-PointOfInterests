@@ -4,15 +4,16 @@
 </head>
 <h2  style="text-align:center;">Points Of Interests</h2>
 <div  style="text-align:center;"> Select category:
-    <select class="input" ng-init="Attraction" name="pointsCategories" id="categories" ng-model="catFilter"
+    <select class="input" ng-init="All" name="pointsCategories" id="categories" ng-model="catFilter"
             ng-options="item.category for item in poiCtrl.categories" required>
         <option value="{{item.category}}"></option>
+        <option value="">All</option>
     </select>
 
     <!--<li ng-repeat="p in poiCtrl.getPointsByCategory(item.category)">
         <h3>{{cat.title}}</h3>-->
 
-    <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true"
+    <div ng-repeat="(id , point) in poiCtrl.points | filter: (!!catFilter.category || undefined) && {category:catFilter.category}:true"
          ng-click="poiCtrl.OpenPointPage(point)">
         <!--<div ng-repeat="(pointId , name, category, rating, rating, views, description, picture) in poiCtrl.points" ng-click="poiCtrl.OpenPointPage()">-->
         

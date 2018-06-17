@@ -1,11 +1,5 @@
-<html>
-        <body ng-app="pointsOfInterestApp">
-<head>
-        <link rel="stylesheet" type="text/css" href="stylePois.css" />
-
-</head>
-<h2  style="text-align:center;">Points Of Interests</h2>
-<div  style="text-align:center;"> Select category:
+<div  style="text-align:center;"> 
+        <h2  style="text-align:center;">Points Of Interests</h2>Select category:
     <select class="input" ng-init="Attraction" name="pointsCategories" id="categories" ng-model="catFilter"
             ng-options="item.category for item in poiCtrl.categories" required>
         <option value="{{item.category}}"></option>
@@ -13,7 +7,7 @@
 
     <!--<li ng-repeat="p in poiCtrl.getPointsByCategory(item.category)">
         <h3>{{cat.title}}</h3>-->
-        <br><br><br>
+        
         <div class="row">
     <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true"
          ng-click="poiCtrl.OpenPointPage(point)">
@@ -46,5 +40,3 @@
             </div>
     </div>
 </div>
-</body>
-</html>

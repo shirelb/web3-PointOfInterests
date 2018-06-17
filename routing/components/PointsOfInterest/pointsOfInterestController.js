@@ -1,7 +1,8 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q) {
+    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q','favoritesPointsService','reviewPointsService', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q, favoritesPointsService, reviewPointsService) {
         let self = this;
-
+        self.favService = favoritesPointsService;
+        self.reviewService = reviewPointsService;
         let serverUrl = "http://localhost:8080/";
 
         self.selectedCity = function (id) {
@@ -27,6 +28,10 @@ angular.module('pointsOfInterestApp')
         };
 
         self.addViewToPoint = function (point) {
+            self.favService = favoritesPointsService;
+        self.reviewService = reviewPointsService;
+        console.log("poisofintereController.favSERVICE>>"+self.favService);
+        console.log("poisofintereController.reviewSERVICE>>"+self.reviewService);
             return $http.put(serverUrl + "pointsOfInterests/addView", {'pointId': point.pointId})
                 .then(function (response) {
                     return {views: point.views + 1};
@@ -45,6 +50,8 @@ angular.module('pointsOfInterestApp')
                     return obj.pointId === point.pointId;
             });
             pointWindow.pointSelected = self.selected;
+            pointWindow.favService = self.favService;
+            pointWindow.reviewService = self.reviewService;
 
             self.addViewToPoint(point)
                 .then(function (result) {

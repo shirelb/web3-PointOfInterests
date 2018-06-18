@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('favoritesPointsOfInterestController', ['$scope', '$http', 'loggedInUserID', 'loggedInUsername', 'favoritesPointsService', 'ngDialog', '$rootScope', 'reviewPointsService', function ($scope, $http, loggedInUserID, loggedInUsername, favoritesPointsService, ngDialog, $rootScope, reviewPointsService) {
+    .controller('favoritesPointsOfInterestController', ['$scope', '$window', '$http', 'loggedInUserID', 'loggedInUsername', 'favoritesPointsService', 'ngDialog', '$rootScope', 'reviewPointsService', function ($scope, $window, $http, loggedInUserID, loggedInUsername, favoritesPointsService, ngDialog, $rootScope, reviewPointsService) {
         let self = this;
 
         var serverUrl = "http://localhost:8080/";
@@ -31,12 +31,16 @@ angular.module('pointsOfInterestApp')
                 favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
                 timeline.play();
                 angular.element(event.currentTarget).addClass("active");
-                favoritesPointsService.addPointToFavorites(point)
-                    .then(function (result) {
-                        // self.favoritesPoints = favoritesPointsService.favoritesPoints;
-                        self.updateFavoritesPoints();
-                    });
+                favoritesPointsService.addPointToFavoritesToLS(point);
             }
+        };
+
+        self.saveFavoritesInDB = function (){
+            favoritesPointsService.addPointToFavoritesToDB()
+                .then(function (result) {
+                    // self.favoritesPoints = favoritesPointsService.favoritesPoints;
+                    self.updateFavoritesPoints();
+                });
         };
 
         self.swapOrderNum = function (point1, point2) {
@@ -154,5 +158,62 @@ angular.module('pointsOfInterestApp')
         //     console.log(data.id + ' has been dismissed.');
         //     self.sendReviewRate();
         // });
+
+        self.addViewToPoint = function (point) {
+            return $http.put(serverUrl + "pointsOfInterests/addView", {'pointId': point.pointId})
+                .then(function (response) {
+                    return {views: point.views + 1};
+                }, function (response) {
+                    //Second function handles error
+                    console.log("Something went wrong with add View To Point ");
+                });
+        };
+
+        self.OpenPointPage = function (point) {
+            if (point !== undefined) {
+                self.selected = point;
+                let pointWindow = $window.open("components/PointPage/pointPage.html", '_blank');
+                self.selected.lastReviews = [];
+                // self.selected.lastReviews = reviewPointsService.getPointLastReviews(point);
+                pointWindow.pointSelected = self.selected;
+
+                self.addViewToPoint(point)
+                    .then(function (result) {
+                        if (result.views !== undefined) {
+                            self.selected.views = result.views;
+                        }
+                    });
+
+                reviewPointsService.getPointLastReviews(point)
+                    .then(function (resultLastRevs) {
+                        self.selected.lastReviews = resultLastRevs;
+                    })
+            }
+
+        };
+
+        self.getAllCategories = function () {
+
+            $http.get(serverUrl + "categories/")
+                .then(function (response) {
+                    //First function handles success
+                    self.getAllCategories = response.data;
+                    self.categories = response.data;
+
+                    console.log("getting all categories" + self.categories);
+
+                }, function (response) {
+                    self.getAllCategories.content = response.data;
+                    console.log("getting all categories failed");
+                    self.message = "Something went wrong with getting all categories of interests"
+                });
+
+        };
+
+        self.getAllCategories();
+
+        self.isPointInDB=function(point) {
+            return favoritesPointsService.favoritesPointsDB.find(x => x.pointId === point.pointId);
+        };
 
     }]);

@@ -1,126 +1,126 @@
 <html ng-app="pointsOfInterestApp">
-    <head>
-        <title>Points Of Interest App</title>
-        <link rel="stylesheet" type="text/css" href="styleIndex.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
-        <link rel="stylesheet" href="../node_modules/ng-dialog/css/ngDialog.min.css">
-        <link rel="stylesheet" href="../node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
-        <script src="../node_modules/ng-dialog/js/ngDialog.min.js"></script>
+<head>
+    <title>Points Of Interest App</title>
+    <link rel="stylesheet" type="text/css" href="styleIndex.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../node_modules/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="../node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
+    <script src="../node_modules/ng-dialog/js/ngDialog.min.js"></script>
 
-        <script src="../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <script src="app.js"></script>
-        <script src="indexController.js"></script>
-        <script src="components/Services/localStorageModel.js"></script>
-        <script src="components/Services/setHeadersToken.js"></script>
-        <script src="components/Services/loggedInUsername.js"></script>
-        <script src="components/Services/loggedInUserID.js"></script>
-        <script src="components/Services/favoritesPointsService.js"></script>
-        <script src="components/Services/reviewPointsService.js"></script>
+    <script src="../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
 
-        <script src="components/About/aboutController.js"></script>
-        <script src="components/FavoritesPointsOfInterest/favoritesPointsOfInterestController.js"></script>
-        <script src="components/Home/homeController.js"></script>
-        <script src="components/Login/loginController.js"></script>
-        <script src="components/PointsOfInterest/pointsOfInterestController.js"></script>
-        <script src="components/Register/registerController.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
 
-        <script src="components/PointPage/pointPageController.js"></script>
-        <script src="components/Services/pageForPoint.js"></script>
+    <script src="app.js"></script>
+    <script src="indexController.js"></script>
+    <script src="components/Services/localStorageModel.js"></script>
+    <script src="components/Services/setHeadersToken.js"></script>
+    <script src="components/Services/loggedInUsername.js"></script>
+    <script src="components/Services/loggedInUserID.js"></script>
+    <script src="components/Services/favoritesPointsService.js"></script>
+    <script src="components/Services/reviewPointsService.js"></script>
 
-        <script src="components/RestorePassword/restorePasswordController.js"></script>
+    <script src="components/About/aboutController.js"></script>
+    <script src="components/FavoritesPointsOfInterest/favoritesPointsOfInterestController.js"></script>
+    <script src="components/Home/homeController.js"></script>
+    <script src="components/Login/loginController.js"></script>
+    <script src="components/PointsOfInterest/pointsOfInterestController.js"></script>
+    <script src="components/Register/registerController.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="favoritesStyle.css"/>
-        <link rel="stylesheet" type="text/css" href="reviewModal.css"/>
-        <link rel="stylesheet" type="text/css" href="formsStyle.css"/>
-        <link rel="stylesheet" type="text/css" href="components/About/aboutStyle.css"/>
+    <script src="components/PointPage/pointPageController.js"></script>
+    <script src="components/Services/pageForPoint.js"></script>
 
+    <script src="components/RestorePassword/restorePasswordController.js"></script>
 
-        
-    </head>
+    <link rel="stylesheet" type="text/css" href="favoritesStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="reviewModal.css"/>
+    <link rel="stylesheet" type="text/css" href="formsStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="components/About/aboutStyle.css"/>
 
-    <body ng-controller="indexController as indexCtrl">
+</head>
 
-        <script src="http://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
+<body ng-controller="indexController as indexCtrl">
 
-        <ul>
-            <li><a class="active" href="#/">Home</a></li>
-            <li><a href="#/about">About</a></li>
-            <li ng-hide="indexCtrl.isLoggedIn()"><a href="#/register">Register</a></li>
-            <li><a href="#/login">Login</a></li>
-            <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
-            <li ng-show="indexCtrl.isLoggedIn()"><a href="#/favoritesPointsOfInterest">My Favorites</a></li>
-            <!--<li> Hello <span ng-bind="indexCtrl.getUsername()"> </span></li>-->
-        </ul>
+<script src="http://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
 
-
-
-        <div ng-view></div>
+<ul>
+    <li><a class="active" href="#/">Home</a></li>
+    <li><a href="#/about">About</a></li>
+    <li ng-hide="indexCtrl.isLoggedIn()"><a href="#/register">Register</a></li>
+    <li><a href="#/login">Login</a></li>
+    <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
+    <li ng-show="indexCtrl.isLoggedIn()"><a href="#/favoritesPointsOfInterest">My Favorites <span> (#{{indexCtrl.getNumberOfFavorites()}})</span></a>
+    </li>
+    <!--<li> Hello <span ng-bind="indexCtrl.getUsername()"> </span></li>-->
+</ul>
 
 
-        <!--<div class="slideshow-container">
+<div ng-view></div>
 
-            <div class="mySlides fade">
-              <div class="numbertext">1 / 3</div>
-              <img src="https://cdn.londonandpartners.com/-/media/images/london/visit/london-organisations/tower-bridge-exhibition/tower-bridge-homepage-image.jpg" style="width:100%">
-            </div>
-            
-            <div class="mySlides fade">
-              <div class="numbertext">2 / 3</div>
-              <img src="https://www.monde-du-voyage.com/royaume-uni/week-end-londres.jpg" style="width:100%">
-            </div>
-            
-            <div class="mySlides fade">
-              <div class="numbertext">3 / 3</div>
-              <img src="https://www.reiseuhu.de/wp-content/uploads/2017/12/neueroeffnung-in-london-canning-town-704x280.jpg" style="width:100%">
-            </div>
-            
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            
-            </div>
-            <br>
-            <script>
-                var slideIndex = 1;
-                showSlides(slideIndex);
-                
-                function plusSlides(n) {
-                  showSlides(slideIndex += n);
-                }
-                
-                function currentSlide(n) {
-                  showSlides(slideIndex = n);
-                }
-                
-                function showSlides(n) {
-                  var i;
-                  var slides = document.getElementsByClassName("mySlides");
-                  if (n > slides.length) {slideIndex = 1}    
-                  if (n < 1) {slideIndex = slides.length}
-                  for (i = 0; i < slides.length; i++) {
-                      slides[i].style.display = "none";  
-                  }
-                  slides[slideIndex-1].style.display = "block";  
-                }
-                </script>-->
 
+<!--<div class="slideshow-container">
+
+    <div class="mySlides fade">
+      <div class="numbertext">1 / 3</div>
+      <img src="https://cdn.londonandpartners.com/-/media/images/london/visit/london-organisations/tower-bridge-exhibition/tower-bridge-homepage-image.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">2 / 3</div>
+      <img src="https://www.monde-du-voyage.com/royaume-uni/week-end-londres.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">3 / 3</div>
+      <img src="https://www.reiseuhu.de/wp-content/uploads/2017/12/neueroeffnung-in-london-canning-town-704x280.jpg" style="width:100%">
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    </div>
+    <br>
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+          var i;
+          var slides = document.getElementsByClassName("mySlides");
+          if (n > slides.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none";
+          }
+          slides[slideIndex-1].style.display = "block";
+        }
+        </script>-->
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <footer >
-            <p class="align_left">
-                We build this website using AngularJS, NodeJS and css.
-            </p>
-            <p class="align_right">
-                Please contact us in any question at:
-                shirelb@post.bgu.ac.il
-                or
-                dafnao@post.bgu.ac.il
-            </p>
-        </footer>
+<footer>
+    <p class="align_left">
+        We build this website using AngularJS, NodeJS and css.
+    </p>
+    <p class="align_right">
+        Please contact us in any question at:
+        shirelb@post.bgu.ac.il
+        or
+        dafnao@post.bgu.ac.il
+    </p>
+</footer>
 
-    </body>
+</body>
 </html>

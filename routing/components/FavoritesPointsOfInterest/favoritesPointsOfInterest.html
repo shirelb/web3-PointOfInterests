@@ -28,6 +28,10 @@
             <div class="poi-option">
                 <span class='heart fav-button active btn-option'
                       ng-click="f_poiCtrl.toggleToFavorites($event, point)"></span>
+                <br><br>
+                <span class='in-db-icon btn-option' ng-show="f_poiCtrl.isPointInDB(point)">
+                    <img ng-src="https://png-2.vector.me/files/images/6/8/683511/uk_union_flag_thumb"/>
+                </span>
                 <br>
                 <span class="order-button btn-option" ng-style="{'cursor': ($first ? 'default' : 'pointer')}"
                       ng-click="!$first && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index-1])"> ︽ </span>

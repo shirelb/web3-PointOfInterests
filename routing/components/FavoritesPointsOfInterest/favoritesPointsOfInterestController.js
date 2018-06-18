@@ -212,4 +212,8 @@ angular.module('pointsOfInterestApp')
 
         self.getAllCategories();
 
+        self.isPointInDB=function(point) {
+            return favoritesPointsService.favoritesPointsDB.find(x => x.pointId === point.pointId);
+        };
+
     }]);

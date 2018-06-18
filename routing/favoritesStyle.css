@@ -65,6 +65,15 @@ body{
     font-size: 30px;
 }
 
+.in-db-icon {
+    margin-left: 1px;
+}
+
+.in-db-icon img{
+    width: 30px;
+    height: auto;
+}
+
 #favorites {
     font-family: 'Helvetica', Arial, sans-serif;
     text-align: center;

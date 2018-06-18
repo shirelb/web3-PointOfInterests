@@ -37,10 +37,11 @@
 
     <script src="components/RestorePassword/restorePasswordController.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="favoritesStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="components/FavoritesPointsOfInterest/favoritesStyle.css"/>
     <link rel="stylesheet" type="text/css" href="reviewModal.css"/>
     <link rel="stylesheet" type="text/css" href="formsStyle.css"/>
     <link rel="stylesheet" type="text/css" href="components/About/aboutStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="components/Home/styleHome.css"/>
 
 </head>
 
@@ -56,7 +57,7 @@
     <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
     <li ng-show="indexCtrl.isLoggedIn()"><a href="#/favoritesPointsOfInterest">My Favorites <span> (#{{indexCtrl.getNumberOfFavorites()}})</span></a>
     </li>
-    <!--<li> Hello <span ng-bind="indexCtrl.getUsername()"> </span></li>-->
+    <li><a class="a-hello"> Hello <span ng-bind="indexCtrl.getUsername()"> </span></a></li>
 </ul>
 
 
@@ -109,12 +110,12 @@
         }
         </script>-->
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->
 <footer>
-    <p class="align_left">
+    <p class="footer-align-left">
         We build this website using AngularJS, NodeJS and css.
     </p>
-    <p class="align_right">
+    <p class="footer-align-right">
         Please contact us in any question at:
         shirelb@post.bgu.ac.il
         or

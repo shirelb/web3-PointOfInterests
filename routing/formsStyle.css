@@ -1,3 +1,7 @@
+#login{
+    height: 87%;
+}
+
 .forms-bg {
     position: fixed;
     left: 0;
@@ -137,6 +141,8 @@
     padding: 10px 20px !important;
     font-size: 14px !important;
     font-weight: bold;
+
+    border-radius: 10%;
 }
 
 .form-button:focus {

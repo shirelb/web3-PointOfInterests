@@ -223,10 +223,10 @@ angular.module('pointsOfInterestApp')
                 favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
                 timeline.play();
                 angular.element(event.currentTarget).addClass("active");
-                favoritesPointsService.addPointToFavorites(point)
-                    .then(function (result) {
+                favoritesPointsService.addPointToFavoritesToLS(point);
+                    // .then(function (result) {
                         self.get2LastFavoritesPoints();
-                    });
+                    // });
             }
         };
 

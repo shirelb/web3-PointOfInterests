@@ -31,12 +31,16 @@ angular.module('pointsOfInterestApp')
                 favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
                 timeline.play();
                 angular.element(event.currentTarget).addClass("active");
-                favoritesPointsService.addPointToFavorites(point)
-                    .then(function (result) {
-                        // self.favoritesPoints = favoritesPointsService.favoritesPoints;
-                        self.updateFavoritesPoints();
-                    });
+                favoritesPointsService.addPointToFavoritesToLS(point);
             }
+        };
+
+        self.saveFavoritesInDB = function (){
+            favoritesPointsService.addPointToFavoritesToDB()
+                .then(function (result) {
+                    // self.favoritesPoints = favoritesPointsService.favoritesPoints;
+                    self.updateFavoritesPoints();
+                });
         };
 
         self.swapOrderNum = function (point1, point2) {

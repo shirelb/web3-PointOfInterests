@@ -34,6 +34,10 @@
     padding-right: 10%;
 }
 
+.h1-hello {
+    text-align: center;
+}
+
 .home_login_form {
     width: 30%;
     background: #ffe2b92b;

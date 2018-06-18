@@ -5,7 +5,7 @@
     <div class="is-waiting-for-you-title"> Is Waiting For You</div>
 </div>
 
-<h1>Hello <span ng-bind="homeCtrl.username"> </span></h1>
+<h1 class="h1-hello">Hello <span ng-bind="homeCtrl.username"> </span></h1>
 
 <div class="login-div" ng-show="!homeCtrl.isLoggedIn">
     <form ng-submit="homeCtrl.login()" class="form home_login_form" name="loginForm" id="loginForm"
@@ -69,8 +69,9 @@
         <br>
         <div class="change_link">
             Not a member yet ?
-            <button class="form-button id=" to_register
-            " ng-click="homeCtrl.toRegisterPage()" class="to_register"> Join the fun</button>
+            <button class="form-button" id="to_register" ng-click="homeCtrl.toRegisterPage()"
+                    class="to_register"> Join the fun
+            </button>
         </div>
 
     </form>
@@ -81,7 +82,7 @@
 
 <div class="points-div" ng-show="!homeCtrl.isLoggedIn">
     <div class="point-div" ng-repeat="(id , point) in homeCtrl.popularPoints"
-         ng-click="homeCtrl.OpenPointPage()">
+         ng-click="homeCtrl.OpenPointPage(point)">
         <div class="center">
             <br><br><br>
             <span class="point-title" ng-bind="point.name"></span>
@@ -100,7 +101,7 @@
         <h3 class="title"> Recommended For You </h3>
         <div class="points-div">
             <div class="point-div" ng-repeat="(id , point) in homeCtrl.recommendedPoints"
-                 ng-click="homeCtrl.OpenPointPage()">
+                 ng-click="homeCtrl.OpenPointPage(point)">
                 <div class="center-160">
                     <div class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
                          ng-click="homeCtrl.toggleToFavorites($event, point)"></div>
@@ -124,7 +125,7 @@
             <span ng-show="homeCtrl.showMsgOfFavorites"> {{homeCtrl.favoritesMsg}} </span>
             <div class="point-div" ng-show="!homeCtrl.showMsgOfFavorites"
                  ng-repeat="(id , point) in homeCtrl.lastFavoritesPoints"
-                 ng-click="homeCtrl.OpenPointPage()">
+                 ng-click="homeCtrl.OpenPointPage(point)">
                 <div class="center-160">
                     <div class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
                          ng-click="homeCtrl.toggleToFavorites($event, point)"></div>

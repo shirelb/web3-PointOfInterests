@@ -3,11 +3,6 @@ angular.module('pointsOfInterestApp')
 
         var self = this;
 
-        $scope.count = 0;
-        $scope.myFunc = function () {
-            $scope.count++;
-        };
-
         var serverUrl = "http://localhost:8080/";
 
         self.questions = {};

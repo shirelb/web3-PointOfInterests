@@ -1,6 +1,6 @@
 angular.module('pointsOfInterestApp')
 // .controller('homeController', ['$scope', function ($scope) {
-    .controller('homeController', ['$scope', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', 'favoritesPointsService','reviewPointsService', function ($scope, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID, favoritesPointsService,reviewPointsService) {
+    .controller('homeController', ['$scope', '$window', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', 'favoritesPointsService', 'reviewPointsService', function ($scope, $window, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID, favoritesPointsService, reviewPointsService) {
         let self = this;
 
         userID = null;
@@ -224,10 +224,43 @@ angular.module('pointsOfInterestApp')
                 timeline.play();
                 angular.element(event.currentTarget).addClass("active");
                 favoritesPointsService.addPointToFavoritesToLS(point);
-                    // .then(function (result) {
-                        self.get2LastFavoritesPoints();
-                    // });
+                // .then(function (result) {
+                self.get2LastFavoritesPoints();
+                // });
             }
+        };
+
+        self.addViewToPoint = function (point) {
+            return $http.put(serverUrl + "pointsOfInterests/addView", {'pointId': point.pointId})
+                .then(function (response) {
+                    return {views: point.views + 1};
+                }, function (response) {
+                    //Second function handles error
+                    console.log("Something went wrong with add View To Point ");
+                });
+        };
+
+        self.OpenPointPage = function (point) {
+            if (point !== undefined) {
+                self.selected = point;
+                let pointWindow = $window.open("components/PointPage/pointPage.html", '_blank');
+                self.selected.lastReviews = [];
+                // self.selected.lastReviews = reviewPointsService.getPointLastReviews(point);
+                pointWindow.pointSelected = self.selected;
+
+                self.addViewToPoint(point)
+                    .then(function (result) {
+                        if (result.views !== undefined) {
+                            self.selected.views = result.views;
+                        }
+                    });
+
+                /*reviewPointsService.getPointLastReviews(point)
+                    .then(function (resultLastRevs) {
+                        self.selected.lastReviews = resultLastRevs;
+                    })*/
+            }
+
         };
 
     }]);

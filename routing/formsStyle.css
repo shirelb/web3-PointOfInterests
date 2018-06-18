@@ -2,6 +2,10 @@
     height: 87%;
 }
 
+#restore_pwd{
+    height: 100%;
+}
+
 .forms-bg {
     position: fixed;
     left: 0;
@@ -51,6 +55,22 @@
     width: 700px;
 }
 
+.restore_form{
+    top: 10px;
+    width: 700px;
+}
+
+.qa-div{
+    width: 60%;
+    margin: 10px 20%;
+}
+
+.fieldset-restore{
+    /*margin: 0 50px;*/
+    /*padding: 0 50px;*/
+    /*width: 70%;*/
+}
+
 .field-p {
     width: 330px;
     float: left;
@@ -58,6 +78,13 @@
     padding: 5px;
     display: table;
     /*text-align: center;*/
+}
+
+.field-p-restore{
+    margin: 0 50px;
+    padding: 0 50px;
+    width: 70%;
+    text-align: center;
 }
 
 .clearence {

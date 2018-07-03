@@ -20,7 +20,7 @@
         <span ng-show="f_poiCtrl.showMsgOfFavorites"> {{f_poiCtrl.favoritesMsg}} </span>
         <div class="poi-div"
              ng-show="!f_poiCtrl.showMsgOfFavorites"
-             ng-repeat="(id , point) in f_poiCtrl.favoritesPoints | orderBy: point.orderNum | filter: (!!catFilter.category || undefined) && {category:catFilter.category}:true track by point.pointId "
+             ng-repeat="(id , point) in f_poiCtrl.favoritesPoints | orderBy: point.orderNum | filter: (!!catFilter.category || undefined) && {category:catFilter.category}:true track by $index "
              ng-click="f_poiCtrl.OpenPointPage()">
 
             <!--<div class="border-div"></div>-->
@@ -42,9 +42,9 @@
 
             <div class="poi-data" ng-click="f_poiCtrl.OpenPointPage(point)">
                 <label ng-bind="point.name"></label>
-                <!--<br>
-                Category: <span ng-bind="point.category"></span>
                 <br>
+                <span ng-bind="point.category"></span>
+                <!--<br>
                 pointId: <span ng-bind="point.pointId"></span>
                 <br>
                 orderNum: <span ng-bind="point.orderNum"></span>

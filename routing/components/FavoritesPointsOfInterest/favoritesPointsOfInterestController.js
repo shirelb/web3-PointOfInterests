@@ -47,8 +47,10 @@ angular.module('pointsOfInterestApp')
             favoritesPointsService.updateFavoritesOrder(point1, point2)
                 .then(function (result) {
                     // self.favoritesPoints = favoritesPointsService.favoritesPoints;
-                    self.updateFavoritesPoints();
+                    self.updateFavoritesPoints(); //update for points after change in DB
                 });
+            self.updateFavoritesPoints(); //update for points after change in LS
+            // point1.focus();
         };
 
         self.sortByOrderNum = function () {

@@ -85,6 +85,12 @@
     padding-left: 160px;
 }
 
+.home-fav-poi-option {
+    text-align: left;
+    float: left;
+    /*margin: 80px 0;*/
+}
+
 .img-popular {
     height: 200px;
     width: 390px;
@@ -106,3 +112,4 @@
     margin-bottom: 10px;
     display: flow-root;
 }
+

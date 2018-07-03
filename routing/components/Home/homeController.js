@@ -71,9 +71,11 @@ angular.module('pointsOfInterestApp')
 
                         self.isLoggedIn = true;
                         self.getUserID().then(function (result) {
-                            self.get2LastFavoritesPoints();
-                            self.getRecommendedPoints();
-                            favoritesPointsService.getAllFavoritesPoints();
+                            favoritesPointsService.getAllFavoritesPoints()
+                                .then(function (result) {
+                                    self.get2LastFavoritesPoints();
+                                    self.getRecommendedPoints();
+                                });
                         });
                     }
 
@@ -134,7 +136,7 @@ angular.module('pointsOfInterestApp')
 
         self.showMsgOfFavorites = false;
         self.get2LastFavoritesPoints = function () {
-            $http.get(serverUrl + "users/favoritesPoints/2Latest/userId/" + userID)//was self.user
+            /*$http.get(serverUrl + "users/favoritesPoints/2Latest/userId/" + userID)//was self.user
                 .then(function (response) {
                     //First function handles success
                     if (response.data.length === 0) {
@@ -154,7 +156,8 @@ angular.module('pointsOfInterestApp')
                     //Second function handles error
                     self.get2LastFavoritesPoints.content = "Something went wrong";
                     // self.message = "Something went wrong"
-                });
+                });*/
+            self.lastFavoritesPoints = favoritesPointsService.get2LastFavoritesPoints();
         };
 
         self.isFavoritePoint = function (point) {
@@ -216,8 +219,9 @@ angular.module('pointsOfInterestApp')
                 angular.element(event.currentTarget).removeClass("active");
                 favoritesPointsService.removePointFromFavorites(point)
                     .then(function (result) {
-                        self.get2LastFavoritesPoints();
+                        self.get2LastFavoritesPoints(); //update from favs DB
                     });
+                self.get2LastFavoritesPoints(); //update from favs LS
             } else {
                 var timeline = new mojs.Timeline();
                 favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
@@ -261,6 +265,10 @@ angular.module('pointsOfInterestApp')
                     })*/
             }
 
+        };
+
+        self.isPointInDB=function(point) {
+            return favoritesPointsService.favoritesPointsDB.find(x => x.pointId === point.pointId);
         };
 
     }]);

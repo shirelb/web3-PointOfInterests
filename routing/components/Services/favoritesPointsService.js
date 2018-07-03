@@ -164,6 +164,7 @@ angular.module("pointsOfInterestApp")
                     ), 1
                 );
                 localStorageModel.updateLocalStorage('favoritesPointsLS', self.favoritesPointsLS);
+                return new Promise(resolve => self.favoritesPoints);
             }
             if (self.favoritesPointsDB.find(x => x.pointId === point.pointId)) {
                 return $http.delete(serverUrl + "users/favoritesPoints/remove/userId/" + self.userID + "/pointId/" + point.pointId)//was self.user
@@ -191,7 +192,6 @@ angular.module("pointsOfInterestApp")
         };
 
         self.updateFavoritesOrderPointsInLSAndDB = function (pointLS, pointDB) {
-
 
             let updatedPointDB = {
                 'orderNum': pointLS.orderNum,
@@ -359,5 +359,34 @@ angular.module("pointsOfInterestApp")
             self.favoritesPoints.sort((a, b) => a.rating - b.rating)
         };
 
+        self.sortBySavedDate = function () {
+            self.favoritesPoints.sort((a, b) => a.savedDate - b.savedDate)
+        };
+
+        self.get2LastFavoritesPoints = function () {
+            /*$http.get(serverUrl + "users/favoritesPoints/2Latest/userId/" + userID)//was self.user
+                .then(function (response) {
+                    //First function handles success
+                    if (response.data.length === 0) {
+                        self.showMsgOfFavorites = true;
+                        self.favoritesMsg = "You haven't saved any points yet";
+                    }
+                    else {
+                        self.showMsgOfFavorites = false;
+                        favoritesPointsService.getPointsByID(response.data, self.lastFavoritesPoints)
+                            .then(function (favPoints) {
+                                self.lastFavoritesPoints = favPoints;
+                                console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
+                            })
+                        // self.lastFavoritesPoints = response.data;
+                    }
+                }, function (response) {
+                    //Second function handles error
+                    self.get2LastFavoritesPoints.content = "Something went wrong";
+                    // self.message = "Something went wrong"
+                });*/
+            self.sortBySavedDate();
+            return self.favoritesPoints.slice(0, 2);
+        };
 
     }]);

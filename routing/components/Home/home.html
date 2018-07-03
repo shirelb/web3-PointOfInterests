@@ -100,19 +100,28 @@
     <div class="recommended-div">
         <h3 class="title"> Recommended For You </h3>
         <div class="points-div">
-            <div class="point-div" ng-repeat="(id , point) in homeCtrl.recommendedPoints"
-                 ng-click="homeCtrl.OpenPointPage(point)">
+            <div class="point-div" ng-repeat="(id , point) in homeCtrl.recommendedPoints">
                 <div class="center-160">
-                    <div class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
-                         ng-click="homeCtrl.toggleToFavorites($event, point)"></div>
-                    <span class="point-title" ng-bind="point.name"></span>
+                    <div class='home-fav-poi-option'>
+                        <span class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
+                              ng-click="homeCtrl.toggleToFavorites($event, point)">
+                        </span>
+                        <br>
+                        <br>
+                        <span class='in-db-icon btn-option' ng-show="homeCtrl.isPointInDB(point)">
+                            <img ng-src="https://png-2.vector.me/files/images/6/8/683511/uk_union_flag_thumb"/>
+                        </span>
+                    </div>
 
-                    <br>
-                    <span class="point-title" ng-bind="point.category"></span>
-                    <br>
-                    <!--<img ng-style="{'height': '300px', 'width': '420'}" ng-src="{{point.image}}"/>-->
-                    <img class="img-recommend" ng-src="{{point.image}}"/>
-                    <br>
+                    <div ng-click="homeCtrl.OpenPointPage(point)">
+                        <span class="point-title" ng-bind="point.name"></span>
+                        <br>
+                        <span class="point-title" ng-bind="point.category"></span>
+                        <br>
+                        <!--<img ng-style="{'height': '300px', 'width': '420'}" ng-src="{{point.image}}"/>-->
+                        <img class="img-recommend" ng-src="{{point.image}}"/>
+                        <br>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,16 +133,27 @@
         <div class="points-div">
             <span ng-show="homeCtrl.showMsgOfFavorites"> {{homeCtrl.favoritesMsg}} </span>
             <div class="point-div" ng-show="!homeCtrl.showMsgOfFavorites"
-                 ng-repeat="(id , point) in homeCtrl.lastFavoritesPoints"
-                 ng-click="homeCtrl.OpenPointPage(point)">
+                 ng-repeat="(id , point) in homeCtrl.lastFavoritesPoints">
                 <div class="center-160">
-                    <div class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
-                         ng-click="homeCtrl.toggleToFavorites($event, point)"></div>
-                    POI name: <span ng-bind="point.name"></span>
-                    <br>
-                    Category: <span ng-bind="point.category"></span>
-                    <br>
-                    <img class="img-recommend" ng-src="{{point.image}}"/>
+                    <div class='home-fav-poi-option'>
+                        <span class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
+                         ng-click="homeCtrl.toggleToFavorites($event, point)">
+                        </span>
+                        <br>
+                        <br>
+                        <span class='in-db-icon btn-option' ng-show="homeCtrl.isPointInDB(point)">
+                            <img ng-src="https://png-2.vector.me/files/images/6/8/683511/uk_union_flag_thumb"/>
+                        </span>
+                    </div>
+
+
+                    <div ng-click="homeCtrl.OpenPointPage(point)">
+                        <span class="point-title" ng-bind="point.name"></span>
+                        <br>
+                        <span class="point-title" ng-bind="point.category"></span>
+                        <br>
+                        <img class="img-recommend" ng-src="{{point.image}}"/>
+                    </div>
                 </div>
             </div>
         </div>

@@ -53,7 +53,10 @@
     <li><a class="active" href="#/">Home</a></li>
     <li><a href="#/about">About</a></li>
     <li ng-hide="indexCtrl.isLoggedIn()"><a href="#/register">Register</a></li>
-    <li><a href="#/login">Login</a></li>
+    <li ng-hide="indexCtrl.isLoggedIn()"><a href="#/login">Login</a></li>
+    <li ng-show="indexCtrl.isLoggedIn()">
+        <a href="" ng-click="indexCtrl.logout()"> Logout </a>
+    </li>
     <li><a href="#/pointsOfInterests">Points Of Interests</a></li>
     <li ng-show="indexCtrl.isLoggedIn()"><a href="#/favoritesPointsOfInterest">My Favorites <span> (#{{indexCtrl.getNumberOfFavorites()}})</span></a>
     </li>

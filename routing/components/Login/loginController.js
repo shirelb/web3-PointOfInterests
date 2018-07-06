@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('loginController', ['$scope', '$http', '$location', 'setHeadersToken', 'localStorageModel','loggedInUsername', function ($scope, $http, $location, setHeadersToken, localStorageModel,loggedInUsername) {
+    .controller('loginController', ['$scope', '$http', '$location', 'setHeadersToken', 'localStorageModel','loggedInUsername','favoritesPointsService', function ($scope, $http, $location, setHeadersToken, localStorageModel,loggedInUsername,favoritesPointsService) {
 
         var self = this;
 
@@ -24,6 +24,11 @@ angular.module('pointsOfInterestApp')
                     }
                     else {
                         console.log("user: " + response.data.message);
+
+                        localStorageModel.updateLocalStorage('favoritesPointsLS', []); //clear LS from other users
+                        favoritesPointsService.initFavoritesArrays();
+
+
                         self.login.content = response.data.token;
                         self.message = response.data.message;
                         setHeadersToken.set(self.login.content);

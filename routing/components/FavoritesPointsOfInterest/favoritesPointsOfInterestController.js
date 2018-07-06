@@ -80,7 +80,7 @@ angular.module('pointsOfInterestApp')
             }
         };
 
-        self.reviewModa = null;
+        self.reviewModal = null;
 
         self.openReviewModal = function (point) {
             console.log("in modal  ", point);

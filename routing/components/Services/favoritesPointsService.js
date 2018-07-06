@@ -389,4 +389,10 @@ angular.module("pointsOfInterestApp")
             return self.favoritesPoints.slice(0, 2);
         };
 
+        self.initFavoritesArrays= function(){
+            self.favoritesPointsLS = [];
+            self.favoritesPointsDB = [];
+            self.favoritesPoints = [];
+        };
+
     }]);

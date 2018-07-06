@@ -2,22 +2,22 @@
 
 <head>
 
-        <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog.min.css">
-        <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
-        <script src="../../../node_modules/ng-dialog/js/ngDialog.min.js"></script>
-
-        <link rel="stylesheet" type="text/css" href="stylePointPage.css" />
-        <link rel="stylesheet" type="text/css" href="../../favoritesStyle.css" />
-        <title class="center">Points Of Interest App</title>
-
+    
+    <link rel="stylesheet" type="text/css" href="stylePointPage.css" />
+    <link rel="stylesheet" type="text/css" href="../../favoritesStyle.css" />
+    <title class="center">Points Of Interest App</title>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <script src="../../../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="pointPageController.js"></script>
     <!--<script src="../Services/pageForPoint.js"></script>
-    <script src="../Services/setHeadersToken.js"></script>
-    <script src="../Services/favoritesPointsService.js"></script>-->
-
+        <script src="../Services/setHeadersToken.js"></script>
+        <script src="../Services/favoritesPointsService.js"></script>-->
+        
+        <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog.min.css">
+        <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
+        <script src="../../../node_modules/ng-dialog/js/ngDialog.min.js"></script>
 </head>
 
 <body ng-controller="pointPageController as pointCtrl">
@@ -45,7 +45,7 @@
 </div>
 
   
-        <div> <p>What is your opinion? 
+     <!--   <div> <p>What is your opinion? 
                 <input ng-click="pointCtrl.insertReview()" type="text " name="revMsg" value="{{pointCtrl.review}} " ng-model="pointCtrl.review" >
                 <button class="label" ng-click="pointCtrl.addReview(revMsg) ">Add review</button>
             </div>
@@ -54,7 +54,7 @@
     <div ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews">
         <span>{{$index+1}}: {{review.reviewMsg}} </span>
         <br>
-    </div>
+    </div>-->
 </div>
 <!-------------------------------------------------->
 
@@ -66,32 +66,32 @@
                     <form action="">
                         <label class="review">Rate</label>
                         <input class="star star-5" id="star-5-2" type="radio" name="star"
-                               ng-model="pointCtrl.reviewRate" ng-value="5"
-                               ng-change="pointCtrl.changeRateSelected()"/>
+                               ng-model="reviewCtrl.reviewRate" ng-value="5"
+                               ng-change="reviewCtrl.changeRateSelected()"/>
                         <label class="star star-5" for="star-5-2"></label>
                         <input class="star star-4" id="star-4-2" type="radio" name="star"
-                               ng-model="pointCtrl.reviewRate" ng-value="4"
-                               ng-change="pointCtrl.changeRateSelected()"/>
+                               ng-model="reviewCtrl.reviewRate" ng-value="4"
+                               ng-change="reviewCtrl.changeRateSelected()"/>
                         <label class="star star-4" for="star-4-2"></label>
                         <input class="star star-3" id="star-3-2" type="radio" name="star"
-                               ng-model="pointCtrl.reviewRate" ng-value="3"
-                               ng-change="pointCtrl.changeRateSelected()"/>
+                               ng-model="reviewCtrl.reviewRate" ng-value="3"
+                               ng-change="reviewCtrl.changeRateSelected()"/>
                         <label class="star star-3" for="star-3-2"></label>
                         <input class="star star-2" id="star-2-2" type="radio" name="star"
-                               ng-model="pointCtrl.reviewRate" ng-value="2"
-                               ng-change="pointCtrl.changeRateSelected()"/>
+                               ng-model="reviewCtrl.reviewRate" ng-value="2"
+                               ng-change="reviewCtrl.changeRateSelected()"/>
                         <label class="star star-2" for="star-2-2"></label>
                         <input class="star star-1" id="star-1-2" type="radio" name="star"
-                               ng-model="pointCtrl.reviewRate" ng-value="1"
-                               ng-change="pointCtrl.changeRateSelected()"/>
+                               ng-model="reviewCtrl.reviewRate" ng-value="1"
+                               ng-change="reviewCtrl.changeRateSelected()"/>
                         <label class="star star-1" for="star-1-2"></label>
                         <div class="rev-box">
                             <label class="review" for="review">Review</label>
                             <textarea class="review" col="30" name="review"
-                                      ng-model="pointCtrl.reviewMsg"></textarea>
+                                      ng-model="reviewCtrl.reviewMsg"></textarea>
                             <input type="button" value="send" ng-click="reviewCtrl.sendReviewMsg()"/>
                             <br>
-                            <span ng-bind="pointCtrl.sendReviewMsgComment"></span>
+                            <span ng-bind="reviewCtrl.sendReviewMsgComment"></span>
                         </div>
                     </form>
                 </div>
@@ -101,6 +101,23 @@
     </div>
 
 <!-------------------------------------------------->
+<p class="purple-title">Last reviews: </p>
+   <!-- <div ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews">
+        <span>{{$index+1}}: {{review.reviewMsg}} </span>
+        <br>
+    </div>-->
+    <div>
+            <!--<span >{{pointCtrl.pointSelected.lastReviews[0].reviewMsg}}</span>
+            <span ng-bind="pointCtrl.pointSelected.lastReviews"></span>-->
+            <hi >1: {{rev1}} </hi>
+            <hi >2: {{rev2}} </hi>
+            <span >1: {{pointCtrl.pointSelected.lastReviews[0].reviewMsg}} </span>
+            <!--<div  ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews" >
+                    <span >{{$index+1}}: {{review.reviewMsg}} </span>
+                    <span >{{$index+1}}: {{review.reviewMsg}} </span>
+                    <br>
+                </div>-->
+        </div>
 
 </body>
 </html>

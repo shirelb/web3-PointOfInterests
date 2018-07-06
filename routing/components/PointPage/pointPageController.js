@@ -14,8 +14,18 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
         //     self.pointReviews = $window.pointData.lastReviews;
         // };
         self.pointSelected = $window.pointSelected;
+        $scope.lastReviews = $window.get2LatestReviews(self.pointSelected);
+        console.log("$scope.lastReviews;;;;"+self.pointSelected.lastReviews[0].reviewMsg);
+        //$scope.lastReviews = reviewPointsService.get2LatestReviews(self.pointSelected);
+        if(self.pointSelected.lastReviews.length >0){
+            $scope.rev1 = self.pointSelected.lastReviews[0].reviewMsg;
+        }
+        if(self.pointSelected.lastReviews.length >1){
+            $scope.rev2 = self.pointSelected.lastReviews[1].reviewMsg;
+        }
         self.favService = $window.favService;
         self.revService = $window.reviewService;
+        self.get2LatestReviews = $window.get2LatestReviews;
         console.log("pointpagecontroller: self.favService >>"+self.favService);
         console.log("pointpagecontroller: self.revService >>"+self.revService);
         console.log("pointpagecontroller: $window.favService >>"+$window.favService);
@@ -165,19 +175,30 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
                     console.log("changeRateSelected   ", modalSelf.point, "    ", modalSelf.reviewRate);
                 };
 
+                //modalSelf.sendReviewMsg = function () {
                 modalSelf.sendReviewMsg = function () {
-                    console.log("sendReviewMsg   ", modalSelf.point, "    ", modalSelf.reviewMsg);
+                        console.log("sendReviewMsg   ", modalSelf.point, "    ", modalSelf.reviewMsg);
                     if (modalSelf.reviewMsg !== "" && modalSelf.reviewMsg !== undefined) {
                         if (modalSelf.hasReviewMsg) {
                             self.revService.updateReviewMsg(modalSelf.point, modalSelf.reviewMsg)
                                 .then(function (comment) {
                                     modalSelf.sendReviewMsgComment = comment;
-                                });
+                                    //$scope.lastReviews = $window.get2LatestReviews(self.pointSelected);
+                                    //self.pointSelected.lastReviews = $window.get2LatestReviews(self.pointSelected);
+                                    self.pointSelected.lastReviews = self.revService.get2LatestReviews(self.pointSelected);
+                                    self.updateRevs(self.pointSelected.lastReviews);   
+                                })
+                                .then(function (){
+
+                                })
+                                ;
                         }
                         else {
                             self.revService.addReviewMsg(modalSelf.point, modalSelf.reviewMsg)
                                 .then(function (comment) {
                                     modalSelf.sendReviewMsgComment = comment;
+                                    console.log("B");
+                                    updateRevs($window.get2LatestReviews(self.pointSelected));   
                                 });
                         }
                     }
@@ -187,11 +208,29 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
             scope: $scope,
             preCloseCallback: function (value) {
                 self.sendReviewRate(point, self.pointRateToAdd, self.hasReviewRate);
+                //self.pointSelected.lastReviews = self.get2LatestReviews(self.pointSelected);
+                console.log("in the callback");
+                //$scope.lastReviews = $window.get2LatestReviews(self.pointSelected);
+                self.updateRevs(self.pointSelected.lastReviews); 
+                console.log("lastReviews: "+ $scope.lastReviews);
+                //$scope.rev1 = $window.get2LatestReviews(self.pointSelected)[0];///its undefineddddd
+                //$scope.rev2 = $scope.lastReviews[1];
                 console.log('preclose', value, point, self.pointRateToAdd);
                 
             },
         })
     };
+
+    self.updateRevs = function(revs){
+        if(revs.length>0){
+            $scope.rev1 = revs[0].reviewMsg;
+        }
+        if(revs.length>1){
+            $scope.rev1 = revs[1].reviewMsg;
+        }
+        console.log("rev!1: "+ revs+" \n")
+    };
+
 
 /////////////////////////
     }]);

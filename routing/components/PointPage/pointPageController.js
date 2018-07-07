@@ -15,8 +15,13 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
         // };
         self.pointSelected = $window.pointSelected;
         $scope.lastReviews = $window.get2LatestReviews(self.pointSelected);
-        console.log("$scope.lastReviews;;;;"+self.pointSelected.lastReviews[0].reviewMsg);
-        //$scope.lastReviews = reviewPointsService.get2LatestReviews(self.pointSelected);
+        /*.then(function($$state){
+            if($scope.lastReviews.$$state.value.length>0){
+                $scope.rev1 = $scope.lastReviews.$$state.value[0];
+            }
+        });*/
+            //self.pointSelected.lastReviews = $window.get2LatestReviews(self.pointSelected);
+
         if(self.pointSelected.lastReviews.length >0){
             $scope.rev1 = self.pointSelected.lastReviews[0].reviewMsg;
         }
@@ -183,12 +188,13 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
                             self.revService.updateReviewMsg(modalSelf.point, modalSelf.reviewMsg)
                                 .then(function (comment) {
                                     modalSelf.sendReviewMsgComment = comment;
-                                    //$scope.lastReviews = $window.get2LatestReviews(self.pointSelected);
+                                    //$scope.lastReviews = self.revService.get2LatestReviews(self.pointSelected);
+                                    self.newRev = modalSelf.reviewMsg;
                                     //self.pointSelected.lastReviews = $window.get2LatestReviews(self.pointSelected);
-                                    self.pointSelected.lastReviews = self.revService.get2LatestReviews(self.pointSelected);
-                                    self.updateRevs(self.pointSelected.lastReviews);   
+                                    //self.pointSelected.lastReviews = self.revService.get2LatestReviews(self.pointSelected);
                                 })
                                 .then(function (){
+                                    self.updateRevs(self.pointSelected.lastReviews);   
 
                                 })
                                 ;
@@ -197,8 +203,11 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
                             self.revService.addReviewMsg(modalSelf.point, modalSelf.reviewMsg)
                                 .then(function (comment) {
                                     modalSelf.sendReviewMsgComment = comment;
+                                    self.newRev = modalSelf.reviewMsg;
                                     console.log("B");
-                                    updateRevs($window.get2LatestReviews(self.pointSelected));   
+                                }).then(function(){
+                                    
+                                    self.updateRevs(self.pointSelected.lastReviews);   
                                 });
                         }
                     }
@@ -211,7 +220,7 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
                 //self.pointSelected.lastReviews = self.get2LatestReviews(self.pointSelected);
                 console.log("in the callback");
                 //$scope.lastReviews = $window.get2LatestReviews(self.pointSelected);
-                self.updateRevs(self.pointSelected.lastReviews); 
+                //self.updateRevs(self.pointSelected.lastReviews); 
                 console.log("lastReviews: "+ $scope.lastReviews);
                 //$scope.rev1 = $window.get2LatestReviews(self.pointSelected)[0];///its undefineddddd
                 //$scope.rev2 = $scope.lastReviews[1];
@@ -222,12 +231,34 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
     };
 
     self.updateRevs = function(revs){
-        if(revs.length>0){
-            $scope.rev1 = revs[0].reviewMsg;
+        //$scope.lastReviews = self.revService.get2LatestReviews(self.pointSelected);
+        if(revs.length>0 ){
+            //$scope.rev1 = revs[0].reviewMsg;
+            if(revs[0].userId===self.revService.userID){
+                $scope.rev1 = self.newRev;
+                self.pointSelected.lastReviews[0].reviewMsg = self.newRev;
+                if(revs.length>1){
+
+                    $scope.rev2 = revs[1].reviewMsg;
+                    self.pointSelected.lastReviews[1] = revs[1];
+                }
+            }else{
+                $scope.rev1 = self.newRev;
+                self.pointSelected.lastReviews[0].reviewMsg = self.newRev;
+                self.pointSelected.lastReviews[0].userId= self.revService.userID;
+                $scope.rev2 = revs[0].reviewMsg;
+                self.lastReviews[1] = revs[0];
+            }
+            
+        }else{
+                $scope.rev1 = self.newRev;
+                var n_rev = {userId:self.revService.userID, pointId:self.pointSelected.pointId, reviewMsg:self.newRev, reviewDate:""};
+                self.pointSelected.lastReviews[0] = n_rev;// {userId:self.revService.userID, pointId:self.pointSelected.pointId, reviewMsg:self.newRev, reviewDate:""};
+                console.log("pointSelected.lastRev.len after adding new rev: "+ self.pointSelected.lastReviews.length);
+                //self.pointSelected.lastReviews[0].reviewMsg = self.newRev;
+                //self.pointSelected.lastReviews[0].userId= self.revService.userID;
         }
-        if(revs.length>1){
-            $scope.rev1 = revs[1].reviewMsg;
-        }
+        
         console.log("rev!1: "+ revs+" \n")
     };
 

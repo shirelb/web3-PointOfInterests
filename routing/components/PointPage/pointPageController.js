@@ -70,8 +70,8 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
             console.log("in modal  ", self.pointSelected);
             self.reviewModal = ngDialog.open({
                 template: 'ReviewModalTemplate',
-                controller: ['$scope', '$http', function ($scope, $http) {
-                    const modalSelf = this;
+                controller: ['$scope', '$http','$window', function ($scope, $http,$window) {
+                    var modalSelf = this;
                     modalSelf.point = self.pointSelected;
 
                     self.revService.getReviewByUserIdAndPointId(self.pointSelected)

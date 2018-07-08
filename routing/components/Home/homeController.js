@@ -256,6 +256,9 @@ angular.module('pointsOfInterestApp')
                 // self.selected.lastReviews = reviewPointsService.getPointLastReviews(point);
                 pointWindow.pointSelected = self.selected;
 
+                pointWindow.favService = favoritesPointsService;
+                pointWindow.reviewService = reviewPointsService;
+
                 self.addViewToPoint(point)
                     .then(function (result) {
                         if (result.views !== undefined) {
@@ -263,10 +266,12 @@ angular.module('pointsOfInterestApp')
                         }
                     });
 
-                /*reviewPointsService.getPointLastReviews(point)
+                reviewPointsService.getPointLastReviews(point)
                     .then(function (resultLastRevs) {
-                        self.selected.lastReviews = resultLastRevs;
-                    })*/
+                        pointWindow.lastReviews = [];
+                        pointWindow.lastReviews = resultLastRevs;
+                        // self.selected.lastReviews = resultLastRevs;
+                    })
             }
 
         };

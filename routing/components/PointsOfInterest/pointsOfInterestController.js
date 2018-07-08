@@ -35,7 +35,7 @@ angular.module('pointsOfInterestApp')
             pointWindow.pointSelected = self.selected;
 
             // pointWindow.pointsLastReviews = self.pointsLastReviews;
-            pointWindow.pointSelected = self.selected;
+            // pointWindow.pointSelected = self.selected;
             pointWindow.favService = favoritesPointsService;
             pointWindow.reviewService = reviewPointsService;
             // pointWindow.get2LatestReviews = self.get2LatestReviews;

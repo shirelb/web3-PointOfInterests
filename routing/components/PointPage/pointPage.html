@@ -1,42 +1,94 @@
 <html ng-app="pointPageApp">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="stylePointPage.css" />
-    <title class="center">Points Of Interest App</title>
+    <title>Points Of Interest App</title>
 
+    <!--<link rel="stylesheet" type="text/css" href="styleIndex.css"/>-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-    <script src="../../../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
-    <script src="pointPageController.js"></script>
-    <!--<script src="../Services/pageForPoint.js"></script>
-    <script src="../Services/setHeadersToken.js"></script>-->
 
+    <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
+    <script src="../../../node_modules/ng-dialog/js/ngDialog.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="../../../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+
+    <script src="../../../node_modules/lodash/lodash.js"></script>
+
+    <script src="pointPageController.js"></script>
+    <!--<script src="/routing/components/Services/favoritesPointsService.js"></script>-->
+    <!--<script src="/routing/components/Services/reviewPointsService.js"></script>-->
+    <!--<script src="/routing/components/Services/pageForPoint.js"></script>-->
+
+    <link rel="stylesheet" type="text/css" href="../FavoritesPointsOfInterest/favoritesStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../../reviewModal.css"/>
+    <link rel="stylesheet" type="text/css" href="stylePointPage.css"/>
 </head>
 
 <body ng-controller="pointPageController as pointCtrl">
-<!--<body>-->
-<div class="center" >
-    <h1 class= "title"><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
-    <br>
-    <table >
-        <td>Category: <br> {{pointCtrl.pointSelected.category}} </td>
-        <td>Views:<br>  {{pointCtrl.pointSelected.views}} </td>
-        <td>Rating:<br>  {{pointCtrl.pointSelected.rating}}% </td>
-        <td>Description:<br>  {{pointCtrl.pointSelected.description}}</td>
-    </table>  
-    <br><br><br>
-    <img src="{{pointCtrl.pointSelected.image}}"/>
+<div>
+    <h1 class="title"><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
+    <br><br>
     <div>
-            <button ng-click=""> Add to favorits</button>
-            <input type="radio" value="{{pointCtrl.pointSelected.name}}_{{pointCtrl.pointSelected.id}}" ng-model="pointCtrl.selected">
-        </div>
-        <div>
-                <input type="text " value="{{points.name}}_{{id}} " ng-model="poiCtrl.amount[id] ">
-                <button ng-click="poiCtrl.addToCart(id, points) ">add</button>
+        <span class="label">Category: {{pointCtrl.pointSelected.category}}</span><br><br>
+        <span class="label">Views: {{pointCtrl.pointSelected.views}} </span><br><br>
+        <span class="label">Rating: {{pointCtrl.pointSelected.rating}}% </span><br><br>
+        <br><br><br>
+    </div>
+    <div class="wi">
+        <img class="center-r" src="{{pointCtrl.pointSelected.image}}"/>
+        <p class="left-align">
+        <p class="purple-title">Description:</p><br> {{pointCtrl.pointSelected.description}}</p>
+        <div class='heart fav-button' ng-class="{'active': pointCtrl.isFavoritePoint()}"
+             ng-click="pointCtrl.toggleToFavorites($event)"></div>
+    </div>
+</div>
+
+<div class="poi-review">
+    <button class="review-btn" ng-click="pointCtrl.openReviewModal()">Rate It!</button>
+    <script type="text/ng-template" id="ReviewModalTemplate">
+        <div class="cont">
+            <div class="stars">
+                <form action="">
+                    <label class="review">Rate</label>
+                    <input class="star star-5" id="star-5-2" type="radio" name="star"
+                           ng-model="poiReviewCtrl.reviewRate" ng-value="5"
+                           ng-change="poiReviewCtrl.changeRateSelected()"/>
+                    <label class="star star-5" for="star-5-2"></label>
+                    <input class="star star-4" id="star-4-2" type="radio" name="star"
+                           ng-model="poiReviewCtrl.reviewRate" ng-value="4"
+                           ng-change="poiReviewCtrl.changeRateSelected()"/>
+                    <label class="star star-4" for="star-4-2"></label>
+                    <input class="star star-3" id="star-3-2" type="radio" name="star"
+                           ng-model="poiReviewCtrl.reviewRate" ng-value="3"
+                           ng-change="poiReviewCtrl.changeRateSelected()"/>
+                    <label class="star star-3" for="star-3-2"></label>
+                    <input class="star star-2" id="star-2-2" type="radio" name="star"
+                           ng-model="poiReviewCtrl.reviewRate" ng-value="2"
+                           ng-change="poiReviewCtrl.changeRateSelected()"/>
+                    <label class="star star-2" for="star-2-2"></label>
+                    <input class="star star-1" id="star-1-2" type="radio" name="star"
+                           ng-model="poiReviewCtrl.reviewRate" ng-value="1"
+                           ng-change="poiReviewCtrl.changeRateSelected()"/>
+                    <label class="star star-1" for="star-1-2"></label>
+                    <div class="rev-box">
+                        <label class="review" for="review">Review</label>
+                        <textarea class="review" col="30" name="review"
+                                  ng-model="poiReviewCtrl.reviewMsg"></textarea>
+                        <input type="button" value="send" ng-click="poiReviewCtrl.sendReviewMsg()"/>
+                        <br>
+                        <span ng-bind="poiReviewCtrl.sendReviewMsgComment"></span>
+                    </div>
+                </form>
             </div>
+        </div>
+
+    </script>
 
     <p>Last reviews: </p>
-    <div ng-repeat="(id , review) in pointCtrl.pointSelected.lastReviews">
+    <div ng-repeat="(id , review) in pointCtrl.lastReviews track by $index">
         <span>{{$index+1}}: {{review.reviewMsg}} </span>
         <br>
     </div>

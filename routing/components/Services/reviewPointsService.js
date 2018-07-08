@@ -117,4 +117,15 @@ angular.module("pointsOfInterestApp")
                 });
         };
 
+        self.get2LatestReviews = function (point) {
+            return $http.get(serverUrl + "reviews/2Latest/pointId/" + point.pointId)
+                .then(function (response) {
+                    return response.data;
+                }, function (response) {
+                    //Second function handles error
+                    console.log("Something went wrong with bringing 2 latest reviews ");
+                });
+
+        };
+
     }]);

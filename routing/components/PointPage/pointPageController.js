@@ -10,6 +10,7 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
         self.favService = $window.favService;
         self.revService = $window.reviewService;
         self.lastReviews = $window.lastReviews;
+        self.isLoggedIn = $window.isLoggedIn;
 
 
         self.toggleToFavorites = function (event) {
@@ -70,7 +71,7 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
             console.log("in modal  ", self.pointSelected);
             self.reviewModal = ngDialog.open({
                 template: 'ReviewModalTemplate',
-                controller: ['$scope', '$http','$window', function ($scope, $http,$window) {
+                controller: ['$scope', '$http', '$window', function ($scope, $http, $window) {
                     var modalSelf = this;
                     modalSelf.point = self.pointSelected;
 
@@ -84,6 +85,7 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
                                 if (result.rate !== null && result.rate !== undefined) {
                                     modalSelf.hasReviewRate = true;
                                     modalSelf.reviewRate = result.rate;
+
                                 }
                                 else {
                                     modalSelf.hasReviewRate = false;
@@ -96,6 +98,7 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
                                     modalSelf.hasReviewMsg = false;
                                 }
                             }
+                            $scope.$apply();
                         });
 
                     modalSelf.changeRateSelected = function () {
@@ -134,6 +137,9 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
             })
         };
 
+        self.isPointInDB = function () {
+            return self.favService.favoritesPointsDB.find(x => x.pointId === self.pointSelected.pointId);
+        };
 
     }]);
 

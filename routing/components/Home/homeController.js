@@ -258,6 +258,7 @@ angular.module('pointsOfInterestApp')
 
                 pointWindow.favService = favoritesPointsService;
                 pointWindow.reviewService = reviewPointsService;
+                pointWindow.isLoggedIn = self.isLoggedIn;
 
                 self.addViewToPoint(point)
                     .then(function (result) {

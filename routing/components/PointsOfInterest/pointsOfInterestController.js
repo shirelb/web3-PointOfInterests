@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q','favoritesPointsService','reviewPointsService', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q,favoritesPointsService,reviewPointsService) {
+    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q','favoritesPointsService','reviewPointsService','loggedInUsername', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q,favoritesPointsService,reviewPointsService,loggedInUsername) {
         let self = this;
 
         let serverUrl = "http://localhost:8080/";
@@ -40,6 +40,7 @@ angular.module('pointsOfInterestApp')
             pointWindow.reviewService = reviewPointsService;
             // pointWindow.get2LatestReviews = self.get2LatestReviews;
 
+            pointWindow.isLoggedIn = loggedInUsername.username !== "Guest";
 
             self.addViewToPoint(point)
                 .then(function (result) {

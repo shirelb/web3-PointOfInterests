@@ -35,7 +35,7 @@ angular.module('pointsOfInterestApp')
             }
         };
 
-        self.saveFavoritesInDB = function (){
+        self.saveFavoritesInDB = function () {
             favoritesPointsService.addPointToFavoritesToDB()
                 .then(function (result) {
                     // self.favoritesPoints = favoritesPointsService.favoritesPoints;
@@ -181,6 +181,7 @@ angular.module('pointsOfInterestApp')
 
                 pointWindow.favService = favoritesPointsService;
                 pointWindow.reviewService = reviewPointsService;
+                pointWindow.isLoggedIn = true;
 
                 self.addViewToPoint(point)
                     .then(function (result) {
@@ -219,7 +220,7 @@ angular.module('pointsOfInterestApp')
 
         self.getAllCategories();
 
-        self.isPointInDB=function(point) {
+        self.isPointInDB = function (point) {
             return favoritesPointsService.favoritesPointsDB.find(x => x.pointId === point.pointId);
         };
 

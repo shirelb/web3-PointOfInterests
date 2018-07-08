@@ -37,17 +37,24 @@
         <span class="label">Rating: {{pointCtrl.pointSelected.rating}}% </span><br><br>
         <br><br><br>
     </div>
-    <div class="wi">
+
+    <div>
         <img class="center-r" src="{{pointCtrl.pointSelected.image}}"/>
         <p class="left-align">
         <p class="purple-title">Description:</p><br> {{pointCtrl.pointSelected.description}}</p>
-        <div class='heart fav-button' ng-class="{'active': pointCtrl.isFavoritePoint()}"
-             ng-click="pointCtrl.toggleToFavorites($event)"></div>
+    </div>
+</div>
+
+<div ng-show="pointCtrl.isLoggedIn" class="wi">
+    <div class='heart fav-button' ng-class="{'active': pointCtrl.isFavoritePoint()}"
+         ng-click="pointCtrl.toggleToFavorites($event)"></div>
+    <div class='in-db-icon btn-option' ng-show="pointCtrl.isPointInDB()">
+        <img ng-src="https://png-2.vector.me/files/images/6/8/683511/uk_union_flag_thumb"/>
     </div>
 </div>
 
 <div class="poi-review">
-    <button class="review-btn" ng-click="pointCtrl.openReviewModal()">Rate It!</button>
+    <button class="review-btn" ng-click="pointCtrl.openReviewModal()" ng-show="pointCtrl.isLoggedIn">Rate It!</button>
     <script type="text/ng-template" id="ReviewModalTemplate">
         <div class="cont">
             <div class="stars">

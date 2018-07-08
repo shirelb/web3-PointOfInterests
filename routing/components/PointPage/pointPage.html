@@ -19,6 +19,15 @@
         <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
         <script src="../../../node_modules/ng-dialog/js/ngDialog.min.js"></script>
 </head>
+        <script>
+             pointCtrl.revService.get2LatestReviews(self.pointSelected)
+                                        .then(function(res){
+                                            pointCtrl.pointSelected.lastReviews = res;
+                                            $scope.rev1 = res[0].reviewMsg;
+                                           
+                                        });
+    
+            </script>
 
 <body ng-controller="pointPageController as pointCtrl">
 <!--<body>-->

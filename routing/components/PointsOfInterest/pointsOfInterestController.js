@@ -53,7 +53,7 @@ angular.module('pointsOfInterestApp')
             pointWindow.pointSelected = self.selected;
             pointWindow.favService = self.favService;
             pointWindow.reviewService = self.reviewService;
-            pointWindow.get2LatestReviews = self.get2LatestReviews;
+            //pointWindow.get2LatestReviews = self.get2LatestReviews;
 
             self.addViewToPoint(point)
                 .then(function (result) {

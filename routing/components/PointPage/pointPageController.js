@@ -24,10 +24,11 @@ angular.module('pointPageApp', ["LocalStorageModule", "ngRoute","ngDialog"])
         self.favService = $window.favService;
         self.revService = $window.reviewService;
         self.revService.get2LatestReviews(self.pointSelected)
-                                    .then(function(res){
-                                        self.pointSelected.lastReviews = res;
-                                        $scope.rev1 = res[0].reviewMsg;
-                                    });
+    .then(function(res){
+        self.pointSelected.lastReviews = res;
+        $scope.rev1 = res[0].reviewMsg;
+        //update2();
+    });
 /*
             self.pointSelected.lastReviews = $window.get2LatestReviews(self.pointSelected);
 console.log("hiiiiiiiiiiiii:\nself.pointSelected.lastReviews:"+self.pointSelected.lastReviews.$$state[0]+"\nself.lastReviews="+self.lastReviews);
@@ -206,6 +207,7 @@ console.log("hiiiiiiiiiiiii:\nself.pointSelected.lastReviews:"+self.pointSelecte
                                     self.revService.get2LatestReviews(self.pointSelected)
                                     .then(function(res){
                                         self.pointSelected.lastReviews = res;
+                                        //self.update2();
                                         $scope.rev1 = res[0].reviewMsg;
                                     });
                                 })
@@ -284,14 +286,16 @@ console.log("hiiiiiiiiiiiii:\nself.pointSelected.lastReviews:"+self.pointSelecte
         
         console.log("rev!1: "+ revs+" \n")
     };
-    window.onload = function() {
+    
+    self.update2 = function(){
         self.revService.get2LatestReviews(self.pointSelected)
                                     .then(function(res){
                                         self.pointSelected.lastReviews = res;
                                         $scope.rev1 = res[0].reviewMsg;
                                     });
-      };
-    
+                                    $scope.rev1 = self.pointSelected.lastReviews[0].reviewMsg;
+    }
+   
 
 /////////////////////////
     }]);

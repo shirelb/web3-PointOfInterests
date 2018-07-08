@@ -49,6 +49,7 @@ angular.module('pointsOfInterestApp')
                 if (obj !== undefined)
                     return obj.pointId === point.pointId;
             });
+            pointWindow.pointsLastReviews = self.pointsLastReviews;
             pointWindow.pointSelected = self.selected;
             pointWindow.favService = self.favService;
             pointWindow.reviewService = self.reviewService;

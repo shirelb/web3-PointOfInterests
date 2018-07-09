@@ -8,7 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
     <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog.min.css">
-    <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" href="../../../node_modules/ng-dialog/css/ngDialog.min.css">
+
     <script src="../../../node_modules/ng-dialog/js/ngDialog.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -40,14 +41,15 @@
     <div class="wi">
         <img class="center-r" src="{{pointCtrl.pointSelected.image}}"/>
         <p class="left-align">
-        <p class="purple-title">Description:</p><br> {{pointCtrl.pointSelected.description}}</p>
-        <div class='heart fav-button' ng-class="{'active': pointCtrl.isFavoritePoint()}"
-             ng-click="pointCtrl.toggleToFavorites($event)"></div>
+        <p class="purple-title">Description:</p><p class="text-size"> {{pointCtrl.pointSelected.description}}</p></p>
+        
+        <button class="review-btn inline" id="shadow" ng-click="pointCtrl.openReviewModal()">Rate It!</button>
+        <div class='heart fav-button rate-button inline' ng-class="{'active': pointCtrl.isFavoritePoint()}"
+             ng-click="pointCtrl.toggleToFavorites($event)"></div>           
     </div>
 </div>
 
 <div class="poi-review">
-    <button class="review-btn" ng-click="pointCtrl.openReviewModal()">Rate It!</button>
     <script type="text/ng-template" id="ReviewModalTemplate">
         <div class="cont">
             <div class="stars">
@@ -87,11 +89,11 @@
 
     </script>
 
-    <p>Last reviews: </p>
-    <div ng-repeat="(id , review) in pointCtrl.lastReviews track by $index">
-        <span>{{$index+1}}: {{review.reviewMsg}} </span>
-        <br>
-    </div>
+</div>
+<p class="purple-title">Last reviews: </p><br>
+<div class="left-align" ng-repeat="(id , review) in pointCtrl.lastReviews track by $index">
+    <span class="left-align, text-size, review-style">{{$index+1}}: {{review.reviewMsg}} </span>
+    <br><br><br><br>
 </div>
 
 </body>

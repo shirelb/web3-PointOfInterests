@@ -81,3 +81,30 @@ p{
 h1, span {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+.text-size{
+    font-size: 15px ;
+}
+
+.review-style{
+        border-radius: 25px;
+        border: 2px solid rgb(150, 33, 173);
+        padding: 20px; 
+        width: 400px;
+        height: 150px;   
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+        box-sizing: border-box;
+    
+}
+#shadow{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.rate-button{
+    left: 2%;
+}
+
+.inline{
+    display: inline-block;
+    padding: 8px;
+}

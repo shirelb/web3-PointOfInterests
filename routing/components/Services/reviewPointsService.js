@@ -94,6 +94,8 @@ angular.module("pointsOfInterestApp")
                 'reviewDate': new Date()
             };
 
+            // review.reviewDate=review.reviewDate.toString();
+
             return $http.put(serverUrl + "reviews/update/reviewMsg", review)//was self.user
                 .then(function (response) {
                     //First function handles success

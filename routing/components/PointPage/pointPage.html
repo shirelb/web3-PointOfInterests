@@ -3,7 +3,6 @@
 <head>
     <title>Points Of Interest App</title>
 
-    <link rel="stylesheet" type="text/css" href="styleIndex.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
@@ -18,13 +17,15 @@
     <script src="../../../node_modules/lodash/lodash.js"></script>
 
     <script src="pointPageController.js"></script>
-    <!--<script src="/routing/components/Services/favoritesPointsService.js"></script>-->
-    <!--<script src="/routing/components/Services/reviewPointsService.js"></script>-->
+    <!--<script src="../Services/favoritesPointsService.js"></script>-->
+    <!--<script src="../Services/reviewPointsService.js"></script>-->
     <!--<script src="/routing/components/Services/pageForPoint.js"></script>-->
 
     <link rel="stylesheet" type="text/css" href="../FavoritesPointsOfInterest/favoritesStyle.css"/>
     <link rel="stylesheet" type="text/css" href="../../reviewModal.css"/>
+    <link rel="stylesheet" type="text/css" href="../../styleIndex.css"/>
     <link rel="stylesheet" type="text/css" href="stylePointPage.css"/>
+
 </head>
 
 <body ng-controller="pointPageController as pointCtrl">
@@ -95,8 +96,11 @@
     </script>
 
     <p>Last reviews: </p>
-    <div ng-repeat="(id , review) in pointCtrl.lastReviews track by $index">
-        <span>{{$index+1}}: {{review.reviewMsg}} </span>
+    <div ng-repeat="(id , review) in pointCtrl.lastReviews | orderBy: review.reviewDate track by $index">
+        <span>{{$index+1}}. {{review.reviewMsg}} </span>
+        <br>
+        <span> {{review.reviewDate | date:'shortDate'}} </span>
+        <br>
         <br>
     </div>
 </div>

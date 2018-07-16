@@ -28,7 +28,6 @@ angular.module('pointsOfInterestApp')
                         localStorageModel.updateLocalStorage('favoritesPointsLS', []); //clear LS from other users
                         favoritesPointsService.initFavoritesArrays();
 
-
                         self.login.content = response.data.token;
                         self.message = response.data.message;
                         setHeadersToken.set(self.login.content);

@@ -1,7 +1,9 @@
 angular.module('pointsOfInterestApp')
 // .controller('indexController', ['$location', '$http', 'setHeadersToken', 'localStorageModel', function ($location, $http, setHeadersToken, localStorageModel) {
-    .controller('indexController', ['$scope', '$location', '$route', 'loggedInUsername', 'favoritesPointsService', 'ngDialog', 'localStorageModel', function ($scope, $location, $route, loggedInUsername, favoritesPointsService, ngDialog, localStorageModel) {
+    .controller('indexController', ['$scope', '$location', '$route', 'loggedInUsername', 'favoritesPointsService', 'ngDialog', 'localStorageModel','$http', function ($scope, $location, $route, loggedInUsername, favoritesPointsService, ngDialog, localStorageModel,$http) {
         self = this;
+
+        var serverUrl = "http://localhost:8080/";
 
         self.isLoggedIn = function () {
             return loggedInUsername.username !== "Guest";
@@ -82,5 +84,22 @@ angular.module('pointsOfInterestApp')
             }
         };
 
+        self.checkIfExistTokenIsValid = function () {
+            if(localStorageModel.getLocalStorage('token')) {
+                var token={token: localStorageModel.getLocalStorage('token')};
+                $http.post(serverUrl + "users/validToken/",token)
+                    .then(function (response) {
+                        if(response.data.success==="valid token!"){
+                            setHeadersToken.set(localStorageModel.getLocalStorage('token'));
+                            loggedInUsername.set(self.user.username);
+                        }
+                    }, function (response) {
+                        //Second function handles error
+                        console.log("Something went wrong with add View To Point ");
+                    });
+            }
+        };
+
+        self.checkIfExistTokenIsValid();
 
     }]);

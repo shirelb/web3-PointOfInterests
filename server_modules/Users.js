@@ -301,6 +301,10 @@ router.use(function (req, res, next) {
     }
 });
 
+router.post('/validToken', function (req, res) {
+    console.log("in route /users/validToken");
+    res.status(200).send({success:"valid token!",payload:req.decoded});
+});
 
 router.get('/categories/:id', function (req, res) {
     console.log("in route /users/categories");

@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q','favoritesPointsService','reviewPointsService', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q,favoritesPointsService,reviewPointsService) {
+    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q','favoritesPointsService','reviewPointsService','loggedInUsername', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q,favoritesPointsService,reviewPointsService,loggedInUsername) {
         let self = this;
 
         let serverUrl = "http://localhost:8080/";
@@ -35,11 +35,13 @@ angular.module('pointsOfInterestApp')
             pointWindow.pointSelected = self.selected;
 
             // pointWindow.pointsLastReviews = self.pointsLastReviews;
-            pointWindow.pointSelected = self.selected;
+            // pointWindow.pointSelected = self.selected;
             pointWindow.favService = favoritesPointsService;
             pointWindow.reviewService = reviewPointsService;
+            pointWindow.lastReviews = [];
             // pointWindow.get2LatestReviews = self.get2LatestReviews;
 
+            pointWindow.isLoggedIn = loggedInUsername.username !== "Guest";
 
             self.addViewToPoint(point)
                 .then(function (result) {
@@ -53,8 +55,10 @@ angular.module('pointsOfInterestApp')
                     // self.selected.lastReviews = [];
                     // self.selected.lastReviews = result;
 
-                    pointWindow.lastReviews = [];
+                    
                     pointWindow.lastReviews = result;
+                    self.lastReviews = result;
+                    console.log("in poois ctrl:"+ result[0].reviewMsg);
                 });
         };
 
@@ -174,5 +178,3 @@ angular.module('pointsOfInterestApp')
 
     }])
 ;
-
-    

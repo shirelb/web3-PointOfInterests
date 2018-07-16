@@ -47,9 +47,13 @@
         
         <button class="review-btn inline" id="shadow" ng-click="pointCtrl.openReviewModal()">Rate It!</button>
         <div class='heart fav-button rate-button inline' ng-class="{'active': pointCtrl.isFavoritePoint()}"
-             ng-click="pointCtrl.toggleToFavorites($event)"></div>           
+             ng-click="pointCtrl.toggleToFavorites($event)"></div>  
+             <div class='in-db-icon btn-option inline' ng-show="pointCtrl.isPointInDB()">
+                    <img ng-src="https://png-2.vector.me/files/images/6/8/683511/uk_union_flag_thumb"/>
+                </div>         
     </div>
     <p class="purple-title">Last reviews: </p><br>
+    <p>1. {{rev1}}  </p>
     <div class="left-align" ng-repeat="(id , review) in pointCtrl.lastReviews track by $index">
         <span class="left-align, text-size, review-style">{{$index+1}}: {{review.reviewMsg}} </span>
         <br><br><br><br>

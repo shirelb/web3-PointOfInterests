@@ -24,19 +24,21 @@
     <!--<script src="/routing/components/Services/pageForPoint.js"></script>-->
 
     <link rel="stylesheet" type="text/css" href="../FavoritesPointsOfInterest/favoritesStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../../formsStyle.css"/>
     <link rel="stylesheet" type="text/css" href="../../reviewModal.css"/>
     <link rel="stylesheet" type="text/css" href="stylePointPage.css"/>
 </head>
 
 <body ng-controller="pointPageController as pointCtrl">
-<div>
+<div class="forms-bg"></div>
+<div class="form register_form">
     <h1 class="title"><span ng-bind="pointCtrl.pointSelected.name"> </span></h1>
     <br><br>
-    <div>
+    <div >
         <span class="label">Category: {{pointCtrl.pointSelected.category}}</span><br><br>
         <span class="label">Views: {{pointCtrl.pointSelected.views}} </span><br><br>
         <span class="label">Rating: {{pointCtrl.pointSelected.rating}}% </span><br><br>
-        <br><br><br>
+        <br>
     </div>
     <div class="wi">
         <img class="center-r" src="{{pointCtrl.pointSelected.image}}"/>
@@ -47,6 +49,13 @@
         <div class='heart fav-button rate-button inline' ng-class="{'active': pointCtrl.isFavoritePoint()}"
              ng-click="pointCtrl.toggleToFavorites($event)"></div>           
     </div>
+    <p class="purple-title">Last reviews: </p><br>
+    <div class="left-align" ng-repeat="(id , review) in pointCtrl.lastReviews track by $index">
+        <span class="left-align, text-size, review-style">{{$index+1}}: {{review.reviewMsg}} </span>
+        <br><br><br><br>
+    </div>
+
+
 </div>
 
 <div class="poi-review">
@@ -90,11 +99,7 @@
     </script>
 
 </div>
-<p class="purple-title">Last reviews: </p><br>
-<div class="left-align" ng-repeat="(id , review) in pointCtrl.lastReviews track by $index">
-    <span class="left-align, text-size, review-style">{{$index+1}}: {{review.reviewMsg}} </span>
-    <br><br><br><br>
-</div>
+
 
 </body>
 </html>

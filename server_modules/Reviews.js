@@ -24,7 +24,7 @@ router.get('/2Latest/pointId/:id', function (req, res) {
 
     DButilsAzure.execQuery("" +
         "SELECT TOP 2 userId, pointId, reviewMsg, reviewDate from Reviews\n" +
-        "WHERE (pointId='" + id + "') AND reviewDate = (SELECT MAX(reviewDate) from Reviews)")
+        "WHERE pointId='" + id + "' ORDER BY reviewDate DESC")
         .then(function (result) {
             res.status(200).send(result);
         })
@@ -248,7 +248,7 @@ router.post('/add/reviewMsg', function (req, res) {
 
 router.put('/update/reviewMsg', function (req, res) {
     console.log("in route /reviews/update/reviewMsg");
-    console.log("req.body.reviewDate "+ req.body.reviewDate);
+    console.log("req.body.reviewDate " + req.body.reviewDate);
 
     DButilsAzure.execQuery("" +
         "SELECT * FROM Reviews " +
@@ -272,8 +272,6 @@ router.put('/update/reviewMsg', function (req, res) {
             res.status(500).send(err);
         });
 });
-
-
 
 
 module.exports = router;

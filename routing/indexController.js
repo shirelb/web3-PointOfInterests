@@ -96,6 +96,7 @@ angular.module('pointsOfInterestApp')
                         if(response.data.success==="valid token!"){
                             setHeadersToken.set(localStorageModel.getLocalStorage('token'));
                             loggedInUsername.set(response.data.payload.username);
+                            self.getNumberOfFavorites();
                         }
                         else{
                             localStorageModel.updateLocalStorage('favoritesPointsLS', []); //clear LS from other users

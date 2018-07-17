@@ -68,10 +68,11 @@ angular.module('pointsOfInterestApp')
 
                         self.login.content = response.data.token;
                         self.message = response.data.message;
-                        setHeadersToken.set(self.login.content);
+                        setHeadersToken.set(response.data.token);
+                        localStorageModel.addLocalStorage('token', response.data.token);
                         loggedInUsername.set(self.user.username);
                         self.username = loggedInUsername.username;
-                        self.addTokenToLocalStorage();
+                        // self.addTokenToLocalStorage();
 
                         self.isLoggedIn = true;
                         self.getUserID().then(function (result) {

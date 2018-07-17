@@ -94,6 +94,8 @@ angular.module("pointsOfInterestApp")
                 'reviewDate': new Date()
             };
 
+            // review.reviewDate=review.reviewDate.toString();
+
             return $http.put(serverUrl + "reviews/update/reviewMsg", review)//was self.user
                 .then(function (response) {
                     //First function handles success
@@ -115,6 +117,17 @@ angular.module("pointsOfInterestApp")
                     self.getPointLastReviews.content = "Something went wrong";
                     return self.getPointLastReviews.content;
                 });
+        };
+
+        self.get2LatestReviews = function (point) {
+            return $http.get(serverUrl + "reviews/2Latest/pointId/" + point.pointId)
+                .then(function (response) {
+                    return response.data;
+                }, function (response) {
+                    //Second function handles error
+                    console.log("Something went wrong with bringing 2 latest reviews ");
+                });
+
         };
 
     }]);

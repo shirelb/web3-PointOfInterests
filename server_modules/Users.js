@@ -182,7 +182,7 @@ router.post('/login/authenticate', function (req, res) {
                 }
                 // res.status(200).send(result);
                 else {
-                    sendToken(user, res);
+                    sendToken(user[0], res);
                 }
 
             })
@@ -206,10 +206,16 @@ router.post('/login/authenticate', function (req, res) {
 });
 
 function sendToken(user, res) {
+    console.log("user.username: " + user.username);
     var payload = {
         username: user.username,
-        admin: user.isAdmin
+        userId: user.userId
+        //admin: user.isAdmin
     };
+
+    console.log("payload username " + payload.username);
+    console.log("payload userId " + payload.userId);
+    //console.log("payload admin " +payload.admin);
 
     var token = jwt.sign(payload, superSecret, {
         expiresIn: "1d" // expires in 24 hours
@@ -301,6 +307,10 @@ router.use(function (req, res, next) {
     }
 });
 
+router.post('/validToken', function (req, res) {
+    console.log("in route /users/validToken");
+    res.status(200).send({success: "valid token!", payload: req.decoded.payload});
+});
 
 router.get('/categories/:id', function (req, res) {
     console.log("in route /users/categories");

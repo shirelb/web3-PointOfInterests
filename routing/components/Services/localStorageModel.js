@@ -24,5 +24,11 @@ angular.module("pointsOfInterestApp")
             localStorageService.set(key, value);
         };
 
+        self.deleteLocalStorage=function (key){
+            localStorageService.remove(key);
+        }
+
+
+
 
     }]);

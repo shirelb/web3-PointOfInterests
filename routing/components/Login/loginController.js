@@ -28,12 +28,12 @@ angular.module('pointsOfInterestApp')
                         localStorageModel.updateLocalStorage('favoritesPointsLS', []); //clear LS from other users
                         favoritesPointsService.initFavoritesArrays();
 
-
                         self.login.content = response.data.token;
                         self.message = response.data.message;
-                        setHeadersToken.set(self.login.content);
+                        setHeadersToken.set(response.data.token);
+                        localStorageModel.addLocalStorage('token', response.data.token);
                         loggedInUsername.set(self.user.username);
-                        self.addTokenToLocalStorage();
+                        // self.addTokenToLocalStorage(response.data.token);
                         $location.path('/');
                     }
 
@@ -44,7 +44,7 @@ angular.module('pointsOfInterestApp')
         };
 
         self.addTokenToLocalStorage = function () {
-            localStorageModel.addLocalStorage('token', self.login.content)
+            localStorageModel.addLocalStorage('token', self.login.content);
         }
 
     }]);

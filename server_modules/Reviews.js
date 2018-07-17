@@ -16,6 +16,24 @@ router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
 
+router.get('/2Latest/pointId/:id', function (req, res) {
+    console.log("in route /reviews/2Latest/pointId/:id");
+
+    let id = req.params.id;
+    console.log("id: " + id);
+
+    DButilsAzure.execQuery("" +
+        "SELECT TOP 2 userId, pointId, reviewMsg, reviewDate from Reviews\n" +
+        "WHERE pointId='" + id + "' ORDER BY reviewDate DESC")
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+
 // route middleware to verify a token
 // router.use('/reg', function (req, res, next) {
 router.use(function (req, res, next) {
@@ -230,6 +248,7 @@ router.post('/add/reviewMsg', function (req, res) {
 
 router.put('/update/reviewMsg', function (req, res) {
     console.log("in route /reviews/update/reviewMsg");
+    console.log("req.body.reviewDate " + req.body.reviewDate);
 
     DButilsAzure.execQuery("" +
         "SELECT * FROM Reviews " +
@@ -240,6 +259,7 @@ router.put('/update/reviewMsg', function (req, res) {
                 "SET reviewMsg = '" + req.body.reviewMsg + "' , reviewDate = '" + req.body.reviewDate + "' " +
                 "WHERE userId = '" + req.body.userId + "' AND pointId = '" + req.body.pointId + "'")
                 .then(function (result) {
+                    console.log(result);
                     res.status(200).send("review updated successfully! =)");
                 })
                 .catch(function (err) {
@@ -253,22 +273,5 @@ router.put('/update/reviewMsg', function (req, res) {
         });
 });
 
-
-router.get('/2Latest/pointId/:id', function (req, res) {
-    console.log("in route /reviews/2Latest/pointId/:id");
-
-    let id = req.params.id;
-    console.log("id: " + id);
-
-    DButilsAzure.execQuery("" +
-        "SELECT TOP 2 userId, pointId, reviewMsg, reviewDate from Reviews\n" +
-        "WHERE (pointId='" + id + "') AND reviewDate = (SELECT MAX(reviewDate) from Reviews)")
-        .then(function (result) {
-            res.status(200).send(result);
-        })
-        .catch(function (err) {
-            res.status(500).send(err);
-        })
-});
 
 module.exports = router;

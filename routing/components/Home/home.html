@@ -10,7 +10,7 @@
 <div class="login-div" ng-show="!homeCtrl.isLoggedIn">
     <form ng-submit="homeCtrl.login()" class="form home_login_form" name="loginForm" id="loginForm"
           enctype="text/plain"
-          method="POST">
+          method="POST" novalidate>
         <div class="field-p">
             <label for="username" class="username" data-icon="u">Username* </label>
             <input class="input" id="username" name="username" required type="text"

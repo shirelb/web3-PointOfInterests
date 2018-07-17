@@ -25,7 +25,7 @@ router.get('/delete_picture_column', function (req, res) {
 router.post('/addImageToPoint', function (req, res) {
     console.log("in route /pointsOfInterests/addImageToPoint");
 
-    DButilsAzure.execQuery("UPDATE PointsOfInterest SET image = '"+req.body.image+"' WHERE pointId= "+req.body.pointId+";")
+    DButilsAzure.execQuery("UPDATE PointsOfInterest SET image = '" + req.body.image + "' WHERE pointId= " + req.body.pointId + ";")
         .then(function (result) {
             console.log("delet & add column successssss!!!")
             res.status(200).send(result);
@@ -39,7 +39,7 @@ router.post('/addImageToPoint', function (req, res) {
 router.post('/deleteById', function (req, res) {
     console.log("in route /pointsOfInterests/deleteById");
 
-    DButilsAzure.execQuery("DELETE from PointsOfInterest WHERE pointId= "+req.body.pointId+";")
+    DButilsAzure.execQuery("DELETE from PointsOfInterest WHERE pointId= " + req.body.pointId + ";")
         .then(function (result) {
             console.log("delet row successssss!!!")
             res.status(200).send(result);
@@ -97,12 +97,12 @@ router.get('/popularsInCategory/:category', function (req, res) {
             }
             else {
                 DButilsAzure.execQuery("SELECT * FROM PointsOfInterest WHERE category = '" + category + "' AND rating>=80")
-                .then(function (result) {
-                    res.status(200).send(result);
-                })
-                .catch(function (err) {
-                    res.status(500).send(err);
-                })
+                    .then(function (result) {
+                        res.status(200).send(result);
+                    })
+                    .catch(function (err) {
+                        res.status(500).send(err);
+                    })
             }
         })
         .catch(function (err) {
@@ -174,8 +174,6 @@ router.get('/populars/', function (req, res) {
 });
 
 
-
-
 // route middleware to verify a category
 router.use('/addPoint', function (req, res, next) {
     console.log("in route middleware to verify a category");
@@ -213,9 +211,11 @@ router.post('/addPoint', function (req, res) {
     console.log("in route /pointsOfInterests/addPoint");
 
     DButilsAzure.execQuery("" +
-        "INSERT INTO PointsOfInterest (name,category,rating,views,description,picture) " +
+        "INSERT INTO PointsOfInterest (name,category,rating,views,description,picture,address,pointXcoordinate,pointYcoordinate) " +
         "VALUES ('" + req.body.name + "','" + req.body.category + "'," +
-        req.body.rating + ", 0 ,'" + req.body.description + "','" + req.body.picture + "')")
+        req.body.rating + ", 0 ,'" + req.body.description + "','" +
+        req.body.picture + "','" + req.body.address + "','" +
+        req.body.xCoordinate + "','" + req.body.yCoordinate + "')")
         .then(function (result) {
             res.status(200).send("point added successfully! =)");
         })

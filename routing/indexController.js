@@ -1,7 +1,9 @@
 angular.module('pointsOfInterestApp')
 // .controller('indexController', ['$location', '$http', 'setHeadersToken', 'localStorageModel', function ($location, $http, setHeadersToken, localStorageModel) {
-    .controller('indexController', ['$scope', '$location', '$route', 'loggedInUsername', 'favoritesPointsService', 'ngDialog', 'localStorageModel', function ($scope, $location, $route, loggedInUsername, favoritesPointsService, ngDialog, localStorageModel) {
+    .controller('indexController', ['$scope', '$location', '$route', 'loggedInUsername', 'favoritesPointsService', 'ngDialog', 'localStorageModel','$http','setHeadersToken', function ($scope, $location, $route, loggedInUsername, favoritesPointsService, ngDialog, localStorageModel,$http,setHeadersToken) {
         self = this;
+
+        var serverUrl = "http://localhost:8080/";
 
         self.isLoggedIn = function () {
             return loggedInUsername.username !== "Guest";
@@ -22,6 +24,9 @@ angular.module('pointsOfInterestApp')
             localStorageModel.updateLocalStorage('favoritesPointsLS', []); //clear LS from other users
             favoritesPointsService.initFavoritesArrays();
             loggedInUsername.set("Guest");
+
+            localStorageModel.deleteLocalStorage('token');
+
             $location.path('/');
             $route.reload();
 
@@ -82,5 +87,31 @@ angular.module('pointsOfInterestApp')
             }
         };
 
+        self.checkIfExistTokenIsValid = function () {
+            if(localStorageModel.getLocalStorage('token')) {
+                $http.defaults.headers.common['x-access-token'] = localStorageModel.getLocalStorage('token');
+                // $http.defaults.headers.common['x-access-token'] = setHeadersToken.token;
+                $http.post(serverUrl + "users/validToken/")
+                    .then(function (response) {
+                        if(response.data.success==="valid token!"){
+                            setHeadersToken.set(localStorageModel.getLocalStorage('token'));
+                            loggedInUsername.set(response.data.payload.username);
+                        }
+                        else{
+                            localStorageModel.updateLocalStorage('favoritesPointsLS', []); //clear LS from other users
+                            favoritesPointsService.initFavoritesArrays();
+                            loggedInUsername.set("Guest");
+
+                            localStorageModel.deleteLocalStorage('token');
+                        }
+                        $route.reload();
+                    }, function (response) {
+                        //Second function handles error
+                        console.log("Something went wrong with add View To Point ");
+                    });
+            }
+        };
+
+        self.checkIfExistTokenIsValid();
 
     }]);

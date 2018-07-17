@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q) {
+    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q','favoritesPointsService','reviewPointsService','loggedInUsername', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q,favoritesPointsService,reviewPointsService,loggedInUsername) {
         let self = this;
 
         let serverUrl = "http://localhost:8080/";
@@ -12,18 +12,6 @@ angular.module('pointsOfInterestApp')
             console.log(id);
             console.log(city);
             console.log(self.amount[id])
-        };
-
-
-        self.get2LatestReviews = function (point) {
-            return $http.get(serverUrl + "reviews/2Latest/pointId/" + point.pointId)
-                .then(function (response) {
-                    return response.data;
-                }, function (response) {
-                    //Second function handles error
-                    console.log("Something went wrong with bringing 2 latest reviews ");
-                });
-
         };
 
         self.addViewToPoint = function (point) {
@@ -46,6 +34,14 @@ angular.module('pointsOfInterestApp')
             // });
             pointWindow.pointSelected = self.selected;
 
+            // pointWindow.pointsLastReviews = self.pointsLastReviews;
+            // pointWindow.pointSelected = self.selected;
+            pointWindow.favService = favoritesPointsService;
+            pointWindow.reviewService = reviewPointsService;
+            // pointWindow.get2LatestReviews = self.get2LatestReviews;
+
+            pointWindow.isLoggedIn = loggedInUsername.username !== "Guest";
+
             self.addViewToPoint(point)
                 .then(function (result) {
                     if (result.views !== undefined) {
@@ -53,10 +49,13 @@ angular.module('pointsOfInterestApp')
                     }
                 });
 
-            self.get2LatestReviews(point)
+            reviewPointsService.get2LatestReviews(point)
                 .then(function (result) {
-                    self.selected.lastReviews = [];
-                    self.selected.lastReviews = result;
+                    // self.selected.lastReviews = [];
+                    // self.selected.lastReviews = result;
+
+                    pointWindow.lastReviews = [];
+                    pointWindow.lastReviews = result;
                 });
         };
 

@@ -34,7 +34,10 @@
 --	rating real,
 --	views int,
 --	description text,
---	picture image
+--	picture image,
+-- pointAddress text,
+-- pointXcoordinate text,
+-- pointYcoordinate text
 --);
 
 --CREATE TABLE Categories (

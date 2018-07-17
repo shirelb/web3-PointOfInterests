@@ -1,0 +1,21 @@
+{
+  "name": "web3-pointsofinterests",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./‏‏server.js"
+  },
+  "dependencies": {
+    "angular-local-storage": "^0.7.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "~4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "lodash": "^4.17.10",
+    "morgan": "^1.9.0",
+    "ng-dialog": "^1.4.0",
+    "tedious-connection-pool": "^1.0.5",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {}
+}

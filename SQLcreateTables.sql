@@ -54,7 +54,7 @@
 --	pointId int,
 --	rate int,
 --	reviewMsg text,
---	reviewDate date
+--	reviewDate datetime
 --);
 
 --DROP TABLE PointsOfInterest

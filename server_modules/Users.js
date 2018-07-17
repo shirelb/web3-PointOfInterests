@@ -20,10 +20,10 @@ router.post('/add', function (req, res) {
     console.log("in route /users/add");
 
     DButilsAzure.execQuery("" +
-        "INSERT INTO Users (firstName,lastName,city ,country,username,password,email)" +
+        "INSERT INTO Users (firstName,lastName,city ,country,username,password,email,isAdmin)" +
         " VALUES ('" + req.body.firstName + "','" + req.body.lastName + "','" +
         req.body.city + "','" + req.body.country + "','" + req.body.username + "','" +
-        req.body.password + "','" + req.body.email + "')")
+        req.body.password + "','" + req.body.email + "',0)")
         .then(function (result) {
             console.log(" 1 result: " + result);
             return DButilsAzure.execQuery("SELECT userId FROM Users WHERE username = '" + req.body.username + "'");
@@ -209,8 +209,8 @@ function sendToken(user, res) {
     console.log("user.username: " + user.username);
     var payload = {
         username: user.username,
-        userId: user.userId
-        //admin: user.isAdmin
+        userId: user.userId,
+        admin: user.isAdmin
     };
 
     console.log("payload username " + payload.username);

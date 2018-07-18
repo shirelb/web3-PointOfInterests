@@ -53,9 +53,8 @@
                 </div>         
     </div>
     <p class="purple-title">Last reviews: </p><br>
-    <p>1. {{rev1}}  </p>
     <div class="left-align" ng-repeat="(id , review) in pointCtrl.lastReviews track by $index">
-        <span class="left-align, text-size, review-style">{{$index+1}}: {{review.reviewMsg}} </span>
+        <span class="left-align text-size review-style">{{$index+1}}: {{review.reviewMsg}} </span>
         <br><br><br><br>
     </div>
 

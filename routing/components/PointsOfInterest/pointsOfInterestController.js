@@ -41,6 +41,7 @@ angular.module('pointsOfInterestApp')
             // pointWindow.get2LatestReviews = self.get2LatestReviews;
 
             pointWindow.isLoggedIn = loggedInUsername.username !== "Guest";
+            pointWindow.parentWindowName="pointsOfInterest";
 
             self.addViewToPoint(point)
                 .then(function (result) {

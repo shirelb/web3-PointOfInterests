@@ -20,7 +20,7 @@ angular.module('pointsOfInterestApp')
 
         self.toggleToFavorites = function (event, point) {
             if (angular.element(event.currentTarget).hasClass("active")) {
-                angular.element(event.currentTarget).removeClass("active");
+                // angular.element(event.currentTarget).removeClass("active");
                 favoritesPointsService.removePointFromFavorites(point)
                     .then(function (result) {
                         // self.favoritesPoints = favoritesPointsService.favoritesPoints;
@@ -182,6 +182,7 @@ angular.module('pointsOfInterestApp')
                 pointWindow.favService = favoritesPointsService;
                 pointWindow.reviewService = reviewPointsService;
                 pointWindow.isLoggedIn = true;
+                pointWindow.parentWindowName="favoritesPointsOfInterest";
 
                 self.addViewToPoint(point)
                     .then(function (result) {

@@ -163,6 +163,13 @@ angular.module('pointsOfInterestApp')
                     // self.message = "Something went wrong"
                 });*/
             self.lastFavoritesPoints = favoritesPointsService.get2LastFavoritesPoints();
+            if (self.lastFavoritesPoints.length === 0) {
+                self.showMsgOfFavorites = true;
+                self.favoritesMsg = "You haven't saved any points yet";
+            }
+            else{
+                self.showMsgOfFavorites = false;
+            }
         };
 
         self.isFavoritePoint = function (point) {

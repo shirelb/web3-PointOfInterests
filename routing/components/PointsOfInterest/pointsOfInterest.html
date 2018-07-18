@@ -10,7 +10,7 @@
 
     <div class="row">
         <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true"
-             ng-click="poiCtrl.OpenPointPage(point)">
+             ng-click="poiCtrl.OpenPointPage(point)" class="poi-click">
             <!--<div ng-repeat="(pointId , name, category, rating, rating, views, description, picture) in poiCtrl.points" ng-click="poiCtrl.OpenPointPage()">-->
             <!---->
             <div class="column">

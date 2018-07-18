@@ -1,21 +1,10 @@
-table , td   {
-
-    background-color:  rgb(255, 98, 93);
-    border: 4px solid rgb(122, 75, 114);
-    border-collapse: collapse;
-
+html {
+    font-family: 'Helvetica', Arial, sans-serif;
 }
 
-table{
-    transform: rotate(90deg);
-    width: 80px;
-    height: 120px;
-    padding: 80px;
-}
-td{
-    transform: rotate(270deg);
-    width: 60px;
-    padding: 70px;
+body {
+    background-color: #fff8ee7d;
+    overflow-x: hidden;
 }
 
 .title {
@@ -27,18 +16,13 @@ td{
     font-weight: bold;
 }
 
-body {
-    background-color:seashell;
-    /*text-align:center;*/
-}
-
 .center{
     text-align:center;
 }
 
 p{
     font-weight: bold;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
     font-size: 18px;
 }
 
@@ -49,7 +33,7 @@ p{
 .label{
     color: white;
     padding: 8px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
     background-color: cadetblue;
     box-shadow: 4px black;
 }
@@ -57,14 +41,14 @@ p{
 
 .center-r {
     position: absolute;
-    bottom: 50px;
-    left: 50%;
-    font-size: 100px ;
+    /*bottom: 75px;*/
+    left: 52%;
+    /*font-size: 100px ;*/
     text-align: left;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    text-shadow: 7px;
+    width: 350px;
+    height: 300px;
+    border-radius: 10%;
+    /*text-shadow: 7px;*/
 }
 
 .purple-title{
@@ -74,10 +58,56 @@ p{
 
 .wi{
     width: 500px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-
+    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
 }
 
-h1, span {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+/*h1, span {*/
+    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
+/*}*/
+
+.text-size{
+    font-size: 15px ;
+}
+
+.review-style{
+    border-radius: 25px;
+    border: 2px solid rgb(150, 33, 173);
+    padding: 20px;
+    width: 400px;
+    min-height: 100px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-sizing: border-box;
+
+}
+#shadow{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.rate-button{
+    left: 2%;
+}
+
+.inline{
+    display: inline-block;
+    padding: 8px;
+}
+
+#point_map {
+    height: 300px;
+    width: 350px;
+    border-radius: 10%;
+}
+
+.legend {
+    background: white;
+    line-height: 1.5em
+}
+
+.legend i {
+    width: 5em;
+    float: left
+}
+
+.review-span{
+    word-wrap: break-word;
 }

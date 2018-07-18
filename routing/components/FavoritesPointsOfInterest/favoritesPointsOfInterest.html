@@ -21,7 +21,7 @@
         <div class="poi-div"
              ng-show="!f_poiCtrl.showMsgOfFavorites"
              ng-repeat="(id , point) in f_poiCtrl.favoritesPoints | orderBy: point.orderNum | filter: (!!catFilter.category || undefined) && {category:catFilter.category}:true track by $index "
-             ng-click="f_poiCtrl.OpenPointPage()">
+             ng-click="f_poiCtrl.OpenPointPage()" class="poi-click">
 
             <!--<div class="border-div"></div>-->
 

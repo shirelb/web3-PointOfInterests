@@ -44,3 +44,7 @@ html {
     color: black;
     text-shadow: 0px;
 }
+
+.poi-click{
+    cursor: pointer;
+}

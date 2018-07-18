@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
-var DButilsAzure = require('../DButils');
+var DButilsAzure = require('../assets/DButils');
 
 
 // use morgan to log requests to the console

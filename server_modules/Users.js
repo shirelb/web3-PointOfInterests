@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
-var DButilsAzure = require('../DButils');
+var DButilsAzure = require('../assets/DButils');
 
 
 // use morgan to log requests to the console
@@ -163,7 +163,7 @@ router.post('/qaRestorePassword/check', function (req, res) {
         })
 });
 
-// route to authenticate a user (POST http://localhost:3000/users/login/authenticate)
+// route to authenticate a user (POST http://localhost:8080/users/login/authenticate)
 router.post('/login/authenticate', function (req, res) {
     if (!req.body.username || !req.body.password) {
         res.send({message: "bad values"});

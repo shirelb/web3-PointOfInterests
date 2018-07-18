@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var DButilsAzure = require('../DButils');
+var DButilsAzure = require('../assets/DButils');
 
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());

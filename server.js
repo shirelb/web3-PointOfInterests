@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var cors = require('cors');
 app.use(cors());
-var DButilsAzure = require('./DButils');
+var DButilsAzure = require('./assets/DButils');
 var users = require('./server_modules/Users.js');
 var countries = require('./server_modules/Countries.js');
 var categories = require('./server_modules/Categories.js');

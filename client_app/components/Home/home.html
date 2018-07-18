@@ -1,0 +1,163 @@
+<!--<div class="home-container">-->
+<div class="home-present">
+    <img class="img-home" src="https://www.monde-du-voyage.com/royaume-uni/week-end-londres.jpg">
+    <div class="london-title">London <br></div>
+    <div class="is-waiting-for-you-title"> Is Waiting For You</div>
+</div>
+
+<h1 class="h1-hello">Hello <span ng-bind="homeCtrl.username"> </span></h1>
+
+<div class="login-div" ng-show="!homeCtrl.isLoggedIn">
+    <form ng-submit="homeCtrl.login()" class="form home_login_form" name="loginForm" id="loginForm"
+          enctype="text/plain"
+          method="POST" novalidate>
+        <div class="field-p">
+            <label for="username" class="username" data-icon="u">Username* </label>
+            <input class="input" id="username" name="username" required type="text"
+                   placeholder="username" ng-model="homeCtrl.user.username" ng-pattern="/^[a-zA-Z]+$/"/>
+            <!-- ng-pattern="/^(\D)+$/"  this regex is for letters only -->
+            <br>
+            <span class="error_input_lbl" ng-show="loginForm.username.$error.required">
+                This field is required
+            </span>
+            <span class="error_input_lbl" ng-show="loginForm.username.$error.pattern">
+                Only letters allowed
+            </span>
+            <span class="error_input_lbl" class="error_input_lbl" ng-show="loginForm.username.$invalid">
+                This field is invalid
+            </span>
+            <span class="valid_input_lbl" ng-show="loginForm.username.$valid">
+                &#10003;
+            </span>
+        </div>
+        <div class="field-p">
+            <label for="password" class="password" data-icon="p">Password* </label>
+            <input class="input" id="password" name="password" required type="password"
+                   ng-model="homeCtrl.user.password" placeholder="eg: S8ok!90EO" ng-pattern="/^[a-zA-Z0-9]+$/"/>
+            <br>
+            <span class="error_input_lbl" ng-show="loginForm.password.$error.required">
+                This field is required
+            </span>
+            <span class="error_input_lbl" ng-show="loginForm.password.$error.pattern">
+                Only letters and digits allowed
+            </span>
+            <span class="error_input_lbl" ng-show="loginForm.password.$invalid">
+                This field is invalid
+            </span>
+            <span class="valid_input_lbl" ng-show="loginForm.password.$valid">
+                &#10003;
+            </span>
+        </div>
+
+        <br>
+        <div class="form-submit-div">
+            <input class="form-button btn btn-orange btn-border-o" type="submit" value="Login"
+                   ng-disabled="loginForm.$invalid"/>
+        </div>
+        <br>
+        <div>
+            <span ng-model="homeCtrl.message"> </span>
+            <p class="error_input_lbl">{{homeCtrl.message}}</p>
+        </div>
+        <br>
+        <div class="change_link">
+            Forgot the password ?
+            <button class="form-button" ng-click="homeCtrl.toRestorePasswordPage()"
+                    class="to_register"> Restore Password
+            </button>
+        </div>
+        <br>
+        <div class="change_link">
+            Not a member yet ?
+            <button class="form-button" id="to_register" ng-click="homeCtrl.toRegisterPage()"
+                    class="to_register"> Join the fun
+            </button>
+        </div>
+
+    </form>
+</div>
+
+
+<!--</div>-->
+
+<div class="points-div" ng-show="!homeCtrl.isLoggedIn">
+    <div class="point-div" ng-repeat="(id , point) in homeCtrl.popularPoints"
+         ng-click="homeCtrl.OpenPointPage(point)">
+        <div class="center">
+            <br><br><br>
+            <span class="point-title" ng-bind="point.name"></span>
+            <br>
+            <!--Category: <span ng-bind="point.category"></span>-->
+            <br>
+            <!--<img ng-style="{'height': '200px', 'width': '390'}" ng-src="{{point.image}}"/>-->
+            <img class="img-popular" ng-src="{{point.image}}"/>
+            <br>
+        </div>
+    </div>
+</div>
+
+<div ng-show="homeCtrl.isLoggedIn">
+    <div class="recommended-div">
+        <h3 class="title"> Recommended For You </h3>
+        <div class="points-div">
+            <div class="point-div" ng-repeat="(id , point) in homeCtrl.recommendedPoints">
+                <div class="center-160">
+                    <div class='home-fav-poi-option'>
+                        <span class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
+                              ng-click="homeCtrl.toggleToFavorites($event, point)">
+                        </span>
+                        <br>
+                        <br>
+                        <span class='in-db-icon btn-option' ng-show="homeCtrl.isPointInDB(point)">
+                            <img ng-src="https://png-2.vector.me/files/images/6/8/683511/uk_union_flag_thumb"/>
+                        </span>
+                    </div>
+
+                    <div ng-click="homeCtrl.OpenPointPage(point)" class="poi-click">
+                        <span class="point-title" ng-bind="point.name"></span>
+                        <br>
+                        <span class="point-title" ng-bind="point.category"></span>
+                        <br>
+                        <!--<img ng-style="{'height': '300px', 'width': '420'}" ng-src="{{point.image}}"/>-->
+                        <img class="img-recommend" ng-src="{{point.image}}"/>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="favorites-div">
+        <!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->
+        <h3 class="title"> Your Last Favorites </h3>
+        <div class="points-div">
+            <span ng-show="homeCtrl.showMsgOfFavorites"> {{homeCtrl.favoritesMsg}} </span>
+            <div class="point-div" ng-show="!homeCtrl.showMsgOfFavorites"
+                 ng-repeat="(id , point) in homeCtrl.lastFavoritesPoints">
+                <div class="center-160">
+                    <div class='home-fav-poi-option'>
+                        <span class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
+                         ng-click="homeCtrl.toggleToFavorites($event, point)">
+                        </span>
+                        <br>
+                        <br>
+                        <span class='in-db-icon btn-option' ng-show="homeCtrl.isPointInDB(point)">
+                            <img ng-src="https://png-2.vector.me/files/images/6/8/683511/uk_union_flag_thumb"/>
+                        </span>
+                    </div>
+
+
+                    <div ng-click="homeCtrl.OpenPointPage(point)" class="poi-click">
+                        <span class="point-title" ng-bind="point.name"></span>
+                        <br>
+                        <span class="point-title" ng-bind="point.category"></span>
+                        <br>
+                        <img class="img-recommend" ng-src="{{point.image}}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--</div>-->

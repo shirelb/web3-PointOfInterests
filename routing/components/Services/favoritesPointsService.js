@@ -164,8 +164,10 @@ angular.module("pointsOfInterestApp")
                     ), 1
                 );
                 localStorageModel.updateLocalStorage('favoritesPointsLS', self.favoritesPointsLS);
-                return new Promise(resolve => self.favoritesPoints);
+                // return new Promise(resolve => self.favoritesPoints);
+                return Promise.resolve(self.favoritesPoints);
             }
+
             if (self.favoritesPointsDB.find(x => x.pointId === point.pointId)) {
                 return $http.delete(serverUrl + "users/favoritesPoints/remove/userId/" + self.userID + "/pointId/" + point.pointId)//was self.user
                     .then(function (response) {

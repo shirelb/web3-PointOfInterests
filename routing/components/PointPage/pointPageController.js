@@ -11,7 +11,22 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
         self.revService = $window.reviewService;
         self.lastReviews = $window.lastReviews;
         self.isLoggedIn = $window.isLoggedIn;
+        self.parentWindowName= $window.parentWindowName;
 
+        self.updateFavoritesMainApp=function (){
+            // $window.parent.reload();
+            opener.location.reload();
+
+            if(self.parentWindowName==="home")   {
+
+            }
+            if(self.parentWindowName==="favoritesPointsOfInterest")   {
+
+            }
+            if(self.parentWindowName==="pointsOfInterest")   {
+
+            }
+        };
 
         self.toggleToFavorites = function (event) {
             let point = self.pointSelected;
@@ -20,6 +35,7 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
                 self.favService.removePointFromFavorites(point)
                     .then(function (result) {
                         //self.get2LastFavoritesPoints();
+                        self.updateFavoritesMainApp();
                         console.log("point removed from favorites");
                     });
             } else {
@@ -27,11 +43,8 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
                 //self.favService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
                 //timeline.play();
                 angular.element(event.currentTarget).addClass("active");
-                self.favService.addPointToFavorites(point)
-                    .then(function (result) {
-                        //self.get2LastFavoritesPoints();
-                        console.log("point added to favorites");
-                    });
+                self.favService.addPointToFavoritesToLS(point);
+                self.updateFavoritesMainApp();
             }
         };
 

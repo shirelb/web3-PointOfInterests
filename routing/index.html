@@ -3,40 +3,46 @@
 <head>
     <title>Points Of Interest App</title>
 
+    <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
+    <!-- ngDialog -->
     <link rel="stylesheet" href="../node_modules/ng-dialog/css/ngDialog.min.css">
     <link rel="stylesheet" href="../node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
     <script src="../node_modules/ng-dialog/js/ngDialog.min.js"></script>
 
+    <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <!-- local storage -->
     <script src="../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
 
+    <!-- lodash -->
     <script src="../node_modules/lodash/lodash.js"></script>
 
-    <script src="app.js"></script>
-    <script src="indexController.js"></script>
+    <!-- services -->
     <script src="components/Services/localStorageModel.js"></script>
     <script src="components/Services/setHeadersToken.js"></script>
     <script src="components/Services/loggedInUsername.js"></script>
     <script src="components/Services/loggedInUserID.js"></script>
     <script src="components/Services/favoritesPointsService.js"></script>
     <script src="components/Services/reviewPointsService.js"></script>
+    <script src="components/Services/pageForPoint.js"></script>
 
+    <!-- controllers -->
+    <script src="app.js"></script>
+    <script src="indexController.js"></script>
     <script src="components/About/aboutController.js"></script>
     <script src="components/FavoritesPointsOfInterest/favoritesPointsOfInterestController.js"></script>
     <script src="components/Home/homeController.js"></script>
     <script src="components/Login/loginController.js"></script>
     <script src="components/PointsOfInterest/pointsOfInterestController.js"></script>
     <script src="components/Register/registerController.js"></script>
-
     <script src="components/PointPage/pointPageController.js"></script>
-    <script src="components/Services/pageForPoint.js"></script>
-
     <script src="components/RestorePassword/restorePasswordController.js"></script>
 
+    <!-- css -->
     <link rel="stylesheet" type="text/css" href="components/FavoritesPointsOfInterest/favoritesStyle.css"/>
     <link rel="stylesheet" type="text/css" href="reviewModal.css"/>
     <link rel="stylesheet" type="text/css" href="formsStyle.css"/>

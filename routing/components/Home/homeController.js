@@ -260,6 +260,7 @@ angular.module('pointsOfInterestApp')
                 pointWindow.favService = favoritesPointsService;
                 pointWindow.reviewService = reviewPointsService;
                 pointWindow.isLoggedIn = self.isLoggedIn;
+                pointWindow.parentWindowName="home";
 
                 self.addViewToPoint(point)
                     .then(function (result) {

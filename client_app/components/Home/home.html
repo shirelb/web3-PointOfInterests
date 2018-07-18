@@ -81,9 +81,8 @@
 <!--</div>-->
 
 <div class="points-div" ng-show="!homeCtrl.isLoggedIn">
-    <div class="point-div" ng-repeat="(id , point) in homeCtrl.popularPoints"
-         ng-click="homeCtrl.OpenPointPage(point)">
-        <div class="center">
+    <div class="point-div" ng-repeat="(id , point) in homeCtrl.popularPoints">
+        <div class="center poi-click" ng-click="homeCtrl.OpenPointPage(point)">
             <br><br><br>
             <span class="point-title" ng-bind="point.name"></span>
             <br>
@@ -137,7 +136,7 @@
                 <div class="center-160">
                     <div class='home-fav-poi-option'>
                         <span class='heart fav-button' ng-class="{'active': homeCtrl.isFavoritePoint(point)}"
-                         ng-click="homeCtrl.toggleToFavorites($event, point)">
+                              ng-click="homeCtrl.toggleToFavorites($event, point)">
                         </span>
                         <br>
                         <br>

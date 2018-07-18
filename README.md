@@ -34,15 +34,15 @@ At any given time logout can be done by clicking on it in the navigation bar (op
 Wishing great pleasure from the website,
 and hoping it will help you plan your perfect trip to London.
 
-What you need to download to use the website: <br>
-angular-local-storage <br>
-body-parser <br>
-cors <br>
-express <br>
-jsonwebtoken <br>
-lodash <br>
-morgan <br>
-ng-dialog <br>
-tedious-connection-pool <br>
-xml2js <br>
- <br>
+What you need to download to use the website:
+ - angular-local-storage <br>
+ - body-parser <br>
+ - cors <br>
+ - express <br>
+ - jsonwebtoken <br>
+ - lodash <br>
+ - morgan <br>
+ - ng-dialog <br>
+ - tedious-connection-pool <br>
+ - xml2js <br>
+ 

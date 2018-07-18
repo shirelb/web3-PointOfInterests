@@ -26,7 +26,7 @@ angular.module('pointsOfInterestApp')
 
         self.OpenPointPage = function (point) {
             self.selected = point;
-            let pointWindow = $window.open("components/PointPage/pointPage.html", '_blank');
+            let pointWindow = $window.open("client_app/components/PointPage/pointPage.html", '_blank');
             self.selected.lastReviews = [];
             // self.selected.lastReviews = self.pointsLastReviews.filter(function (obj) {
             //     if (obj !== undefined)

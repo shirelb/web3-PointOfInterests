@@ -28,7 +28,7 @@
                          style="width:100% ;height:70%;">
                     <div class="container2">
 
-                        <div class="pois-option">
+                        <div ng-show="poiCtrl.isLoggedIn" class="pois-option">
                             <span class='heart fav-button btn-option' ng-class="{'active': poiCtrl.isFavoritePoint(point)}"
                                   ng-click="poiCtrl.toggleToFavorites($event, point)"></span>
                             <br><br>

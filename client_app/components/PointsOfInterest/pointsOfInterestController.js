@@ -217,6 +217,8 @@ angular.module('pointsOfInterestApp')
             return res.length !== 0;
         };
 
+        self.isLoggedIn = loggedInUsername.username !== "Guest";
+
     }])
 ;
 

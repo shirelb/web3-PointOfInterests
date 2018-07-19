@@ -34,7 +34,7 @@ At any given time logout can be done by clicking on it in the navigation bar (op
 Wishing great pleasure from the website,
 and hoping it will help you plan your perfect trip to London.
 
-What you need to download to use the website:
+What you need to download to use the website (its all written in package.json file):
  - angular-local-storage <br>
  - body-parser <br>
  - cors <br>
@@ -46,3 +46,22 @@ What you need to download to use the website:
  - tedious-connection-pool <br>
  - xml2js <br>
  
+serverUrl = "http://localhost:8080/"
+
+Users:
+-   gayao       d123456	    gaya@hotmail.com
+-   elio        d123456	    elio@gmail.com
+-   polly       d123456	    polly@hotmail.com
+-   yaron       d123456	    yaron@gmail.com
+-   rotemo      d123456	    rotem@hotmail.com
+-   dafnao      d123456	    dafnaor@hotmail.com
+-   Yosi        yosi1	    yosi@gmail.com
+-   Aviv        aviv1	    aviv@gmail.com
+-   Anat        anat1	    anat@gmail.com
+-   Gali        gali1	    gali@gmail.com
+-   Yonatan     yonatan1	yonatan@gmail.com
+-   Ketty       ketty1	    ketty@gmail.com
+
+Admins:
+-   adminD      d123456	    dafnaor@hotmail.com
+-   adminS      adminS1	    admin_s@gmail.com

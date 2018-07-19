@@ -7,7 +7,7 @@
             <button class="sort-button" ng-click="f_poiCtrl.sortByCategory()"> Order by Category</button>
             <button class="sort-button" ng-click="f_poiCtrl.sortByRating()"> Order by Rating</button>
             <button class="sort-button" ng-click="f_poiCtrl.sortByOrderNum()"> Order by Me</button>
-            <button class="save-path-button" ng-click="f_poiCtrl.saveFavoritesInDB()"> Save Path </button>
+            <button class="save-path-button" ng-click="f_poiCtrl.saveFavoritesInDB()"> Save Path</button>
         </p>
         <p>
             Select category:
@@ -20,8 +20,7 @@
         <span ng-show="f_poiCtrl.showMsgOfFavorites"> {{f_poiCtrl.favoritesMsg}} </span>
         <div class="poi-div"
              ng-show="!f_poiCtrl.showMsgOfFavorites"
-             ng-repeat="(id , point) in f_poiCtrl.favoritesPoints | orderBy: point.orderNum | filter: (!!catFilter.category || undefined) && {category:catFilter.category}:true track by $index "
-             ng-click="f_poiCtrl.OpenPointPage()" class="poi-click">
+             ng-repeat="(id , point) in f_poiCtrl.favoritesPoints | orderBy: point.orderNum | filter: (!!catFilter.category || undefined) && {category:catFilter.category}:true track by $index ">
 
             <!--<div class="border-div"></div>-->
 
@@ -40,7 +39,7 @@
                       ng-click="!$last && f_poiCtrl.swapOrderNum(f_poiCtrl.favoritesPoints[$index], f_poiCtrl.favoritesPoints[$index+1])"> ︾ </span>
             </div>
 
-            <div class="poi-data" ng-click="f_poiCtrl.OpenPointPage(point)">
+            <div class="poi-data poi-click" ng-click="f_poiCtrl.OpenPointPage(point)">
                 <label ng-bind="point.name"></label>
                 <br>
                 <span ng-bind="point.category"></span>

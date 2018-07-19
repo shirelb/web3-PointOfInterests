@@ -40,6 +40,7 @@ angular.module('pointsOfInterestApp')
                 .then(function (result) {
                     // self.favoritesPoints = favoritesPointsService.favoritesPoints;
                     self.updateFavoritesPoints();
+                    self.sortByOrderNum();
                 });
         };
 
@@ -115,8 +116,8 @@ angular.module('pointsOfInterestApp')
                         });
 
                     modalSelf.changeRateSelected = function () {
-                        self.pointRateToAdd = modalSelf.reviewRate;
-                        self.hasReviewRate = modalSelf.hasReviewRate;
+                        $scope.$parent.f_poiCtrl.pointRateToAdd = modalSelf.reviewRate;
+                        $scope.$parent.f_poiCtrl.hasReviewRate = modalSelf.hasReviewRate;
                         console.log("changeRateSelected   ", modalSelf.point, "    ", modalSelf.reviewRate);
                     };
 

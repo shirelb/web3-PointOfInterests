@@ -362,7 +362,7 @@ angular.module("pointsOfInterestApp")
         };
 
         self.sortBySavedDate = function () {
-            self.favoritesPoints.sort((a, b) => a.savedDate - b.savedDate)
+            self.favoritesPoints.sort((a, b) => a.savedDate - b.savedDate).reverse();
         };
 
         self.get2LastFavoritesPoints = function () {

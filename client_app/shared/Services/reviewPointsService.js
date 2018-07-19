@@ -15,7 +15,7 @@ angular.module("pointsOfInterestApp")
                 .then(function (response) {
                     //First function handles success
                     if (response.data.length !== 0) {
-                        return response.data.filter(p => (p.pointId === point.pointId))[0];
+                        return (response.data.filter(p => (p.pointId === point.pointId)))[0];
                     }
                     else {
                         return response.data;

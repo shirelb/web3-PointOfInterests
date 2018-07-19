@@ -14,17 +14,14 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
         self.parentWindowName= $window.parentWindowName;
 
         self.updateFavoritesMainApp=function (){
-            // $window.parent.reload();
-            opener.location.reload();
-
             if(self.parentWindowName==="home")   {
-
+                opener.location.reload();
             }
             if(self.parentWindowName==="favoritesPointsOfInterest")   {
-
+                opener.location.reload();
             }
             if(self.parentWindowName==="pointsOfInterest")   {
-
+                opener.location.reload();
             }
         };
 
@@ -86,9 +83,9 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
                 template: 'ReviewModalTemplate',
                 controller: ['$scope', '$http', '$window', function ($scope, $http, $window) {
                     var modalSelf = this;
-                    modalSelf.point = self.pointSelected;
+                    modalSelf.point = $scope.$parent.pointCtrl.pointSelected;
 
-                    self.revService.getReviewByUserIdAndPointId(self.pointSelected)
+                    $scope.$parent.pointCtrl.revService.getReviewByUserIdAndPointId($scope.$parent.pointCtrl.pointSelected)
                         .then(function (result) {
                             if (result === undefined) {
                                 modalSelf.hasReviewRate = false;
@@ -115,8 +112,8 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
                         });
 
                     modalSelf.changeRateSelected = function () {
-                        self.pointRateToAdd = modalSelf.reviewRate;
-                        self.hasReviewRate = modalSelf.hasReviewRate;
+                        $scope.$parent.pointCtrl.pointRateToAdd = modalSelf.reviewRate;
+                        $scope.$parent.pointCtrl.hasReviewRate = modalSelf.hasReviewRate;
                         console.log("changeRateSelected   ", modalSelf.point, "    ", modalSelf.reviewRate);
                     };
 
@@ -124,17 +121,17 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
                         console.log("sendReviewMsg   ", modalSelf.point, "    ", modalSelf.reviewMsg);
                         if (modalSelf.reviewMsg !== "" && modalSelf.reviewMsg !== undefined) {
                             if (modalSelf.hasReviewMsg) {
-                                self.revService.updateReviewMsg(modalSelf.point, modalSelf.reviewMsg)
+                                $scope.$parent.pointCtrl.revService.updateReviewMsg(modalSelf.point, modalSelf.reviewMsg)
                                     .then(function (comment) {
                                         modalSelf.sendReviewMsgComment = comment;
-                                        self.updateLatestReviews();
+                                        $scope.$parent.pointCtrl.updateLatestReviews();
                                     });
                             }
                             else {
-                                self.revService.addReviewMsg(modalSelf.point, modalSelf.reviewMsg)
+                                $scope.$parent.pointCtrl.revService.addReviewMsg(modalSelf.point, modalSelf.reviewMsg)
                                     .then(function (comment) {
                                         modalSelf.sendReviewMsgComment = comment;
-                                        self.updateLatestReviews();
+                                        $scope.$parent.pointCtrl.updateLatestReviews();
                                     });
                             }
                         }

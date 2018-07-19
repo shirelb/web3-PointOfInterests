@@ -64,7 +64,7 @@ angular.module('pointsOfInterestApp')
                         };
                         self.logout = function () {
                             $scope.indexCtrl.logoutUser();
-                            this.closeThisDialog();
+                            // ngDialog.closeThisDialog();
                             // $scope.indexCtrl.logoutModal.close();
                         };
                     }],

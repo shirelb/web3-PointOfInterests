@@ -174,6 +174,49 @@ angular.module('pointsOfInterestApp')
               return self.selected;
           };*/
 
+        self.sortByRating = function () {
+            self.points.sort((a, b) => a.rating - b.rating);
+        };
+
+        self.sortByName = function () {
+            self.points = _.orderBy(self.points , ['name'],['asc']); // Use Lodash to sort array by 'name'
+            // self.points.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase());
+        };
+
+        self.sortByCategory = function () {
+            self.points = _.orderBy(self.points , ['category'],['asc']); // Use Lodash to sort array by 'name'
+            // self.points.sort((a, b) => (a.category < b.category && a.name.toLowerCase() < b.name.toLowerCase()));
+        };
+
+        self.toggleToFavorites = function (event, point) {
+            if (angular.element(event.currentTarget).hasClass("active")) {
+                angular.element(event.currentTarget).removeClass("active");
+                favoritesPointsService.removePointFromFavorites(point)
+                    .then(function (result) {
+                        // self.get2LastFavoritesPoints(); //update from favs DB
+                    });
+                // self.get2LastFavoritesPoints(); //update from favs LS
+            } else {
+                var timeline = new mojs.Timeline();
+                favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
+                timeline.play();
+                angular.element(event.currentTarget).addClass("active");
+                favoritesPointsService.addPointToFavoritesToLS(point);
+                // .then(function (result) {
+                // self.get2LastFavoritesPoints();
+                // });
+            }
+        };
+
+        self.isPointInDB = function (point) {
+            return favoritesPointsService.favoritesPointsDB.find(x => x.pointId === point.pointId);
+        };
+
+        self.isFavoritePoint = function (point) {
+            let res = favoritesPointsService.favoritesPoints.filter(p => (p.pointId === point.pointId));
+            return res.length !== 0;
+        };
+
     }])
 ;
 

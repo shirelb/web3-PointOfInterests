@@ -57,11 +57,16 @@
         <div class="form-submit-div">
             <input class="form-button btn btn-orange btn-border-o" type="submit" value="Login"
                    ng-disabled="loginForm.$invalid"/>
-            <br>
+
+            <br><br>
+            Forgot the password ?
+            <a href="#/restorePassword" class="to_register">Restore Password</a>
+
+            <br><br>
             Not a member yet ?
             <a id="to_register" href="#/register" class="to_register">Join the fun </a>
 
-            <br>
+            <br><br>
 
             <div>
                 <span ng-model="loginCtrl.message"> </span>

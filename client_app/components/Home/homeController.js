@@ -235,9 +235,9 @@ angular.module('pointsOfInterestApp')
                     });
                 self.get2LastFavoritesPoints(); //update from favs LS
             } else {
-                var timeline = new mojs.Timeline();
-                favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
-                timeline.play();
+                // var timeline = new mojs.Timeline();
+                // favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
+                // timeline.play();
                 angular.element(event.currentTarget).addClass("active");
                 favoritesPointsService.addPointToFavoritesToLS(point);
                 // .then(function (result) {

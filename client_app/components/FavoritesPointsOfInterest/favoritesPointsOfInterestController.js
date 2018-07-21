@@ -20,7 +20,6 @@ angular.module('pointsOfInterestApp')
 
         self.toggleToFavorites = function (event, point) {
             if (angular.element(event.currentTarget).hasClass("active")) {
-                angular.element(event.currentTarget).removeClass("active");
                 favoritesPointsService.removePointFromFavorites(point)
                     .then(function (result) {
                         self.updateFavoritesPoints();

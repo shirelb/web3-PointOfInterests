@@ -1,5 +1,5 @@
 angular.module('pointsOfInterestApp')
-    .controller('pointsOfInterestController', ['pageForPoint', '$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q', 'favoritesPointsService', 'reviewPointsService', 'loggedInUsername', function (pageForPoint, $scope, $window, $http, localStorageModel, $rootScope, $q, favoritesPointsService, reviewPointsService, loggedInUsername) {
+    .controller('pointsOfInterestController', ['$scope', '$window', '$http', 'localStorageModel', '$rootScope', '$q', 'favoritesPointsService', 'reviewPointsService', 'loggedInUsername', function ($scope, $window, $http, localStorageModel, $rootScope, $q, favoritesPointsService, reviewPointsService, loggedInUsername) {
         let self = this;
 
         let serverUrl = "http://localhost:8080/";

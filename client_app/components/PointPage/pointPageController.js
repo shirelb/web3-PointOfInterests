@@ -1,5 +1,4 @@
 angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
-// .controller('pointPageController', ['pageForPoint', function (pageForPoint) {
     .controller('pointPageController', ['$window', '$http', '$scope', 'localStorageService', 'ngDialog', function ($window, $http, $scope, localStorageService, ngDialog) {
 
         var self = this;

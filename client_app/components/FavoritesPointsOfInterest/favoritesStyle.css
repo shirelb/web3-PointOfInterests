@@ -1,21 +1,6 @@
-/*html{
-    padding:0;
-    margin: 0;
-    min-height:100%;
-}
-body{
-    background: #111;
-    position:relative;
-    min-height:100%;
-}*/
 .fav-button {
-    /*width: 10px; */
-    /* height: 10px; */
     top: -50px;
     position: relative;
-    /* left: 10px; */
-    /* margin-top: -45px; */
-    /* margin-left: -50px; */
     margin-right: 25px;
     border-radius: 5px;
     background: none;
@@ -33,8 +18,6 @@ body{
 
 .heart {
     left: 5px;
-    /*width: 30px;*/
-    /*height: 20px;*/
     transition: background 0.5s ease;
 }
 
@@ -60,7 +43,6 @@ body{
 }
 
 .order-button {
-    /*cursor: pointer;*/
     font-weight: bold;
     font-size: 30px;
 }
@@ -81,15 +63,8 @@ body{
 
 .border-div {
     border-top: 2px solid #003467;
-    /*box-shadow: 0 0 0 1px;*/
     margin-bottom: 30px;
 
-    /*border: 1px solid #202020;*/
-    /*margin-top: 25px;*/
-    /*margin-left: 25px;*/
-    /*width: 158px;*/
-    /*height: 158px;*/
-    /*padding-top: 25px;*/
     -webkit-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
     -moz-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
     box-shadow: 0px -1px 9px 1px rgba(50, 50, 50, 0.53);
@@ -98,24 +73,11 @@ body{
 .poi-div {
     margin: 5% 10%;
     padding: 30px 80px;
-    /*padding: 5px;*/
-    /*display: table;*/
-
-    /*display: grid;*/
-    /*grid-template-columns: 1fr 1fr 1fr;*/
 
     display: flex;
 
-    /*border-top: 2px solid #003467;*/
-    /*box-shadow: 0 0 0 1px;*/
     margin-bottom: 30px;
 
-    /*border: 1px solid #202020;*/
-    /*margin-top: 25px;*/
-    /*margin-left: 25px;*/
-    /*width: 158px;*/
-    /*height: 158px;*/
-    /*padding-top: 25px;*/
     -webkit-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
     -moz-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
     box-shadow: inset 0px 0px 13px 1px rgba(50, 50, 50, 0.53);
@@ -127,7 +89,6 @@ body{
 
 .poi-option {
     text-align: left;
-    /*float: left;*/
     margin: 80px 0;
 }
 
@@ -137,7 +98,6 @@ body{
 
 .poi-data {
     text-align: center;
-    /*float: left;*/
     font-size: 20px;
 }
 
@@ -158,9 +118,7 @@ body{
     border-radius: 0.12em;
     box-sizing: border-box;
     text-decoration: none;
-    /*font-family: 'Roboto', sans-serif;*/
     font-weight: 500;
-    /*color: #FFFFFF;*/
     text-align: center;
     transition: all 0.2s;
     background: #ffc040a6;
@@ -183,7 +141,6 @@ body{
     border: 0;
     padding: 10px 20px !important;
     font-size: 14px !important;
-    /*font-weight: bold;*/
 
     color: #edd7ff;
     background: #003782;
@@ -200,7 +157,6 @@ body{
     border: 0;
     padding: 10px 20px !important;
     font-size: 14px !important;
-    /*font-weight: bold;*/
 
     color: #ffd7e7;
     background: #820000;

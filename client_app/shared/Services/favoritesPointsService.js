@@ -36,7 +36,7 @@ angular.module("pointsOfInterestApp")
         };
 
         self.getAllFavoritesPointsDB = function () {
-            return $http.get(serverUrl + "users/favoritesPoints/userId/" + self.userID)//was self.user
+            return $http.get(serverUrl + "users/favoritesPoints/userId/" + self.userID)
                 .then(function (response) {
                     //First function handles success
                     if (response.data.length !== 0) {
@@ -136,7 +136,7 @@ angular.module("pointsOfInterestApp")
                 'orderNum': self.favoritesPointsLS.length + self.favoritesPointsDB.length,
                 'savedDate': new Date()
             };
-            return $http.post(serverUrl + "users/favoritesPoints/add", favPoint)//was self.user
+            return $http.post(serverUrl + "users/favoritesPoints/add", favPoint)
                 .then(function (response) {
                     //First function handles success
                     //add point to the array
@@ -169,7 +169,7 @@ angular.module("pointsOfInterestApp")
             }
 
             if (self.favoritesPointsDB.find(x => x.pointId === point.pointId)) {
-                return $http.delete(serverUrl + "users/favoritesPoints/remove/userId/" + self.userID + "/pointId/" + point.pointId)//was self.user
+                return $http.delete(serverUrl + "users/favoritesPoints/remove/userId/" + self.userID + "/pointId/" + point.pointId)
                     .then(function (response) {
                         //First function handles success
                         //remove the point from the array
@@ -366,7 +366,7 @@ angular.module("pointsOfInterestApp")
         };
 
         self.get2LastFavoritesPoints = function () {
-            /*$http.get(serverUrl + "users/favoritesPoints/2Latest/userId/" + userID)//was self.user
+            /*$http.get(serverUrl + "users/favoritesPoints/2Latest/userId/" + userID)
                 .then(function (response) {
                     //First function handles success
                     if (response.data.length === 0) {

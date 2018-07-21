@@ -35,7 +35,7 @@ angular.module("pointsOfInterestApp")
                 'rate': reviewRate
             };
 
-            return $http.post(serverUrl + "reviews/add/rate", rate)//was self.user
+            return $http.post(serverUrl + "reviews/add/rate", rate)
                 .then(function (response) {
                     //First function handles success
                     return response.data;
@@ -55,7 +55,7 @@ angular.module("pointsOfInterestApp")
                 'reviewDate': new Date()
             };
 
-            return $http.post(serverUrl + "reviews/add/reviewMsg", review)//was self.user
+            return $http.post(serverUrl + "reviews/add/reviewMsg", review)
                 .then(function (response) {
                     //First function handles success
                     return response.data;
@@ -74,7 +74,7 @@ angular.module("pointsOfInterestApp")
                 'rate': reviewRate
             };
 
-            return $http.put(serverUrl + "reviews/update/rate", rate)//was self.user
+            return $http.put(serverUrl + "reviews/update/rate", rate)
                 .then(function (response) {
                     //First function handles success
                     return response.data;
@@ -96,7 +96,7 @@ angular.module("pointsOfInterestApp")
 
             // review.reviewDate=review.reviewDate.toString();
 
-            return $http.put(serverUrl + "reviews/update/reviewMsg", review)//was self.user
+            return $http.put(serverUrl + "reviews/update/reviewMsg", review)
                 .then(function (response) {
                     //First function handles success
                     return response.data;

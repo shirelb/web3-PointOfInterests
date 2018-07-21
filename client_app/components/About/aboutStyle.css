@@ -6,7 +6,6 @@
 
 #about p {
     width: 50%;
-    /*display: inline-block;*/
     margin: 50px -20px;
     font-size: 20px;
 }
@@ -15,7 +14,6 @@
     width: 300px;
     height: 250px;
     border-radius: 50%;
-    /*margin: 30px 10px;*/
 }
 
 .about-data-div-2 {
@@ -42,19 +40,11 @@
 
 .circle-container a {
     display: block;
-    /*overflow: hidden;*/
     position: absolute;
     top: 50%;
     left: 50%;
-    /* width: 4em; */
-    /* height: 4em; */
     margin: -10em;
 }
-
-/*.circle-container img {*/
-/*display: block;*/
-/*width: 100%;*/
-/*}*/
 
 .deg0 {
     transform: translate(12em);

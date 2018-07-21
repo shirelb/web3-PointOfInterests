@@ -20,8 +20,6 @@
 
     <div class="row">
         <div ng-repeat="(id , point) in poiCtrl.points | filter: {category:catFilter.category}:true">
-            <!--<div ng-repeat="(pointId , name, category, rating, rating, views, description, picture) in poiCtrl.points" ng-click="poiCtrl.OpenPointPage()">-->
-            <!---->
             <div class="column">
                 <div class="card poi-click">
                     <img ng-click="poiCtrl.OpenPointPage(point)" ng-src="{{point.image}}"
@@ -45,20 +43,6 @@
                     </div>
                 </div>
             </div>
-
-
-            <!---->
-            <!-- <div class="poiTitle">
-                POI name: <span ng-bind="point.name"></span>
-                <br>
-                Category: <span ng-bind="point.category"></span>
-                <br>-->
-            <!--<img ng-style="{'height': '100px'}" ng-src="{{ Buffer(point.picture).toString('base64')}} ">-->
-            <!--<img ng-style="{'height': '100px'}" data-ng-src="data:image/jpg;base64,{{point.picture}}"/>-->
-            <!--<img ng-style="{'height': '300px'}" ng-src="{{point.image}}"/>
-              <br><br><br><br>
-
-          </div>-->
 
         </div>
     </div>

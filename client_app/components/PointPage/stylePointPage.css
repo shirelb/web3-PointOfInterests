@@ -8,8 +8,6 @@ body {
 }
 
 .title {
-    /*position: absolute;
-    text-align: center;*/
     font-size: 40px ;
     color: rgb(125, 26, 138);
     text-shadow: 1px 1px rgb(79, 78, 82);
@@ -22,7 +20,6 @@ body {
 
 p{
     font-weight: bold;
-    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
     font-size: 18px;
 }
 
@@ -33,7 +30,6 @@ p{
 .label{
     color: white;
     padding: 8px;
-    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
     background-color: cadetblue;
     box-shadow: 4px black;
 }
@@ -41,14 +37,11 @@ p{
 
 .center-r {
     position: absolute;
-    /*bottom: 75px;*/
     left: 52%;
-    /*font-size: 100px ;*/
     text-align: left;
     width: 350px;
     height: 300px;
     border-radius: 10%;
-    /*text-shadow: 7px;*/
 }
 
 .purple-title{
@@ -58,12 +51,8 @@ p{
 
 .wi{
     width: 500px;
-    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
 }
 
-/*h1, span {*/
-    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
-/*}*/
 
 .text-size{
     font-size: 15px ;

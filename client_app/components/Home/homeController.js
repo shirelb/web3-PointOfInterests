@@ -1,5 +1,4 @@
 angular.module('pointsOfInterestApp')
-// .controller('homeController', ['$scope', function ($scope) {
     .controller('homeController', ['$scope', '$window', '$location', '$http', '$q', 'setHeadersToken', 'localStorageModel', 'loggedInUsername', 'loggedInUserID', 'favoritesPointsService', 'reviewPointsService', function ($scope, $window, $location, $http, $q, setHeadersToken, localStorageModel, loggedInUsername, loggedInUserID, favoritesPointsService, reviewPointsService) {
         let self = this;
 
@@ -26,7 +25,6 @@ angular.module('pointsOfInterestApp')
         self.isLoggedIn = false;
         self.message = "";
 
-        // self.isLoggedIn = function () {
         if (loggedInUsername.username !== "Guest") {
             self.isLoggedIn = true;
             self.getUserID().then(function (result) {
@@ -37,7 +35,6 @@ angular.module('pointsOfInterestApp')
         else {
             self.isLoggedIn = false;
         }
-        // };
 
         self.toRestorePasswordPage = function () {
             $location.path('/restorePassword')
@@ -51,9 +48,7 @@ angular.module('pointsOfInterestApp')
 
         self.login = function () {
             console.log('User clicked submit with ', self.user);
-            //$http.post(serverUrl + "users/login/authenticate", {"username": "admiin", "password": "admin2018"})//was self.user
-            // $http.post(serverUrl + "users/login/authenticate", {"username": self.user.username, "password": self.user.password})//was self.user
-            $http.post(serverUrl + "users/login/authenticate", self.user)//was self.user
+            $http.post(serverUrl + "users/login/authenticate", self.user)
                 .then(function (response) {
                     //First function handles success
                     if (response.data.success === "false") {
@@ -72,7 +67,6 @@ angular.module('pointsOfInterestApp')
                         localStorageModel.addLocalStorage('token', response.data.token);
                         loggedInUsername.set(self.user.username);
                         self.username = loggedInUsername.username;
-                        // self.addTokenToLocalStorage();
 
                         self.isLoggedIn = true;
                         self.getUserID().then(function (result) {
@@ -95,13 +89,9 @@ angular.module('pointsOfInterestApp')
             localStorageModel.addLocalStorage('token', self.login.content)
         };
 
-        // self.popularPoints = {};
-
-
         self.getPopularPoints = function () {
             console.log('User clicked submit with ', self.user);
-            // var serverUrl = "http://localhost:8080/";
-            $http.get(serverUrl + "pointsOfInterests/populars")//was self.user
+            $http.get(serverUrl + "pointsOfInterests/populars")
                 .then(function (response) {
                     //First function handles success
                     self.popularPoints = response.data;
@@ -116,52 +106,13 @@ angular.module('pointsOfInterestApp')
                 }, function (response) {
                     //Second function handles error
                     self.getPopularPoints.content = "Something went wrong";
-                    // self.message = "Something went wrong"
                 });
         };
 
         self.getPopularPoints();
 
-        /*userID = null;
-        self.getUserID = function () {
-            return loggedInUserID.get(self.username)
-                .then(function (result) {
-                    if (result.userId !== null) {
-                        self.message = "";
-                        userID = result.userId;
-                        favoritesPointsService.setUserID(userID);
-                    }
-                    else {
-                        self.message = result.message;
-                    }
-
-                });
-        };*/
-
-
         self.showMsgOfFavorites = false;
         self.get2LastFavoritesPoints = function () {
-            /*$http.get(serverUrl + "users/favoritesPoints/2Latest/userId/" + userID)//was self.user
-                .then(function (response) {
-                    //First function handles success
-                    if (response.data.length === 0) {
-                        self.showMsgOfFavorites = true;
-                        self.favoritesMsg = "You haven't saved any points yet";
-                    }
-                    else {
-                        self.showMsgOfFavorites = false;
-                        favoritesPointsService.getPointsByID(response.data, self.lastFavoritesPoints)
-                            .then(function (favPoints) {
-                                self.lastFavoritesPoints = favPoints;
-                                console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
-                            })
-                        // self.lastFavoritesPoints = response.data;
-                    }
-                }, function (response) {
-                    //Second function handles error
-                    self.get2LastFavoritesPoints.content = "Something went wrong";
-                    // self.message = "Something went wrong"
-                });*/
             self.lastFavoritesPoints = favoritesPointsService.get2LastFavoritesPoints();
             if (self.lastFavoritesPoints.length === 0) {
                 self.showMsgOfFavorites = true;
@@ -180,7 +131,7 @@ angular.module('pointsOfInterestApp')
         self.getRecommendedPoints = function () {
             self.recommendedPoints = [];
 
-            $http.get(serverUrl + "users/categories/" + userID)//was self.user
+            $http.get(serverUrl + "users/categories/" + userID)
                 .then(function (response) {
                     //First function handles success
                     self.userCategories = response.data;
@@ -235,14 +186,9 @@ angular.module('pointsOfInterestApp')
                     });
                 self.get2LastFavoritesPoints(); //update from favs LS
             } else {
-                // var timeline = new mojs.Timeline();
-                // favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
-                // timeline.play();
                 angular.element(event.currentTarget).addClass("active");
                 favoritesPointsService.addPointToFavoritesToLS(point);
-                // .then(function (result) {
                 self.get2LastFavoritesPoints();
-                // });
             }
         };
 
@@ -261,7 +207,6 @@ angular.module('pointsOfInterestApp')
                 self.selected = point;
                 let pointWindow = $window.open("client_app/components/PointPage/pointPage.html", '_blank');
                 self.selected.lastReviews = [];
-                // self.selected.lastReviews = reviewPointsService.getPointLastReviews(point);
                 pointWindow.pointSelected = self.selected;
 
                 pointWindow.favService = favoritesPointsService;
@@ -280,7 +225,6 @@ angular.module('pointsOfInterestApp')
                     .then(function (resultLastRevs) {
                         pointWindow.lastReviews = [];
                         pointWindow.lastReviews = resultLastRevs;
-                        // self.selected.lastReviews = resultLastRevs;
                     })
             }
 

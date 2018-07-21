@@ -12,7 +12,6 @@ footer {
     display: inline-block;
     width: 100%;
     color: white;
-    /*overflow-y: hidden;*/
 }
 
 ul {
@@ -53,6 +52,5 @@ footer .footer-align-left {
 
 footer .footer-align-right {
     float: right;
-    /*padding-right: 40px;*/
     right:0;
 }

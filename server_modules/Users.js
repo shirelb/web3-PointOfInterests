@@ -73,23 +73,12 @@ function save_QA_restore_password(req, user_id) {
             // isError = true;
             console.log(err, "QA restore_password failed");
         });
-    // if (!isError) {
-    //     resolve("QA restore_password success 1");
-    // }
-    // else {
-    //     reject("QA restore_password success 1");
-    // }
 };
 
-// )
-// ;
-// }
 
 function save_categories(req, user_id) {
-    // return new Promise(function (resolve, reject) {
 
     let i = 0;
-    // let isError = false;
     let arr = [];
     while (i < req.body.categories.length) {
         arr.push(DButilsAzure.execQuery("" +
@@ -102,20 +91,9 @@ function save_categories(req, user_id) {
             console.log(result, "save_categories success");
         })
         .catch(function (err) {
-            // isError = true;
             console.log(err, "save_categories failed");
         });
-    // if (!isError) {
-    //     resolve("save_categories success 1");
-    // }
-    // else {
-    //     reject("save_categories success 1");
-    // }
 };
-
-// )
-// ;
-// }
 
 router.get('/qaRestorePassword/:id', function (req, res) {
     console.log("in route /users/qaRestorePassword/:id");
@@ -180,7 +158,6 @@ router.post('/login/authenticate', function (req, res) {
                     });
 
                 }
-                // res.status(200).send(result);
                 else {
                     sendToken(user[0], res);
                 }
@@ -189,19 +166,7 @@ router.post('/login/authenticate', function (req, res) {
             .catch(function (err) {
                 res.status(500).send("Authentication failed. Wrong username or password ");
             });
-        // for (id in Users) {
-        //     var user = Users[id];
-        //
-        //     if (req.body.userName === user.userName) {
-        //         if (req.body.password === user.password) {
-        //             sendToken(user, res);
-        //         } else {
-        //             res.send({success: false, message: 'Authentication failed. Wrong Password'});
-        //             return
-        //         }
-        //     }
-        // }
-        // res.send({success: false, message: 'Authentication failed. No such user name'})
+       
     }
 });
 
@@ -215,7 +180,6 @@ function sendToken(user, res) {
 
     console.log("payload username " + payload.username);
     console.log("payload userId " + payload.userId);
-    //console.log("payload admin " +payload.admin);
 
     var token = jwt.sign(payload, superSecret, {
         expiresIn: "1d" // expires in 24 hours
@@ -246,7 +210,6 @@ router.get('/username/:username', function (req, res) {
 
     let username = req.params.username;
     console.log("username: " + username);
-    // res.send("the requested resource");
 
     DButilsAzure.execQuery("SELECT * FROM Users WHERE username = '" + username + "'")
         .then(function (result) {

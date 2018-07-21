@@ -24,7 +24,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.getReviewByUserIdAndPointId.content = "Something went wrong";
                     return self.getReviewByUserIdAndPointId.content;
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -35,7 +34,7 @@ angular.module("pointsOfInterestApp")
                 'rate': reviewRate
             };
 
-            return $http.post(serverUrl + "reviews/add/rate", rate)//was self.user
+            return $http.post(serverUrl + "reviews/add/rate", rate)
                 .then(function (response) {
                     //First function handles success
                     return response.data;
@@ -43,7 +42,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.addReviewRate.content = "Something went wrong";
                     return self.addReviewRate.content;
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -55,7 +53,7 @@ angular.module("pointsOfInterestApp")
                 'reviewDate': new Date()
             };
 
-            return $http.post(serverUrl + "reviews/add/reviewMsg", review)//was self.user
+            return $http.post(serverUrl + "reviews/add/reviewMsg", review)
                 .then(function (response) {
                     //First function handles success
                     return response.data;
@@ -63,7 +61,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.addReviewMsg.content = "Something went wrong";
                     return self.addReviewMsg.content;
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -82,7 +79,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.updateReviewRate.content = "Something went wrong";
                     return self.updateReviewRate.content;
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -94,9 +90,8 @@ angular.module("pointsOfInterestApp")
                 'reviewDate': new Date()
             };
 
-            // review.reviewDate=review.reviewDate.toString();
 
-            return $http.put(serverUrl + "reviews/update/reviewMsg", review)//was self.user
+            return $http.put(serverUrl + "reviews/update/reviewMsg", review)
                 .then(function (response) {
                     //First function handles success
                     return response.data;
@@ -104,7 +99,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.updateReviewMsg.content = "Something went wrong";
                     return self.updateReviewMsg.content;
-                    // self.message = "Something went wrong"
                 });
         };
 

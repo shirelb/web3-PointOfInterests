@@ -31,14 +31,10 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
                 angular.element(event.currentTarget).removeClass("active");
                 self.favService.removePointFromFavorites(point)
                     .then(function (result) {
-                        //self.get2LastFavoritesPoints();
                         self.updateFavoritesMainApp();
                         console.log("point removed from favorites");
                     });
             } else {
-                //var timeline = new mojs.Timeline();
-                //self.favService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
-                //timeline.play();
                 angular.element(event.currentTarget).addClass("active");
                 self.favService.addPointToFavoritesToLS(point);
                 self.updateFavoritesMainApp();
@@ -67,8 +63,6 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
             self.revService.get2LatestReviews(self.pointSelected)
                 .then(function (result) {
                     console.log("in $window.get2LatestReviews 1 ", self.lastReviews);
-                    // $scope.$parent.pointCtrl.lastReviews=[];
-                    // $scope.$parent.pointCtrl.lastReviews=result;
                     self.lastReviews = [];
                     self.lastReviews = result;
                     console.log("in $window.get2LatestReviews 2 ", self.lastReviews);
@@ -153,10 +147,6 @@ angular.module('pointPageApp', ['LocalStorageModule', 'ngDialog'])
 
         self.showPointOnMap = function () {
             var pointMap = L.map('point_map').setView([self.pointSelected.pointXcoordinate, self.pointSelected.pointYcoordinate], 13);
-
-            /*L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(pointMap);*/
 
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
                 maxZoom: 18,

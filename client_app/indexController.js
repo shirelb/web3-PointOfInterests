@@ -1,5 +1,4 @@
 angular.module('pointsOfInterestApp')
-// .controller('indexController', ['$location', '$http', 'setHeadersToken', 'localStorageModel', function ($location, $http, setHeadersToken, localStorageModel) {
     .controller('indexController', ['$scope', '$location', '$route', 'loggedInUsername', 'loggedInUserID', 'favoritesPointsService', 'ngDialog', 'localStorageModel', '$http', 'setHeadersToken', 'reviewPointsService', function ($scope, $location, $route, loggedInUsername, loggedInUserID, favoritesPointsService, ngDialog, localStorageModel, $http, setHeadersToken, reviewPointsService) {
         self = this;
 
@@ -30,11 +29,8 @@ angular.module('pointsOfInterestApp')
             $location.path('/');
             $route.reload();
 
-            // logoutModal.close();
             ngDialog.closeAll();
         };
-
-        // self.logoutModal = null;
 
         self.logout = function () {
             if (favoritesPointsService.favoritesPointsLS.length > 0) {
@@ -58,29 +54,15 @@ angular.module('pointsOfInterestApp')
                             favoritesPointsService.addPointToFavoritesToDB()
                                 .then(function (result) {
                                     $scope.indexCtrl.logoutUser();
-                                    // $scope.indexCtrl.logoutModal.close();
-                                    // this.closeThisDialog();
                                 });
                         };
                         self.logout = function () {
                             $scope.indexCtrl.logoutUser();
-                            // ngDialog.closeThisDialog();
-                            // $scope.indexCtrl.logoutModal.close();
                         };
                     }],
                     controllerAs: 'logoutCtrl',
                     closeByNavigation: true
                 });
-                /*.then(function (save) {
-                alert('Confirmed');
-                favoritesPointsService.addPointToFavoritesToDB()
-                    .then(function (result) {
-                        $scope.indexCtrl.logoutUser();
-                    });
-            }, function (logout) {
-                alert('Rejected');
-                $scope.indexCtrl.logoutUser();
-            });*/
             }
             else {
                 $scope.indexCtrl.logoutUser();
@@ -90,7 +72,6 @@ angular.module('pointsOfInterestApp')
         self.checkIfExistTokenIsValid = function () {
             if (localStorageModel.getLocalStorage('token')) {
                 $http.defaults.headers.common['x-access-token'] = localStorageModel.getLocalStorage('token');
-                // $http.defaults.headers.common['x-access-token'] = setHeadersToken.token;
                 $http.post(serverUrl + "users/validToken/")
                     .then(function (response) {
                         if (response.data.success === "valid token!") {
@@ -123,7 +104,6 @@ angular.module('pointsOfInterestApp')
 
                             localStorageModel.deleteLocalStorage('token');
                         }
-                        // $route.reload();
                     }, function (response) {
                         //Second function handles error
                         console.log("Something went wrong with add View To Point ");

@@ -20,16 +20,11 @@ angular.module('pointsOfInterestApp')
 
         self.toggleToFavorites = function (event, point) {
             if (angular.element(event.currentTarget).hasClass("active")) {
-                // angular.element(event.currentTarget).removeClass("active");
                 favoritesPointsService.removePointFromFavorites(point)
                     .then(function (result) {
-                        // self.favoritesPoints = favoritesPointsService.favoritesPoints;
                         self.updateFavoritesPoints();
                     });
             } else {
-                // var timeline = new mojs.Timeline();
-                // favoritesPointsService.setFavoritesBtnAnimation(timeline, angular.element(event.currentTarget)[0]);
-                // timeline.play();
                 angular.element(event.currentTarget).addClass("active");
                 favoritesPointsService.addPointToFavoritesToLS(point);
             }
@@ -38,7 +33,6 @@ angular.module('pointsOfInterestApp')
         self.saveFavoritesInDB = function () {
             favoritesPointsService.addPointToFavoritesToDB()
                 .then(function (result) {
-                    // self.favoritesPoints = favoritesPointsService.favoritesPoints;
                     self.updateFavoritesPoints();
                     self.sortByOrderNum();
                 });
@@ -47,11 +41,9 @@ angular.module('pointsOfInterestApp')
         self.swapOrderNum = function (point1, point2) {
             favoritesPointsService.updateFavoritesOrder(point1, point2)
                 .then(function (result) {
-                    // self.favoritesPoints = favoritesPointsService.favoritesPoints;
                     self.updateFavoritesPoints(); //update for points after change in DB
                 });
             self.updateFavoritesPoints(); //update for points after change in LS
-            // point1.focus();
         };
 
         self.sortByOrderNum = function () {
@@ -144,23 +136,10 @@ angular.module('pointsOfInterestApp')
                 preCloseCallback: function (value) {
                     self.sendReviewRate(point, self.pointRateToAdd, self.hasReviewRate);
                     console.log('preclose', value, point, self.pointRateToAdd);
-                    // return true;
-                    /*if (confirm('Are you sure you want to close without saving your changes?')) {
-                        return true;
-                    }
-                    return false;*/
                 },
             })
-            //     .closePromise.then(function (data) {
-            //     console.log(data);
-            // })
         };
 
-
-        // self.reviewModal.closePromise.then(function (data) {
-        //     console.log(data.id + ' has been dismissed.');
-        //     self.sendReviewRate();
-        // });
 
         self.addViewToPoint = function (point) {
             return $http.put(serverUrl + "pointsOfInterests/addView", {'pointId': point.pointId})
@@ -177,7 +156,6 @@ angular.module('pointsOfInterestApp')
                 self.selected = point;
                 let pointWindow = $window.open("client_app/components/PointPage/pointPage.html", '_blank');
                 self.selected.lastReviews = [];
-                // self.selected.lastReviews = reviewPointsService.getPointLastReviews(point);
                 pointWindow.pointSelected = self.selected;
 
                 pointWindow.favService = favoritesPointsService;
@@ -196,7 +174,6 @@ angular.module('pointsOfInterestApp')
                     .then(function (resultLastRevs) {
                         pointWindow.lastReviews = [];
                         pointWindow.lastReviews = resultLastRevs;
-                        // self.selected.lastReviews = resultLastRevs;
                     })
             }
 

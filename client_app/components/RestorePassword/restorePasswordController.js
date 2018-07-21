@@ -16,16 +16,12 @@ angular.module('pointsOfInterestApp')
             $http.get(serverUrl + "users/qaRestorePassword/" + userID)
                 .then(function (response) {
                     //First function handles success
-                    // self.getAllPoints.content = response.data;
                     self.questions = response.data;
                     self.gotQuestions = true;
-                    // console.log("getting all points" + self.points);
 
                 }, function (response) {
                     self.getAllPoints.content = response.data;
                     //Second function handles error
-                    // self.reg.content = "Something went wrong";
-                    // console.log("getting all points faild");
                     self.message = "Something went wrong"
                 });
         };
@@ -60,10 +56,6 @@ angular.module('pointsOfInterestApp')
                         self.gotPassword = true;
                         self.message = "Your Username is: " + self.username + " and your password is: " + self.password;
                     }
-                    // else {
-                    //     self.message = "";
-                    // }
-
                 });
         };
 

@@ -22,8 +22,6 @@
              ng-show="!f_poiCtrl.showMsgOfFavorites"
              ng-repeat="(id , point) in f_poiCtrl.favoritesPoints | orderBy: point.orderNum | filter: (!!catFilter.category || undefined) && {category:catFilter.category}:true track by $index ">
 
-            <!--<div class="border-div"></div>-->
-
             <div class="poi-option">
                 <span class='heart fav-button active btn-option'
                       ng-click="f_poiCtrl.toggleToFavorites($event, point)"></span>
@@ -43,14 +41,6 @@
                 <label ng-bind="point.name"></label>
                 <br>
                 <span ng-bind="point.category"></span>
-                <!--<br>
-                pointId: <span ng-bind="point.pointId"></span>
-                <br>
-                orderNum: <span ng-bind="point.orderNum"></span>
-                <br>
-                rating: <span ng-bind="point.rating"></span>
-                <br>
-                date: <span>{{point.savedDate | date}}</span>-->
                 <br>
                 <img ng-style="{'height': '250px', 'width':'400px'}" ng-src="{{point.image}}"/>
             </div>

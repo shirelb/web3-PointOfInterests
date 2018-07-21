@@ -71,7 +71,7 @@ angular.module("pointsOfInterestApp")
                 'rate': reviewRate
             };
 
-            return $http.put(serverUrl + "reviews/update/rate", rate)//was self.user
+            return $http.put(serverUrl + "reviews/update/rate", rate)
                 .then(function (response) {
                     //First function handles success
                     return response.data;

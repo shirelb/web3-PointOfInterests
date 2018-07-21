@@ -10,11 +10,9 @@ angular.module('pointsOfInterestApp')
 
 
         self.login = function () {
-            console.log('User clicked submit with ', self.user);
+            console.log('User clicked submit in login');
             var serverUrl = "http://localhost:8080/";
-            //$http.post(serverUrl + "users/login/authenticate", {"username": "admiin", "password": "admin2018"})//was self.user
-            // $http.post(serverUrl + "users/login/authenticate", {"username": self.user.username, "password": self.user.password})//was self.user
-            $http.post(serverUrl + "users/login/authenticate", self.user)//was self.user
+            $http.post(serverUrl + "users/login/authenticate", self.user)
                 .then(function (response) {
                     //First function handles success
                     if (response.data.success === "false") {
@@ -33,7 +31,6 @@ angular.module('pointsOfInterestApp')
                         setHeadersToken.set(response.data.token);
                         localStorageModel.addLocalStorage('token', response.data.token);
                         loggedInUsername.set(self.user.username);
-                        // self.addTokenToLocalStorage(response.data.token);
                         $location.path('/');
                     }
 

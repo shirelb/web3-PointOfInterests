@@ -29,7 +29,6 @@
                 &#10003;
             </span>
         </div>
-        <!--<div class="clearence"></div>-->
         <div class="field-p">
             <label for="password" class="password" data-icon="p">Password* </label>
             <input class="input" id="password" name="password" required type="password"
@@ -71,7 +70,6 @@
                 &#10003;
             </span>
         </div>
-        <!--<div class = "clearence"></div>-->
         <div class="field-p">
             <label for="lastName" class="lastName" data-icon="u">Last name* </label>
             <input class="input" id="lastName" name="lastName" required type="text"
@@ -127,15 +125,10 @@
             <label for="country" class="country" data-icon="u">Country* </label>
             <select class="input" name="country" id="country" ng-model="registerCtrl.user.country"
                     ng-options="item as item.country for item in registerCtrl.countries" required></select>
-            <!--<input class="input" id="country" name="country" required type="text"-->
-            <!--placeholder="Country" ng-model="registerCtrl.user.country"/>-->
             <br>
             <span class="error_input_lbl" ng-show="registerForm.country.$error.required">
                 This field is required
             </span>
-            <!--<span ng-show="registerForm.country.$error.pattern">-->
-            <!--Country not selected-->
-            <!--</span>-->
             <span class="error_input_lbl" ng-show="registerForm.country.$invalid">
                 This field is invalid
             </span>
@@ -145,8 +138,6 @@
         </div>
         <div class="field-p">
             <label for="category" class="category" data-icon="u">Categories* (at least two)</label>
-            <!--<input class="input" id="category" name="category" required type="text"-->
-            <!--placeholder="Category" ng-model="registerCtrl.user.category"/>-->
             <br>
             <span id="category" ng-repeat="category in registerCtrl.categories">
                 <label class="checkbox-inline">
@@ -154,9 +145,7 @@
                            value="{{category.category}}"
                            ng-checked="registerCtrl.user.categories.indexOf(category.category) > -1"
                            ng-click="registerCtrl.toggleCategorySelection(category.category)"/>
-                    <!--ng-required="registerCtrl.user.categories.length < 2"/>-->
                     {{category.category}}
-                    <!--    ng-model="registerCtrl.user.category"-->
                 </label>
                 <br>
             </span>
@@ -180,7 +169,6 @@
                 <input class="input" id="restore_question_{{$index}}" name="restore_question_{{$index}}" required
                        type="text"
                        placeholder="Restore Question" ng-model="registerCtrl.user.questions[$index]"/>
-                <!--placeholder="Restore Question"/>-->
                 <br>
                 <span class="error_input_lbl" ng-show="registerForm.restore_question_{{$index}}.$error.required">
                     This field is required
@@ -199,7 +187,6 @@
                 <input class="input" id="restore_answer_{{$index}}" name="restore_answer_{{$index}}" required
                        type="text"
                        placeholder="Restore Answer" ng-model="registerCtrl.user.answers[$index]"/>
-                <!--placeholder="Restore Answer"/>-->
                 <br>
                 <span class="error_input_lbl" ng-show="registerForm.restore_answer_{{$index}}.$error.required">
                     This field is required

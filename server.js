@@ -31,14 +31,11 @@ app.use(function (req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 app.get('/', function (req, res) {
-    var token = req.headers['x-access-token'];
-    console.log(tokem);
+    // var token = req.headers['x-access-token'];
+    // console.log(tokem);
     // res.send({message: 'hooray! welcome to our api!'});
     res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
-
-
-
 
 
 app.use('/users', users);

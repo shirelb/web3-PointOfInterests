@@ -10,7 +10,7 @@ angular.module('pointsOfInterestApp')
 
 
         self.login = function () {
-            console.log('User clicked submit with ', self.user);
+            console.log('User clicked submit in login');
             var serverUrl = "http://localhost:8080/";
             $http.post(serverUrl + "users/login/authenticate", self.user)
                 .then(function (response) {

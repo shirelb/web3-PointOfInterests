@@ -71,7 +71,7 @@ angular.module('pointsOfInterestApp')
                 self.message = "Choose at least 2 categories";
                 return;
             }
-            console.log('User clicked submit with ', self.user);
+            console.log('User clicked submit in login');
             $http.post(serverUrl + "users/add", self.user)
                 .then(function (response) {
                     //First function handles success

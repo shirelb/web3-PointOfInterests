@@ -47,7 +47,7 @@ angular.module('pointsOfInterestApp')
         var serverUrl = "http://localhost:8080/";
 
         self.login = function () {
-            console.log('User clicked submit with ', self.user);
+            console.log('User clicked submit in login');
             $http.post(serverUrl + "users/login/authenticate", self.user)
                 .then(function (response) {
                     //First function handles success
@@ -90,7 +90,7 @@ angular.module('pointsOfInterestApp')
         };
 
         self.getPopularPoints = function () {
-            console.log('User clicked submit with ', self.user);
+            console.log('User clicked submit in login');
             $http.get(serverUrl + "pointsOfInterests/populars")
                 .then(function (response) {
                     //First function handles success

@@ -6,7 +6,6 @@ angular.module('pointsOfInterestApp')
             token = t;
             this.token = t;
             $http.defaults.headers.common['x-access-token'] = t;
-            // $httpProvider.defaults.headers.post[ 'x-access-token' ] = token
             console.log("set");
             console.log("setHeadersToken token: "+ token);
         };

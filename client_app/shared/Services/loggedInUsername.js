@@ -7,15 +7,6 @@ angular.module('pointsOfInterestApp')
             console.log("set loggedInUsername")
         };
 
-        /*this.get = function () {
-            if (setHeadersToken.token === null) {
-                this.username = "Guest";
-                console.log(this.username);
-            }
-            else {
-                 this.username;
-            }
-        }*/
 
     }]);
 

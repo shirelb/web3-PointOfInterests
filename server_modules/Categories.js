@@ -64,11 +64,10 @@ router.post('/init', function (req, res) {
                         " VALUES ('" + result['Categories']['Category'][i]['Name'] + "')")
                         .then(function (result) {
                             console.log(result['Categories']['Category'][i]['Name'] + "added successfully!");
-                            // res.status(200).send(result);
+                            
                         })
                         .catch(function (err) {
                             console.log(err);
-                            // res.status(500).send(err);
                         });
                     i++;
                 }

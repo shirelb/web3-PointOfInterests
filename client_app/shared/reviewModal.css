@@ -4,27 +4,14 @@ css
     font-family: 'FontAwesome';
     src: url('https://use.fontawesome.com/releases/v5.0.6/css/all.css');
 }
-/** {*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-    /*font-family: roboto;*/
-/*}*/
-
-/*body{*/
-/*background: #000;*/
-/*}*/
 
 .cont {
-    /*width: 93%;*/
-    /*max-width: 350px;*/
     text-align: center;
-    /*margin: 4% auto;*/
     padding: 30px 0;
     background: #111;
     color: #EEE;
     border-radius: 5px;
     border: thin solid #444;
-    /*overflow: hidden;*/
     font-family: roboto, sans-serif;
     height: 300px;
 }
@@ -45,7 +32,6 @@ h1 span .stars {
 }
 
 div.stars {
-    /*width: 270px;*/
     display: inline-block;
     font-family: FontAwesome;
 }
@@ -64,8 +50,6 @@ label.star {
 
 input.star:checked ~ label.star:before {
     content: '\f005';
-    /*content: '&#11088;';*/
-    /*content: '';*/
     color: #FD4;
     transition: all .25s;
     font-family: FontAwesome;
@@ -92,7 +76,6 @@ label.star:before {
 }
 
 .rev-box {
-    /*overflow: hidden;*/
     height: 0;
     width: 100%;
     transition: all .25s;
@@ -115,7 +98,4 @@ label.review {
     transition: opacity .25s;
 }
 
-/*input.star:checked ~ .rev-box {
-    height: 125px;
-    overflow: visible;
-}*/
+

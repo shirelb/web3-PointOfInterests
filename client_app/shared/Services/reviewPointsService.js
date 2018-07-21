@@ -24,7 +24,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.getReviewByUserIdAndPointId.content = "Something went wrong";
                     return self.getReviewByUserIdAndPointId.content;
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -43,7 +42,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.addReviewRate.content = "Something went wrong";
                     return self.addReviewRate.content;
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -63,7 +61,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.addReviewMsg.content = "Something went wrong";
                     return self.addReviewMsg.content;
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -82,7 +79,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.updateReviewRate.content = "Something went wrong";
                     return self.updateReviewRate.content;
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -94,7 +90,6 @@ angular.module("pointsOfInterestApp")
                 'reviewDate': new Date()
             };
 
-            // review.reviewDate=review.reviewDate.toString();
 
             return $http.put(serverUrl + "reviews/update/reviewMsg", review)
                 .then(function (response) {
@@ -104,7 +99,6 @@ angular.module("pointsOfInterestApp")
                     //Second function handles error
                     self.updateReviewMsg.content = "Something went wrong";
                     return self.updateReviewMsg.content;
-                    // self.message = "Something went wrong"
                 });
         };
 

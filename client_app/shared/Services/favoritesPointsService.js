@@ -31,7 +31,6 @@ angular.module("pointsOfInterestApp")
                 }, function (response) {
                     //Second function handles error
                     self.getPointsByID.content = "Something went wrong";
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -43,15 +42,12 @@ angular.module("pointsOfInterestApp")
                         return self.getPointsByID(response.data, self.favoritesPointsDB)
                             .then(function (favPoints) {
                                 self.favoritesPointsDB = angular.merge(favPoints, response.data);
-                                // self.favoritesPoints = favPoints;
-                                // localStorageModel.updateLocalStorage('favoritesPoints', self.favoritesPoints);
                                 console.log("getting favorites points" + self.favoritesPointsDB);
                             })
                     }
                 }, function (response) {
                     //Second function handles error
                     self.getAllFavoritesPoints.content = "Something went wrong";
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -60,7 +56,6 @@ angular.module("pointsOfInterestApp")
             if (self.favoritesPointsLS === null) {
                 self.favoritesPointsLS = [];
             }
-            // return self.favoritesPointsLS;
         };
 
         self.getAllFavoritesPoints = function () {
@@ -69,8 +64,6 @@ angular.module("pointsOfInterestApp")
                     self.getAllFavoritesPointsLS();
                     self.favoritesPoints = _.unionBy(self.favoritesPointsDB, self.favoritesPoints, "pointId");
                     self.favoritesPoints = _.unionBy(self.favoritesPointsLS, self.favoritesPoints, "pointId");
-                    // _.merge(self.favoritesPoints, self.favoritesPointsLS,self.favoritesPointsDB);
-                    // _.merge(self.favoritesPoints, self.favoritesPointsDB);
                 });
         };
 
@@ -82,24 +75,15 @@ angular.module("pointsOfInterestApp")
         };
 
         self.addPointToFavoritesToLS = function (point) {
-            /*favPoint = {
-                'userId': self.userID,
-                'pointId': point.pointId,
-                'orderNum': self.favoritesPointsLS.length + self.favoritesPointsDB.length,
-                'savedDate': new Date()
-            };*/
             point.userId = self.userID;
-            // point.pointId=point.pointId;
             point.orderNum = self.nextOrderNum();
             point.savedDate = new Date();
             self.favoritesPointsLS.push(point);
             localStorageModel.updateLocalStorage('favoritesPointsLS', self.favoritesPointsLS);
-            // self.favoritesPoints = angular.merge(self.favoritesPoints, self.favoritesPointsLS);
             self.favoritesPoints = _.unionBy(self.favoritesPointsLS, self.favoritesPoints, "pointId");
         };
 
         self.addPointToFavoritesToDB = function (point) {
-            // updateFavoritesPointsDB = angular.merge(self.favoritesPointsLS, self.favoritesPointsDB);
 
             let arr = [];
 
@@ -120,34 +104,11 @@ angular.module("pointsOfInterestApp")
                     localStorageModel.updateLocalStorage('favoritesPointsLS', self.favoritesPointsLS);
                     self.favoritesPoints = _.unionBy(self.favoritesPointsDB, self.favoritesPoints, "pointId");
                     self.favoritesPoints = _.unionBy(self.favoritesPointsLS, self.favoritesPoints, "pointId");
-                    // _.merge(self.favoritesPointsDB, self.favoritesPointsLS,self.favoritesPointsDB);
-                    // _.merge(self.favoritesPoints, self.favoritesPointsLS,self.favoritesPointsDB);
                     return self.favoritesPoints;
                 }, function (response) {
                     //Second function handles error
                     self.addPointToFavoritesToDB.content = "Something went wrong";
-                    // self.message = "Something went wrong"
                 });
-
-
-            /*favPoint = {
-                'userId': self.userID,
-                'pointId': point.pointId,
-                'orderNum': self.favoritesPointsLS.length + self.favoritesPointsDB.length,
-                'savedDate': new Date()
-            };
-            return $http.post(serverUrl + "users/favoritesPoints/add", favPoint)
-                .then(function (response) {
-                    //First function handles success
-                    //add point to the array
-                    point.favPoint = favPoint;
-                    self.favoritesPointsDB.push(point);
-                    return response.data;
-                }, function (response) {
-                    //Second function handles error
-                    self.addPointToFavoritesToDB.content = "Something went wrong";
-                    // self.message = "Something went wrong"
-                });*/
         };
 
         self.removePointFromFavorites = function (point) {
@@ -164,7 +125,6 @@ angular.module("pointsOfInterestApp")
                     ), 1
                 );
                 localStorageModel.updateLocalStorage('favoritesPointsLS', self.favoritesPointsLS);
-                // return new Promise(resolve => self.favoritesPoints);
                 return Promise.resolve(self.favoritesPoints);
             }
 
@@ -187,7 +147,6 @@ angular.module("pointsOfInterestApp")
                     }, function (response) {
                         //Second function handles error
                         self.removePointFromFavorites.content = "Something went wrong";
-                        // self.message = "Something went wrong"
                     });
             }
 
@@ -220,7 +179,6 @@ angular.module("pointsOfInterestApp")
                 }, function (response) {
                     //Second function handles error
                     self.updateFavoritesOrderPointsInLSAndDB.content = "Something went wrong";
-                    // self.message = "Something went wrong"
                 });
         };
 
@@ -256,7 +214,6 @@ angular.module("pointsOfInterestApp")
                     'pointId': pointDown.pointId
                 };
 
-                // return $http.put(serverUrl + "users/favoritesPoints/update/", updatedPointUp)
 
                 arr.push($http.put(serverUrl + "users/favoritesPoints/update/", updatedPointUp));
                 arr.push($http.put(serverUrl + "users/favoritesPoints/update/", updatedPointDown));
@@ -276,7 +233,6 @@ angular.module("pointsOfInterestApp")
                     }, function (response) {
                         //Second function handles error
                         self.updateFavoritesOrder.content = "Something went wrong";
-                        // self.message = "Something went wrong"
                     });
             }
 
@@ -296,11 +252,6 @@ angular.module("pointsOfInterestApp")
 
         self.setFavoritesBtnAnimation = function (timeline, el) {
             var scaleCurve = mojs.easing.path('M0,100 L25,99.9999983 C26.2328835,75.0708847 19.7847843,0 100,0');
-            // var el = angular.element(fav_btn);
-            // mo.js timeline obj
-            // timeline = new mojs.Timeline();
-
-            // tweens for the animation:
 
             // burst animation
             tween1 = new mojs.Burst({
@@ -366,27 +317,6 @@ angular.module("pointsOfInterestApp")
         };
 
         self.get2LastFavoritesPoints = function () {
-            /*$http.get(serverUrl + "users/favoritesPoints/2Latest/userId/" + userID)
-                .then(function (response) {
-                    //First function handles success
-                    if (response.data.length === 0) {
-                        self.showMsgOfFavorites = true;
-                        self.favoritesMsg = "You haven't saved any points yet";
-                    }
-                    else {
-                        self.showMsgOfFavorites = false;
-                        favoritesPointsService.getPointsByID(response.data, self.lastFavoritesPoints)
-                            .then(function (favPoints) {
-                                self.lastFavoritesPoints = favPoints;
-                                console.log("getting 2 last favorites points" + self.lastFavoritesPoints);
-                            })
-                        // self.lastFavoritesPoints = response.data;
-                    }
-                }, function (response) {
-                    //Second function handles error
-                    self.get2LastFavoritesPoints.content = "Something went wrong";
-                    // self.message = "Something went wrong"
-                });*/
             self.sortBySavedDate();
             return self.favoritesPoints.slice(0, 2);
         };
